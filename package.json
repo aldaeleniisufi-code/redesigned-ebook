@@ -39,6 +39,7 @@
     "tailwindcss": "^4",
     "tsx": "^4.23.0",
     "typescript": "^5",
-    "uuid": "^14.0.1"
+    "uuid": "^14.0.1",
+    "vercel": "^54.21.1"
   }
 }
