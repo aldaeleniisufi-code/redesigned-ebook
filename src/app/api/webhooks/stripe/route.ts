@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { getStripeClient } from "@/lib/stripe";
-import { recordPurchase } from "@/lib/purchases";
+import { hasPurchased, recordPurchase } from "@/lib/purchases";
 
 export async function POST(request: Request) {
   const signature = request.headers.get("stripe-signature");
@@ -26,7 +26,10 @@ export async function POST(request: Request) {
     const userId = checkoutSession.metadata?.userId;
 
     if (bookId && userId && checkoutSession.payment_status === "paid") {
-      await recordPurchase(userId, bookId, checkoutSession.id);
+      const alreadyPurchased = await hasPurchased(userId, bookId);
+      if (!alreadyPurchased) {
+        await recordPurchase(userId, bookId, checkoutSession.id);
+      }
     }
   }
 

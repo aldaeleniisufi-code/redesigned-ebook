@@ -5,6 +5,8 @@ import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { signIn } from "@/auth";
+import { sendEmail } from "@/lib/send-email";
+import { confirmationEmailHtml } from "@/lib/email-templates";
 
 export async function registerAction(
   _prevState: { error?: string } | undefined,
@@ -28,6 +30,12 @@ export async function registerAction(
   const passwordHash = await bcrypt.hash(password, 10);
   await prisma.user.create({
     data: { name, email, passwordHash, role: "PARENT" },
+  });
+
+  await sendEmail({
+    to: email,
+    subject: "Καλωσόρισες στα Παιδικά Βιβλία! 📚",
+    html: confirmationEmailHtml({ name }),
   });
 
   try {

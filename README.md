@@ -53,6 +53,20 @@ npm run dev
 
 Χωρίς `STRIPE_SECRET_KEY` η εφαρμογή τρέχει κανονικά (build/paywall λειτουργούν), απλά το κουμπί "Αγόρασε" θα δείξει σφάλμα μέχρι να προστεθεί το κλειδί.
 
+## Emails (Resend)
+
+Το site στέλνει email επιβεβαίωσης στην εγγραφή και απόδειξη μετά από κάθε αγορά, μέσω [Resend](https://resend.com).
+
+1. Δημιούργησε δωρεάν λογαριασμό στο [resend.com](https://resend.com).
+2. **Domains** → **Add Domain** → βάλε το domain του site σου, πρόσθεσε τα DNS records που θα σου δείξει (MX/TXT/CNAME) στον DNS provider του domain σου.
+3. Μόλις επαληθευτεί το domain, δημιούργησε **API key** και βάλε το στο `.env`:
+   ```
+   RESEND_API_KEY="re_..."
+   ```
+4. Το "από" email είναι hardcoded στο [src/lib/resend.ts](src/lib/resend.ts) (`EMAIL_FROM`) — άλλαξέ το αν χρησιμοποιείς διαφορετικό domain/όνομα.
+
+Χωρίς `RESEND_API_KEY` η εφαρμογή τρέχει κανονικά — η αποστολή email απλά αποτυγχάνει σιωπηλά (καταγράφεται σφάλμα στα logs) χωρίς να μπλοκάρει εγγραφή ή αγορά.
+
 ## Χρήσιμες εντολές
 
 ```bash
