@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff8ec;
+  --foreground: #3b2f63;
+  --color-brand-purple: #7c3aed;
+  --color-brand-pink: #f472b6;
+  --color-brand-orange: #fb923c;
+  --color-brand-teal: #2dd4bf;
+  --color-brand-yellow: #fbbf24;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-fredoka);
+  --color-brand-purple: var(--color-brand-purple);
+  --color-brand-pink: var(--color-brand-pink);
+  --color-brand-orange: var(--color-brand-orange);
+  --color-brand-teal: var(--color-brand-teal);
+  --color-brand-yellow: var(--color-brand-yellow);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-fredoka), Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .input {
+    @apply rounded-xl border-2 border-brand-purple/20 px-4 py-2 outline-none;
+  }
+  .input:focus {
+    @apply border-brand-purple;
+  }
 }

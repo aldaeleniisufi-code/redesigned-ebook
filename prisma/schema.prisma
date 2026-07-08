@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  PARENT
+}
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  passwordHash String
+  name         String
+  role         Role           @default(PARENT)
+  createdAt    DateTime       @default(now())
+  children     ChildProfile[]
+  purchases    Purchase[]
+}
+
+model ChildProfile {
+  id          String            @id @default(cuid())
+  parentId    String
+  parent      User              @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  name        String
+  avatarEmoji String            @default("🦁")
+  avatarColor String            @default("#FDBA74")
+  createdAt   DateTime          @default(now())
+  progress    ReadingProgress[]
+}
+
+model Book {
+  id          String            @id @default(cuid())
+  title       String
+  author      String
+  description String
+  coverImage  String
+  ageMin      Int               @default(3)
+  ageMax      Int               @default(8)
+  category    String            @default("Παραμύθι")
+  priceCents  Int               @default(299)
+  published   Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  pages       Page[]
+  progress    ReadingProgress[]
+  purchases   Purchase[]
+}
+
+model Page {
+  id       String @id @default(cuid())
+  bookId   String
+  book     Book   @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  order    Int
+  imageUrl String
+  text     String
+}
+
+model ReadingProgress {
+  id             String       @id @default(cuid())
+  childProfileId String
+  childProfile   ChildProfile @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  bookId         String
+  book           Book         @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  lastPage       Int          @default(0)
+  completed      Boolean      @default(false)
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([childProfileId, bookId])
+}
+
+model Purchase {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookId          String
+  book            Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  stripeSessionId String
+  createdAt       DateTime @default(now())
+
+  @@unique([userId, bookId])
+}
