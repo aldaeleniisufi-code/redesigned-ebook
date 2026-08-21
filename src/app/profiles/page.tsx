@@ -3,11 +3,13 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { selectChildAction, createChildAction } from "./actions";
 import { EMOJI_CHOICES } from "@/lib/constants";
+import { getDict } from "@/lib/i18n";
 
 export default async function ProfilesPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
+  const d = await getDict();
 
   const children = await prisma.childProfile.findMany({
     where: { parentId: session.user.id },
@@ -16,7 +18,7 @@ export default async function ProfilesPage() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 px-4 py-16">
-      <h1 className="text-3xl font-bold text-brand-purple">Ποιος διαβάζει; 🧒</h1>
+      <h1 className="text-3xl font-bold text-brand-purple">{d.profiles.title}</h1>
 
       <div className="flex flex-wrap justify-center gap-6">
         {children.map((child) => (
@@ -40,11 +42,11 @@ export default async function ProfilesPage() {
 
       <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-md">
         <h2 className="mb-4 text-center text-lg font-bold text-brand-purple">
-          ➕ Νέο παιδικό προφίλ
+          {d.profiles.newProfile}
         </h2>
         <form action={createChildAction} className="flex flex-col gap-4">
           <label className="flex flex-col gap-1 text-sm font-semibold text-foreground/80">
-            Όνομα παιδιού
+            {d.profiles.childName}
             <input
               type="text"
               name="name"
@@ -72,7 +74,7 @@ export default async function ProfilesPage() {
             type="submit"
             className="rounded-full bg-brand-teal px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
           >
-            Δημιουργία προφίλ
+            {d.profiles.createProfile}
           </button>
         </form>
       </div>

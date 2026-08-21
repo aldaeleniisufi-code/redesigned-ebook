@@ -4,10 +4,12 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { togglePublishAction, deleteBookAction } from "./actions";
 import { formatPrice } from "@/lib/format";
+import { getDict } from "@/lib/i18n";
 
 export default async function AdminPage() {
   const session = await auth();
   if (session?.user?.role !== "ADMIN") redirect("/login");
+  const d = await getDict();
 
   const books = await prisma.book.findMany({
     orderBy: { createdAt: "desc" },
@@ -17,12 +19,12 @@ export default async function AdminPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold text-brand-purple">Διαχείριση Βιβλίων 🛠️</h1>
+        <h1 className="text-3xl font-bold text-brand-purple">{d.admin.title}</h1>
         <Link
           href="/admin/books/new"
           className="rounded-full bg-brand-orange px-5 py-2 font-bold text-white shadow transition hover:brightness-110"
         >
-          ➕ Νέο βιβλίο
+          {d.admin.newBook}
         </Link>
       </div>
 
@@ -35,11 +37,11 @@ export default async function AdminPage() {
             <div>
               <h2 className="text-lg font-bold text-foreground">{book.title}</h2>
               <p className="text-sm text-foreground/60">
-                {book.category} · {book._count.pages} σελίδες · {formatPrice(book.priceCents)} ·{" "}
+                {book.category} · {book._count.pages} {d.admin.pages} · {formatPrice(book.priceCents)} ·{" "}
                 {book.published ? (
-                  <span className="text-green-600">Δημοσιευμένο</span>
+                  <span className="text-green-600">{d.admin.published}</span>
                 ) : (
-                  <span className="text-orange-500">Πρόχειρο</span>
+                  <span className="text-orange-500">{d.admin.draft}</span>
                 )}
               </p>
             </div>
@@ -48,7 +50,7 @@ export default async function AdminPage() {
                 href={`/admin/books/${book.id}/edit`}
                 className="rounded-full bg-brand-purple/10 px-4 py-2 text-sm font-semibold text-brand-purple transition hover:bg-brand-purple/20"
               >
-                Επεξεργασία
+                {d.admin.edit}
               </Link>
               <form action={togglePublishAction}>
                 <input type="hidden" name="id" value={book.id} />
@@ -56,7 +58,7 @@ export default async function AdminPage() {
                   type="submit"
                   className="rounded-full bg-brand-teal/10 px-4 py-2 text-sm font-semibold text-brand-teal transition hover:bg-brand-teal/20"
                 >
-                  {book.published ? "Απόσυρση" : "Δημοσίευση"}
+                  {book.published ? d.admin.unpublish : d.admin.publish}
                 </button>
               </form>
               <form action={deleteBookAction}>
@@ -65,7 +67,7 @@ export default async function AdminPage() {
                   type="submit"
                   className="rounded-full bg-red-100 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-200"
                 >
-                  Διαγραφή
+                  {d.admin.delete}
                 </button>
               </form>
             </div>

@@ -8,6 +8,7 @@ import {
   updatePageAction,
   deletePageAction,
 } from "../../../actions";
+import { getDict } from "@/lib/i18n";
 
 export default async function EditBookPage({
   params,
@@ -18,6 +19,7 @@ export default async function EditBookPage({
 }) {
   const session = await auth();
   if (session?.user?.role !== "ADMIN") redirect("/login");
+  const d = await getDict();
 
   const { id } = await params;
   const { error } = await searchParams;
@@ -31,23 +33,23 @@ export default async function EditBookPage({
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-6 text-3xl font-bold text-brand-purple">
-        Επεξεργασία: {book.title}
+        {d.admin.editTitle} {book.title}
       </h1>
 
       <section className="mb-10 rounded-3xl bg-white p-6 shadow-md">
-        <h2 className="mb-4 text-lg font-bold text-foreground">Στοιχεία βιβλίου</h2>
+        <h2 className="mb-4 text-lg font-bold text-foreground">{d.admin.bookDetails}</h2>
         <form
           action={updateBookAction}
           className="flex flex-col gap-4"
         >
           <input type="hidden" name="id" value={book.id} />
-          <Field label="Τίτλος">
+          <Field label={d.admin.fieldTitle}>
             <input name="title" defaultValue={book.title} required className="input" />
           </Field>
-          <Field label="Συγγραφέας">
+          <Field label={d.admin.fieldAuthor}>
             <input name="author" defaultValue={book.author} className="input" />
           </Field>
-          <Field label="Περιγραφή">
+          <Field label={d.admin.fieldDescription}>
             <textarea
               name="description"
               defaultValue={book.description}
@@ -55,11 +57,11 @@ export default async function EditBookPage({
               className="input"
             />
           </Field>
-          <Field label="Κατηγορία">
+          <Field label={d.admin.fieldCategory}>
             <input name="category" defaultValue={book.category} className="input" />
           </Field>
           <div className="flex gap-4">
-            <Field label="Ελάχιστη ηλικία">
+            <Field label={d.admin.fieldAgeMin}>
               <input
                 type="number"
                 name="ageMin"
@@ -67,7 +69,7 @@ export default async function EditBookPage({
                 className="input"
               />
             </Field>
-            <Field label="Μέγιστη ηλικία">
+            <Field label={d.admin.fieldAgeMax}>
               <input
                 type="number"
                 name="ageMax"
@@ -76,7 +78,7 @@ export default async function EditBookPage({
               />
             </Field>
           </div>
-          <Field label="Τιμή (€)">
+          <Field label={d.admin.fieldPrice}>
             <input
               type="number"
               name="price"
@@ -90,7 +92,7 @@ export default async function EditBookPage({
             <div className="relative h-20 w-24 overflow-hidden rounded-xl">
               <Image src={book.coverImage} alt={book.title} fill className="object-cover" unoptimized />
             </div>
-            <Field label="Νέο εξώφυλλο (προαιρετικό)">
+            <Field label={d.admin.fieldCoverNew}>
               <input type="file" name="cover" accept="image/*" className="input" />
             </Field>
           </div>
@@ -98,14 +100,14 @@ export default async function EditBookPage({
             type="submit"
             className="mt-2 w-fit rounded-full bg-brand-purple px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
           >
-            Αποθήκευση
+            {d.admin.save}
           </button>
         </form>
       </section>
 
       <section className="mb-10">
         <h2 className="mb-4 text-lg font-bold text-foreground">
-          Σελίδες ({book.pages.length})
+          {d.admin.pagesCount} ({book.pages.length})
         </h2>
 
         <div className="flex flex-col gap-4">
@@ -118,11 +120,11 @@ export default async function EditBookPage({
                 <input type="hidden" name="id" value={page.id} />
                 <input type="hidden" name="bookId" value={book.id} />
                 <div className="relative h-24 w-28 shrink-0 overflow-hidden rounded-xl">
-                  <Image src={page.imageUrl} alt={`Σελίδα ${page.order}`} fill className="object-cover" unoptimized />
+                  <Image src={page.imageUrl} alt={`${d.admin.order} ${page.order}`} fill className="object-cover" unoptimized />
                 </div>
                 <div className="flex flex-1 flex-col gap-2 min-w-[200px]">
                   <div className="flex items-center gap-2">
-                    <label className="text-xs font-semibold text-foreground/60">Σειρά</label>
+                    <label className="text-xs font-semibold text-foreground/60">{d.admin.order}</label>
                     <input
                       type="number"
                       name="order"
@@ -142,7 +144,7 @@ export default async function EditBookPage({
                   type="submit"
                   className="rounded-full bg-brand-teal/10 px-4 py-2 text-sm font-semibold text-brand-teal transition hover:bg-brand-teal/20"
                 >
-                  Αποθήκευση
+                  {d.admin.save}
                 </button>
               </form>
               <form action={deletePageAction} className="mt-2 flex justify-end">
@@ -152,7 +154,7 @@ export default async function EditBookPage({
                   type="submit"
                   className="rounded-full bg-red-100 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-200"
                 >
-                  Διαγραφή σελίδας
+                  {d.admin.deletePage}
                 </button>
               </form>
             </div>
@@ -161,10 +163,10 @@ export default async function EditBookPage({
       </section>
 
       <section className="rounded-3xl bg-white p-6 shadow-md">
-        <h2 className="mb-4 text-lg font-bold text-foreground">➕ Νέα σελίδα</h2>
+        <h2 className="mb-4 text-lg font-bold text-foreground">{d.admin.newPage}</h2>
         {error && (
           <p className="mb-4 rounded-xl bg-red-100 px-4 py-3 text-sm font-semibold text-red-700">
-            Χρειάζεται εικόνα για τη σελίδα.
+            {d.admin.errorPageImage}
           </p>
         )}
         <form
@@ -172,17 +174,17 @@ export default async function EditBookPage({
           className="flex flex-col gap-4"
         >
           <input type="hidden" name="bookId" value={book.id} />
-          <Field label="Κείμενο σελίδας">
+          <Field label={d.admin.pageText}>
             <textarea name="text" rows={2} className="input" />
           </Field>
-          <Field label="Εικόνα σελίδας">
+          <Field label={d.admin.pageImage}>
             <input type="file" name="image" accept="image/*" required className="input" />
           </Field>
           <button
             type="submit"
             className="w-fit rounded-full bg-brand-orange px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
           >
-            Προσθήκη σελίδας
+            {d.admin.addPage}
           </button>
         </form>
       </section>

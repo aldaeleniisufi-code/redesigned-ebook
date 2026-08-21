@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { signIn } from "@/auth";
 import { sendEmail } from "@/lib/send-email";
 import { confirmationEmailHtml } from "@/lib/email-templates";
+import { getDict } from "@/lib/i18n";
 
 export async function registerAction(
   _prevState: { error?: string } | undefined,
@@ -17,14 +18,15 @@ export async function registerAction(
     .trim()
     .toLowerCase();
   const password = String(formData.get("password") ?? "");
+  const d = await getDict();
 
   if (!name || !email || password.length < 6) {
-    return { error: "Συμπλήρωσε όνομα, email και κωδικό (τουλάχιστον 6 χαρακτήρες)." };
+    return { error: d.register.errorFields };
   }
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
-    return { error: "Υπάρχει ήδη λογαριασμός με αυτό το email." };
+    return { error: d.register.errorExists };
   }
 
   const passwordHash = await bcrypt.hash(password, 10);

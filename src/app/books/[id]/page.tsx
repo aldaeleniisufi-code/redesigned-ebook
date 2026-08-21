@@ -6,6 +6,7 @@ import { hasPurchased, recordPurchase } from "@/lib/purchases";
 import { getStripeClient } from "@/lib/stripe";
 import BookReader from "@/components/BookReader";
 import Paywall from "@/components/Paywall";
+import { getDict } from "@/lib/i18n";
 
 export default async function BookPage({
   params,
@@ -23,6 +24,7 @@ export default async function BookPage({
 
   const { id } = await params;
   const { session_id } = await searchParams;
+  const d = await getDict();
 
   const book = await prisma.book.findUnique({
     where: { id },
@@ -54,6 +56,8 @@ export default async function BookPage({
         description={book.description}
         coverImage={book.coverImage}
         priceCents={book.priceCents}
+        note={d.paywall.note}
+        buyLabel={d.paywall.buy}
       />
     );
   }
@@ -68,6 +72,14 @@ export default async function BookPage({
       title={book.title}
       pages={book.pages}
       initialPage={progress?.completed ? 0 : (progress?.lastPage ?? 0)}
+      labels={{
+        page: d.reader.page,
+        back: d.reader.back,
+        next: d.reader.next,
+        finish: d.reader.finish,
+        pageLabel: d.reader.pageLabel,
+        of: d.reader.of,
+      }}
     />
   );
 }

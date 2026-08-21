@@ -10,6 +10,7 @@ export default function BookCard({
   ageMax,
   category,
   priceCents,
+  agesLabel,
 }: {
   id: string;
   title: string;
@@ -18,6 +19,7 @@ export default function BookCard({
   ageMax: number;
   category: string;
   priceCents: number;
+  agesLabel: string;
 }) {
   return (
     <Link
@@ -40,7 +42,7 @@ export default function BookCard({
         <h3 className="text-lg font-bold text-foreground">{title}</h3>
         <div className="mt-auto flex items-center justify-between">
           <p className="text-sm text-foreground/60">
-            Ηλικίες {ageMin}-{ageMax}
+            {agesLabel} {ageMin}-{ageMax}
           </p>
           <span className="rounded-full bg-brand-orange/10 px-3 py-1 text-sm font-bold text-brand-orange">
             {formatPrice(priceCents)}

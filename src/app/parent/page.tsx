@@ -3,11 +3,13 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { deleteChildAction } from "./actions";
+import { getDict } from "@/lib/i18n";
 
 export default async function ParentDashboardPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
+  const d = await getDict();
 
   const children = await prisma.childProfile.findMany({
     where: { parentId: session.user.id },
@@ -23,19 +25,17 @@ export default async function ParentDashboardPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold text-brand-purple">Γονική Πύλη 👨‍👩‍👧</h1>
+        <h1 className="text-3xl font-bold text-brand-purple">{d.parent.title}</h1>
         <Link
           href="/profiles"
           className="rounded-full bg-brand-teal px-5 py-2 font-bold text-white shadow transition hover:brightness-110"
         >
-          ➕ Νέο προφίλ παιδιού
+          {d.parent.newChild}
         </Link>
       </div>
 
       {children.length === 0 && (
-        <p className="text-center text-foreground/60">
-          Δεν έχεις δημιουργήσει ακόμα κανένα παιδικό προφίλ.
-        </p>
+        <p className="text-center text-foreground/60">{d.parent.noChildren}</p>
       )}
 
       <div className="flex flex-col gap-6">
@@ -57,15 +57,13 @@ export default async function ParentDashboardPage() {
                   type="submit"
                   className="rounded-full bg-red-100 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-200"
                 >
-                  Διαγραφή προφίλ
+                  {d.parent.deleteProfile}
                 </button>
               </form>
             </div>
 
             {child.progress.length === 0 ? (
-              <p className="text-sm text-foreground/60">
-                Δεν έχει διαβάσει ακόμα κανένα βιβλίο.
-              </p>
+              <p className="text-sm text-foreground/60">{d.parent.noBooks}</p>
             ) : (
               <ul className="flex flex-col gap-2">
                 {child.progress.map((p) => (
@@ -76,8 +74,8 @@ export default async function ParentDashboardPage() {
                     <span className="font-semibold">{p.book.title}</span>
                     <span className="text-foreground/60">
                       {p.completed
-                        ? "✅ Ολοκληρώθηκε"
-                        : `Σελίδα ${p.lastPage + 1}`}
+                        ? d.parent.completed
+                        : `${d.parent.pageProgress} ${p.lastPage + 1}`}
                     </span>
                   </li>
                 ))}

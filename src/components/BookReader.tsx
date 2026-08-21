@@ -13,16 +13,27 @@ type ReaderPage = {
   text: string;
 };
 
+type ReaderLabels = {
+  page: string;
+  back: string;
+  next: string;
+  finish: string;
+  pageLabel: string;
+  of: string;
+};
+
 export default function BookReader({
   bookId,
   title,
   pages,
   initialPage,
+  labels,
 }: {
   bookId: string;
   title: string;
   pages: ReaderPage[];
   initialPage: number;
+  labels: ReaderLabels;
 }) {
   const [index, setIndex] = useState(
     Math.min(Math.max(initialPage, 0), pages.length - 1)
@@ -61,7 +72,7 @@ export default function BookReader({
             <div className="relative h-56 w-full overflow-hidden rounded-2xl">
               <Image
                 src={page.imageUrl}
-                alt={`${title} - σελίδα ${page.order}`}
+                alt={`${title} - ${labels.page} ${page.order}`}
                 fill
                 className="object-cover"
                 unoptimized
@@ -80,24 +91,24 @@ export default function BookReader({
           disabled={isFirst}
           className="rounded-full bg-brand-purple px-6 py-3 font-bold text-white shadow transition hover:brightness-110 disabled:opacity-30"
         >
-          ⬅ Πίσω
+          {labels.back}
         </button>
         <span className="font-semibold text-foreground/70">
-          Σελίδα {index + 1} / {pages.length}
+          {labels.pageLabel} {index + 1} {labels.of} {pages.length}
         </span>
         {isLast ? (
           <Link
             href="/library"
             className="rounded-full bg-brand-teal px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
           >
-            Τέλος 🎉
+            {labels.finish}
           </Link>
         ) : (
           <button
             onClick={() => goTo(index + 1)}
             className="rounded-full bg-brand-orange px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
           >
-            Μπρος ➡
+            {labels.next}
           </button>
         )}
       </div>

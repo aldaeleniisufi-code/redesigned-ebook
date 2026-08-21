@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getActiveChildId } from "@/lib/session";
 import BookCard from "@/components/BookCard";
+import { getDict } from "@/lib/i18n";
 
 export default async function LibraryPage({
   searchParams,
@@ -12,6 +13,7 @@ export default async function LibraryPage({
   const session = await auth();
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
+  const d = await getDict();
 
   const activeChildId = await getActiveChildId();
   if (!activeChildId) redirect("/profiles");
@@ -35,7 +37,7 @@ export default async function LibraryPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="mb-8 text-center text-3xl font-bold text-brand-purple">
-        Η Βιβλιοθήκη μας 📚
+        {d.library.title}
       </h1>
 
       <form method="get" className="mb-8 flex flex-wrap justify-center gap-2">
@@ -45,7 +47,7 @@ export default async function LibraryPage({
             !category ? "bg-brand-purple text-white" : "bg-white text-brand-purple"
           }`}
         >
-          Όλα
+          {d.library.all}
         </a>
         {categories.map((c) => (
           <a
@@ -63,13 +65,11 @@ export default async function LibraryPage({
       </form>
 
       {books.length === 0 ? (
-        <p className="text-center text-foreground/60">
-          Δεν βρέθηκαν βιβλία ακόμα. Έλα ξανά σύντομα! 🌟
-        </p>
+        <p className="text-center text-foreground/60">{d.library.empty}</p>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {books.map((book) => (
-            <BookCard key={book.id} {...book} />
+            <BookCard key={book.id} {...book} agesLabel={d.library.ages} />
           ))}
         </div>
       )}

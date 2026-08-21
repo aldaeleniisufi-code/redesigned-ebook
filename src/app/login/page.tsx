@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { loginAction } from "./actions";
+import { getDict } from "@/lib/i18n";
 
 export default async function LoginPage({
   searchParams,
@@ -7,22 +8,23 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const { error } = await searchParams;
+  const d = await getDict();
 
   return (
     <div className="mx-auto flex max-w-md flex-col gap-6 px-4 py-16">
       <h1 className="text-center text-3xl font-bold text-brand-purple">
-        Είσοδος 👋
+        {d.login.title}
       </h1>
 
       {error && (
         <p className="rounded-xl bg-red-100 px-4 py-3 text-center text-sm font-semibold text-red-700">
-          Λάθος email ή κωδικός. Δοκίμασε ξανά.
+          {d.login.wrongCredentials}
         </p>
       )}
 
       <form action={loginAction} className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-md">
         <label className="flex flex-col gap-1 text-sm font-semibold text-foreground/80">
-          Email
+          {d.login.email}
           <input
             type="email"
             name="email"
@@ -31,7 +33,7 @@ export default async function LoginPage({
           />
         </label>
         <label className="flex flex-col gap-1 text-sm font-semibold text-foreground/80">
-          Κωδικός
+          {d.login.password}
           <input
             type="password"
             name="password"
@@ -43,14 +45,14 @@ export default async function LoginPage({
           type="submit"
           className="mt-2 rounded-full bg-brand-purple px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
         >
-          Σύνδεση
+          {d.login.submit}
         </button>
       </form>
 
       <p className="text-center text-sm text-foreground/70">
-        Δεν έχεις λογαριασμό;{" "}
+        {d.login.noAccount}{" "}
         <Link href="/register" className="font-semibold text-brand-purple underline">
-          Εγγράψου εδώ
+          {d.login.signUpHere}
         </Link>
       </p>
     </div>

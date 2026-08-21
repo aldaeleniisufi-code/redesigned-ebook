@@ -3,7 +3,15 @@
 import { useActionState } from "react";
 import { registerAction } from "./actions";
 
-export default function RegisterForm() {
+type RegisterLabels = {
+  name: string;
+  email: string;
+  password: string;
+  creating: string;
+  submit: string;
+};
+
+export default function RegisterForm({ labels }: { labels: RegisterLabels }) {
   const [state, formAction, pending] = useActionState(registerAction, undefined);
 
   return (
@@ -14,7 +22,7 @@ export default function RegisterForm() {
         </p>
       )}
       <label className="flex flex-col gap-1 text-sm font-semibold text-foreground/80">
-        Όνομα
+        {labels.name}
         <input
           type="text"
           name="name"
@@ -23,7 +31,7 @@ export default function RegisterForm() {
         />
       </label>
       <label className="flex flex-col gap-1 text-sm font-semibold text-foreground/80">
-        Email
+        {labels.email}
         <input
           type="email"
           name="email"
@@ -32,7 +40,7 @@ export default function RegisterForm() {
         />
       </label>
       <label className="flex flex-col gap-1 text-sm font-semibold text-foreground/80">
-        Κωδικός (τουλάχιστον 6 χαρακτήρες)
+        {labels.password}
         <input
           type="password"
           name="password"
@@ -46,7 +54,7 @@ export default function RegisterForm() {
         disabled={pending}
         className="mt-2 rounded-full bg-brand-orange px-6 py-3 font-bold text-white shadow transition hover:brightness-110 disabled:opacity-60"
       >
-        {pending ? "Δημιουργία..." : "Δημιουργία λογαριασμού"}
+        {pending ? labels.creating : labels.submit}
       </button>
     </form>
   );

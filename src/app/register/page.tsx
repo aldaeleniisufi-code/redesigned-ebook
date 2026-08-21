@@ -1,17 +1,28 @@
 import Link from "next/link";
 import RegisterForm from "./RegisterForm";
+import { getDict } from "@/lib/i18n";
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const d = await getDict();
+
   return (
     <div className="mx-auto flex max-w-md flex-col gap-6 px-4 py-16">
       <h1 className="text-center text-3xl font-bold text-brand-purple">
-        Εγγραφή Γονέα 👨‍👩‍👧
+        {d.register.title}
       </h1>
-      <RegisterForm />
+      <RegisterForm
+        labels={{
+          name: d.register.name,
+          email: d.register.email,
+          password: d.register.password,
+          creating: d.register.creating,
+          submit: d.register.submit,
+        }}
+      />
       <p className="text-center text-sm text-foreground/70">
-        Έχεις ήδη λογαριασμό;{" "}
+        {d.register.haveAccount}{" "}
         <Link href="/login" className="font-semibold text-brand-purple underline">
-          Συνδέσου εδώ
+          {d.register.loginHere}
         </Link>
       </p>
     </div>

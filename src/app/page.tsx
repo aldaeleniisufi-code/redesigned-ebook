@@ -1,19 +1,18 @@
 import Link from "next/link";
 import { auth } from "@/auth";
+import { getDict } from "@/lib/i18n";
 
 export default async function HomePage() {
   const session = await auth();
+  const d = await getDict();
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 px-4 py-16 text-center">
       <div className="text-7xl">🦁📖🚀</div>
       <h1 className="text-4xl font-bold text-brand-purple sm:text-5xl">
-        Μαγικές ιστορίες για μικρούς αναγνώστες!
+        {d.home.heading}
       </h1>
-      <p className="max-w-2xl text-lg text-foreground/80">
-        Ανακάλυψε δεκάδες ψηφιακά παραμύθια, γεμάτα χρώματα, ήρωες και
-        περιπέτειες. Διάβασε, γύρνα σελίδες και ζήσε κάθε ιστορία σαν παιχνίδι!
-      </p>
+      <p className="max-w-2xl text-lg text-foreground/80">{d.home.subtitle}</p>
 
       <div className="flex flex-wrap justify-center gap-4">
         {session ? (
@@ -21,7 +20,7 @@ export default async function HomePage() {
             href="/library"
             className="rounded-full bg-brand-orange px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:scale-105 hover:brightness-110"
           >
-            Πήγαινε στη Βιβλιοθήκη 📚
+            {d.home.goToLibrary}
           </Link>
         ) : (
           <>
@@ -29,22 +28,22 @@ export default async function HomePage() {
               href="/register"
               className="rounded-full bg-brand-orange px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:scale-105 hover:brightness-110"
             >
-              Εγγραφή Γονέα
+              {d.home.registerParent}
             </Link>
             <Link
               href="/login"
               className="rounded-full bg-white px-8 py-4 text-lg font-bold text-brand-purple shadow-lg ring-2 ring-brand-purple transition hover:scale-105"
             >
-              Είσοδος
+              {d.home.login}
             </Link>
           </>
         )}
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <FeatureCard emoji="🎨" title="Πολύχρωμες ιστορίες" text="Εικονογραφημένα παραμύθια για κάθε ηλικία." />
-        <FeatureCard emoji="👨‍👩‍👧" title="Προφίλ για κάθε παιδί" text="Κάθε παιδί έχει το δικό του avatar και πρόοδο." />
-        <FeatureCard emoji="✨" title="Διαδραστική ανάγνωση" text="Γύρισμα σελίδων με ζωντανή κίνηση." />
+        <FeatureCard emoji="🎨" title={d.home.feature1Title} text={d.home.feature1Text} />
+        <FeatureCard emoji="👨‍👩‍👧" title={d.home.feature2Title} text={d.home.feature2Text} />
+        <FeatureCard emoji="✨" title={d.home.feature3Title} text={d.home.feature3Text} />
       </div>
     </div>
   );
