@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fffdf2;
-  --foreground: #3a2b5f;
-  --color-brand-purple: #6d28d9;
-  --color-brand-pink: #ff2d8a;
-  --color-brand-orange: #ff7a00;
-  --color-brand-teal: #00c2a8;
-  --color-brand-blue: #3b82f6;
-  --color-brand-yellow: #ffd400;
+  /* Kidleido — premium palette:
+     deep blue (base) · warm gold (accents) · cream (bg) · coral (CTA) · mint (sections) */
+  --background: #fff7e8;
+  --foreground: #173f73;
+  --color-brand-purple: #173f73; /* base — deep blue */
+  --color-brand-pink: #e86a5a; /* coral */
+  --color-brand-orange: #e86a5a; /* coral — CTAs */
+  --color-brand-teal: #8fd6c2; /* mint — sections */
+  --color-brand-blue: #2e6db4; /* supporting blue */
+  --color-brand-yellow: #f4c95d; /* warm gold — accents/details */
 }
 
 @theme inline {

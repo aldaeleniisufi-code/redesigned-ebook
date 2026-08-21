@@ -15,4 +15,4 @@ export function getResendClient(): Resend {
   return _resend;
 }
 
-export const EMAIL_FROM = "Παιδικά Βιβλία <hello@kidleido.com>";
+export const EMAIL_FROM = "Kidleido <hello@kidleido.com>";

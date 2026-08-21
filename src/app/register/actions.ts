@@ -36,7 +36,7 @@ export async function registerAction(
 
   await sendEmail({
     to: email,
-    subject: "Καλωσόρισες στα Παιδικά Βιβλία! 📚",
+    subject: "Καλωσόρισες στο Kidleido! ✨",
     html: confirmationEmailHtml({ name }),
   });
 

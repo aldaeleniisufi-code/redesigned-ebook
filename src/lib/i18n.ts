@@ -7,9 +7,10 @@ export const DEFAULT_LOCALE: Locale = "el";
 
 const dictionaries = {
   el: {
-    metaTitle: "Παιδικά Βιβλία",
-    metaDescription: "Ψηφιακά παραμύθια και ιστορίες για παιδιά",
-    brand: "Παιδικά Βιβλία",
+    metaTitle: "Kidleido — Μαγικοί Κόσμοι",
+    metaDescription:
+      "Μαγικοί κόσμοι γεμάτοι παραμύθια, ήρωες και φύλλα ζωγραφικής για παιδιά.",
+    brand: "Kidleido",
 
     nav: {
       login: "Σύνδεση",
@@ -24,18 +25,18 @@ const dictionaries = {
     },
 
     home: {
-      heading: "Μαγικές ιστορίες για μικρούς αναγνώστες!",
-      subtitle:
-        "Ανακάλυψε δεκάδες ψηφιακά παραμύθια, γεμάτα χρώματα, ήρωες και περιπέτειες. Διάβασε, γύρνα σελίδες και ζήσε κάθε ιστορία σαν παιχνίδι!",
+      welcome: "Καλώς ήρθατε στο Kidleido",
+      tagline: "Μαγικοί Κόσμοι",
+      intro1:
+        "Έναν κόσμο όπου οι ιστορίες ζωντανεύουν, η φαντασία δεν έχει όρια και κάθε παιδί μπορεί να γίνει μέρος της περιπέτειας.",
+      intro2:
+        "Στο Kidleido δημιουργούμε μαγικούς κόσμους γεμάτους παραμύθια, αγαπημένους ήρωες, δημιουργικές δραστηριότητες και φύλλα ζωγραφικής που τα παιδιά μπορούν να απολαύσουν στο σπίτι, να εκτυπώσουν ή να χρησιμοποιήσουν ψηφιακά.",
+      intro3:
+        "Κάθε ιστορία είναι μια νέα πόρτα στη φαντασία — ένας τρόπος για τα παιδιά να ανακαλύψουν τη φιλία, την καλοσύνη, το θάρρος, τη δημιουργικότητα και τη χαρά του παιχνιδιού.",
+      cta: "Διάλεξε έναν κόσμο. Άνοιξε μια ιστορία. Και άσε τη μαγεία να ξεκινήσει.",
       goToLibrary: "Πήγαινε στη Βιβλιοθήκη 📚",
       registerParent: "Εγγραφή Γονέα",
       login: "Είσοδος",
-      feature1Title: "Πολύχρωμες ιστορίες",
-      feature1Text: "Εικονογραφημένα παραμύθια για κάθε ηλικία.",
-      feature2Title: "Προφίλ για κάθε παιδί",
-      feature2Text: "Κάθε παιδί έχει το δικό του avatar και πρόοδο.",
-      feature3Title: "Διαδραστική ανάγνωση",
-      feature3Text: "Γύρισμα σελίδων με ζωντανή κίνηση.",
     },
 
     login: {
@@ -187,9 +188,10 @@ const dictionaries = {
   },
 
   en: {
-    metaTitle: "Kids Books",
-    metaDescription: "Digital fairytales and stories for children",
-    brand: "Kids Books",
+    metaTitle: "Kidleido — Magic Worlds",
+    metaDescription:
+      "Magic worlds full of fairytales, heroes and coloring sheets for children.",
+    brand: "Kidleido",
 
     nav: {
       login: "Log in",
@@ -204,18 +206,18 @@ const dictionaries = {
     },
 
     home: {
-      heading: "Magical stories for little readers!",
-      subtitle:
-        "Discover dozens of digital fairytales, full of color, heroes and adventures. Read, turn the pages and live every story like a game!",
+      welcome: "Welcome to Kidleido",
+      tagline: "Magic Worlds",
+      intro1:
+        "A world where stories come alive, imagination has no limits, and every child can become part of the adventure.",
+      intro2:
+        "At Kidleido we create magic worlds full of fairytales, beloved heroes, creative activities and coloring sheets that children can enjoy at home, print, or use digitally.",
+      intro3:
+        "Every story is a new door into imagination — a way for children to discover friendship, kindness, courage, creativity and the joy of play.",
+      cta: "Pick a world. Open a story. And let the magic begin.",
       goToLibrary: "Go to the Library 📚",
       registerParent: "Parent sign up",
       login: "Log in",
-      feature1Title: "Colorful stories",
-      feature1Text: "Illustrated fairytales for every age.",
-      feature2Title: "A profile for each child",
-      feature2Text: "Every child has their own avatar and progress.",
-      feature3Title: "Interactive reading",
-      feature3Text: "Page turns with lively animation.",
     },
 
     login: {

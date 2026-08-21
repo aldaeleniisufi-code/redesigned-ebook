@@ -7,21 +7,27 @@ export default async function HomePage() {
   const d = await getDict();
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center gap-8 px-4 py-16 text-center">
-      <div className="flex h-24 w-24 items-center justify-center rounded-full bg-brand-purple/10 text-5xl">
-        📚
-      </div>
+    <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 px-4 py-16 text-center">
+      <div className="text-4xl">✨📖🎨</div>
 
       <h1 className="text-4xl font-bold text-brand-purple sm:text-5xl">
-        {d.home.heading}
+        {d.home.welcome}
       </h1>
-      <p className="max-w-xl text-lg text-foreground/70">{d.home.subtitle}</p>
+      <p className="text-2xl font-bold text-brand-yellow">{d.home.tagline}</p>
 
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-col gap-4 text-lg leading-relaxed text-foreground/75">
+        <p>{d.home.intro1}</p>
+        <p>{d.home.intro2}</p>
+        <p>{d.home.intro3}</p>
+      </div>
+
+      <p className="text-xl font-bold text-brand-purple">{d.home.cta}</p>
+
+      <div className="mt-2 flex flex-wrap justify-center gap-4">
         {session ? (
           <Link
             href="/library"
-            className="rounded-full bg-brand-orange px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:scale-105 hover:brightness-110"
+            className="rounded-full bg-brand-yellow px-8 py-4 text-lg font-bold text-brand-purple shadow-lg transition hover:scale-105 hover:brightness-105"
           >
             {d.home.goToLibrary}
           </Link>
@@ -29,7 +35,7 @@ export default async function HomePage() {
           <>
             <Link
               href="/register"
-              className="rounded-full bg-brand-orange px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:scale-105 hover:brightness-110"
+              className="rounded-full bg-brand-yellow px-8 py-4 text-lg font-bold text-brand-purple shadow-lg transition hover:scale-105 hover:brightness-105"
             >
               {d.home.registerParent}
             </Link>
@@ -43,7 +49,7 @@ export default async function HomePage() {
         )}
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold text-foreground/60">
+      <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm font-semibold text-foreground/60">
         <span className="rounded-full bg-white px-4 py-2 shadow-sm">
           📖 {d.nav.library}
         </span>
