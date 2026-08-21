@@ -43,6 +43,12 @@ export default async function Navbar() {
                 {d.nav.library}
               </Link>
               <Link
+                href="/coloring"
+                className="rounded-full px-4 py-2 font-semibold transition hover:bg-white/20"
+              >
+                {d.nav.coloring}
+              </Link>
+              <Link
                 href="/parent"
                 className="rounded-full px-4 py-2 font-semibold transition hover:bg-white/20"
               >
@@ -58,12 +64,20 @@ export default async function Navbar() {
           )}
 
           {session && role === "ADMIN" && (
-            <Link
-              href="/admin"
-              className="rounded-full px-4 py-2 font-semibold transition hover:bg-white/20"
-            >
-              {d.nav.admin}
-            </Link>
+            <>
+              <Link
+                href="/admin"
+                className="rounded-full px-4 py-2 font-semibold transition hover:bg-white/20"
+              >
+                {d.nav.admin}
+              </Link>
+              <Link
+                href="/admin/coloring"
+                className="rounded-full px-4 py-2 font-semibold transition hover:bg-white/20"
+              >
+                {d.nav.adminColoring}
+              </Link>
+            </>
           )}
 
           {session && (

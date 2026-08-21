@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { formatPrice } from "@/lib/format";
-import { createCheckoutAction } from "@/app/books/[id]/actions";
 
 export default function Paywall({
-  bookId,
+  action,
+  idField,
+  idValue,
   title,
   description,
   coverImage,
@@ -11,7 +12,9 @@ export default function Paywall({
   note,
   buyLabel,
 }: {
-  bookId: string;
+  action: (formData: FormData) => void | Promise<void>;
+  idField: string;
+  idValue: string;
   title: string;
   description: string;
   coverImage: string;
@@ -32,8 +35,8 @@ export default function Paywall({
         <span className="text-3xl font-bold text-brand-orange">
           {formatPrice(priceCents)}
         </span>
-        <form action={createCheckoutAction}>
-          <input type="hidden" name="bookId" value={bookId} />
+        <form action={action}>
+          <input type="hidden" name={idField} value={idValue} />
           <button
             type="submit"
             className="rounded-full bg-brand-orange px-8 py-3 font-bold text-white shadow transition hover:brightness-110"

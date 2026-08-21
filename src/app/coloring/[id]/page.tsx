@@ -1,0 +1,88 @@
+import { notFound, redirect } from "next/navigation";
+import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
+import { getActiveChildId } from "@/lib/session";
+import {
+  hasColoringPurchase,
+  recordColoringPurchase,
+} from "@/lib/coloring-purchases";
+import { getStripeClient } from "@/lib/stripe";
+import Paywall from "@/components/Paywall";
+import ColoringViewer from "@/components/ColoringViewer";
+import { getDict } from "@/lib/i18n";
+import { createColoringCheckoutAction } from "./actions";
+
+export default async function ColoringPackPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ session_id?: string }>;
+}) {
+  const session = await auth();
+  if (!session?.user) redirect("/login");
+  if (session.user.role === "ADMIN") redirect("/admin/coloring");
+
+  const activeChildId = await getActiveChildId();
+  if (!activeChildId) redirect("/profiles");
+
+  const { id } = await params;
+  const { session_id } = await searchParams;
+  const d = await getDict();
+
+  const pack = await prisma.coloringPack.findUnique({
+    where: { id },
+    include: { pages: { orderBy: { order: "asc" } } },
+  });
+
+  if (!pack || !pack.published) notFound();
+
+  let purchased = await hasColoringPurchase(session.user.id, pack.id);
+
+  if (!purchased && session_id) {
+    const stripe = getStripeClient();
+    const checkoutSession = await stripe.checkout.sessions.retrieve(session_id);
+    if (
+      checkoutSession.payment_status === "paid" &&
+      checkoutSession.metadata?.packId === pack.id &&
+      checkoutSession.metadata?.userId === session.user.id
+    ) {
+      await recordColoringPurchase(session.user.id, pack.id, checkoutSession.id);
+      purchased = true;
+    }
+  }
+
+  if (!purchased) {
+    return (
+      <Paywall
+        action={createColoringCheckoutAction}
+        idField="packId"
+        idValue={pack.id}
+        title={pack.title}
+        description={pack.description}
+        coverImage={pack.coverImage}
+        priceCents={pack.priceCents}
+        note={d.coloring.note}
+        buyLabel={d.coloring.buy}
+      />
+    );
+  }
+
+  return (
+    <ColoringViewer
+      title={pack.title}
+      pages={pack.pages.map((p) => ({ id: p.id, order: p.order, imageUrl: p.imageUrl }))}
+      labels={{
+        sheet: d.coloring.sheet,
+        download: d.coloring.download,
+        print: d.coloring.print,
+        colorDigitally: d.coloring.colorDigitally,
+        close: d.coloring.close,
+        brush: d.coloring.brush,
+        eraser: d.coloring.eraser,
+        clear: d.coloring.clear,
+        downloadDrawing: d.coloring.downloadDrawing,
+      }}
+    />
+  );
+}

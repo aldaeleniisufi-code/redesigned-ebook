@@ -7,6 +7,7 @@ import { getStripeClient } from "@/lib/stripe";
 import BookReader from "@/components/BookReader";
 import Paywall from "@/components/Paywall";
 import { getDict } from "@/lib/i18n";
+import { createCheckoutAction } from "./actions";
 
 export default async function BookPage({
   params,
@@ -51,7 +52,9 @@ export default async function BookPage({
   if (!purchased) {
     return (
       <Paywall
-        bookId={book.id}
+        action={createCheckoutAction}
+        idField="bookId"
+        idValue={book.id}
         title={book.title}
         description={book.description}
         coverImage={book.coverImage}

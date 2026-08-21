@@ -18,14 +18,15 @@ enum Role {
 }
 
 model User {
-  id           String         @id @default(cuid())
-  email        String         @unique
-  passwordHash String
-  name         String
-  role         Role           @default(PARENT)
-  createdAt    DateTime       @default(now())
-  children     ChildProfile[]
-  purchases    Purchase[]
+  id                String              @id @default(cuid())
+  email             String              @unique
+  passwordHash      String
+  name              String
+  role              Role                @default(PARENT)
+  createdAt         DateTime            @default(now())
+  children          ChildProfile[]
+  purchases         Purchase[]
+  coloringPurchases ColoringPurchase[]
 }
 
 model ChildProfile {
@@ -88,4 +89,37 @@ model Purchase {
   createdAt       DateTime @default(now())
 
   @@unique([userId, bookId])
+}
+
+model ColoringPack {
+  id          String             @id @default(cuid())
+  title       String
+  description String
+  coverImage  String
+  category    String             @default("Ζωγραφιές")
+  priceCents  Int                @default(299)
+  published   Boolean            @default(false)
+  createdAt   DateTime           @default(now())
+  pages       ColoringPage[]
+  purchases   ColoringPurchase[]
+}
+
+model ColoringPage {
+  id       String       @id @default(cuid())
+  packId   String
+  pack     ColoringPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+  order    Int
+  imageUrl String
+}
+
+model ColoringPurchase {
+  id              String       @id @default(cuid())
+  userId          String
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packId          String
+  pack            ColoringPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+  stripeSessionId String
+  createdAt       DateTime     @default(now())
+
+  @@unique([userId, packId])
 }

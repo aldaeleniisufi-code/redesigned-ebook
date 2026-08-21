@@ -1,6 +1,10 @@
 import Stripe from "stripe";
 import { getStripeClient } from "@/lib/stripe";
 import { hasPurchased, recordPurchase } from "@/lib/purchases";
+import {
+  hasColoringPurchase,
+  recordColoringPurchase,
+} from "@/lib/coloring-purchases";
 
 export async function POST(request: Request) {
   const signature = request.headers.get("stripe-signature");
@@ -22,13 +26,17 @@ export async function POST(request: Request) {
 
   if (event.type === "checkout.session.completed") {
     const checkoutSession = event.data.object;
-    const bookId = checkoutSession.metadata?.bookId;
-    const userId = checkoutSession.metadata?.userId;
+    const meta = checkoutSession.metadata ?? {};
+    const userId = meta.userId;
+    const paid = checkoutSession.payment_status === "paid";
 
-    if (bookId && userId && checkoutSession.payment_status === "paid") {
-      const alreadyPurchased = await hasPurchased(userId, bookId);
-      if (!alreadyPurchased) {
-        await recordPurchase(userId, bookId, checkoutSession.id);
+    if (userId && paid && meta.type === "coloring" && meta.packId) {
+      if (!(await hasColoringPurchase(userId, meta.packId))) {
+        await recordColoringPurchase(userId, meta.packId, checkoutSession.id);
+      }
+    } else if (userId && paid && meta.bookId) {
+      if (!(await hasPurchased(userId, meta.bookId))) {
+        await recordPurchase(userId, meta.bookId, checkoutSession.id);
       }
     }
   }
