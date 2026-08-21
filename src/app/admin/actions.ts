@@ -86,6 +86,7 @@ export async function togglePublishAction(formData: FormData) {
   if (!book) return;
   await prisma.book.update({ where: { id }, data: { published: !book.published } });
   revalidatePath("/admin");
+  revalidatePath(`/admin/books/${id}/edit`);
 }
 
 export async function deleteBookAction(formData: FormData) {

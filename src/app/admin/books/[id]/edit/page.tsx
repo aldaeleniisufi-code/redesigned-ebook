@@ -7,6 +7,7 @@ import {
   addPageAction,
   updatePageAction,
   deletePageAction,
+  togglePublishAction,
 } from "../../../actions";
 import { getDict } from "@/lib/i18n";
 import ImageInput from "@/components/ImageInput";
@@ -36,6 +37,33 @@ export default async function EditBookPage({
       <h1 className="mb-6 text-3xl font-bold text-brand-purple">
         {d.admin.editTitle} {book.title}
       </h1>
+
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 rounded-3xl bg-white p-5 shadow-md">
+        <div>
+          <p className="text-sm font-semibold text-foreground/80">
+            {d.admin.status}{" "}
+            {book.published ? (
+              <span className="text-green-600">{d.admin.published}</span>
+            ) : (
+              <span className="text-orange-500">{d.admin.draft}</span>
+            )}
+          </p>
+          {!book.published && (
+            <p className="mt-1 text-xs text-foreground/50">{d.admin.publishHint}</p>
+          )}
+        </div>
+        <form action={togglePublishAction}>
+          <input type="hidden" name="id" value={book.id} />
+          <button
+            type="submit"
+            className={`rounded-full px-6 py-3 font-bold text-white shadow transition hover:brightness-110 ${
+              book.published ? "bg-orange-400" : "bg-brand-teal"
+            }`}
+          >
+            {book.published ? d.admin.unpublish : d.admin.publish}
+          </button>
+        </form>
+      </div>
 
       <section className="mb-10 rounded-3xl bg-white p-6 shadow-md">
         <h2 className="mb-4 text-lg font-bold text-foreground">{d.admin.bookDetails}</h2>
