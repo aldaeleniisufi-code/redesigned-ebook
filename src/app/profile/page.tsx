@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getDict } from "@/lib/i18n";
+import { getDict, getLocale, pickText } from "@/lib/i18n";
 import { formatPrice } from "@/lib/format";
 
 export default async function ProfilePage() {
@@ -11,6 +11,7 @@ export default async function ProfilePage() {
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
   const d = await getDict();
+  const locale = await getLocale();
 
   const [bookPurchases, coloringPurchases] = await Promise.all([
     prisma.purchase.findMany({
@@ -55,7 +56,7 @@ export default async function ProfilePage() {
                 key={p.id}
                 href={`/books/${p.bookId}`}
                 image={p.book.coverImage}
-                title={p.book.title}
+                title={pickText(locale, p.book.title, p.book.titleEn)}
                 priceCents={p.book.priceCents}
                 date={p.createdAt}
                 open={d.profile.open}
@@ -76,7 +77,7 @@ export default async function ProfilePage() {
                 key={p.id}
                 href={`/coloring/${p.packId}`}
                 image={p.pack.coverImage}
-                title={p.pack.title.trim() || d.coloring.untitled}
+                title={pickText(locale, p.pack.title, p.pack.titleEn).trim() || d.coloring.untitled}
                 priceCents={p.pack.priceCents}
                 date={p.createdAt}
                 open={d.profile.open}

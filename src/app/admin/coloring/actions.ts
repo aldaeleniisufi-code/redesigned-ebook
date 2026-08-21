@@ -19,6 +19,11 @@ function parsePriceCents(formData: FormData, fallback = 299): number {
   return Math.round(euros * 100);
 }
 
+function optText(formData: FormData, key: string): string | null {
+  const v = String(formData.get(key) ?? "").trim();
+  return v || null;
+}
+
 export async function createPackAction(formData: FormData) {
   await requireAdmin();
 
@@ -37,7 +42,9 @@ export async function createPackAction(formData: FormData) {
   const pack = await prisma.coloringPack.create({
     data: {
       title,
+      titleEn: optText(formData, "titleEn"),
       description,
+      descriptionEn: optText(formData, "descriptionEn"),
       category,
       priceCents,
       coverImage: imageUrl,
@@ -59,7 +66,14 @@ export async function updatePackAction(formData: FormData) {
   const priceCents = parsePriceCents(formData);
   const cover = formData.get("cover");
 
-  const data: Record<string, unknown> = { title, description, category, priceCents };
+  const data: Record<string, unknown> = {
+    title,
+    titleEn: optText(formData, "titleEn"),
+    description,
+    descriptionEn: optText(formData, "descriptionEn"),
+    category,
+    priceCents,
+  };
   if (cover instanceof File && cover.size > 0) {
     const imageUrl = await saveUploadedFile(cover);
     data.coverImage = imageUrl;

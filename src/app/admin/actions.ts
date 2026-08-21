@@ -19,6 +19,11 @@ function parsePriceCents(formData: FormData, fallback = 299): number {
   return Math.round(euros * 100);
 }
 
+function optText(formData: FormData, key: string): string | null {
+  const v = String(formData.get(key) ?? "").trim();
+  return v || null;
+}
+
 export async function createBookAction(formData: FormData) {
   await requireAdmin();
 
@@ -38,7 +43,19 @@ export async function createBookAction(formData: FormData) {
   const coverImage = await saveUploadedFile(cover as File);
 
   const book = await prisma.book.create({
-    data: { title, author, description, category, ageMin, ageMax, priceCents, coverImage },
+    data: {
+      title,
+      titleEn: optText(formData, "titleEn"),
+      author,
+      authorEn: optText(formData, "authorEn"),
+      description,
+      descriptionEn: optText(formData, "descriptionEn"),
+      category,
+      ageMin,
+      ageMax,
+      priceCents,
+      coverImage,
+    },
   });
 
   revalidatePath("/admin");
@@ -60,8 +77,11 @@ export async function updateBookAction(formData: FormData) {
 
   const data: Record<string, unknown> = {
     title,
+    titleEn: optText(formData, "titleEn"),
     author,
+    authorEn: optText(formData, "authorEn"),
     description,
+    descriptionEn: optText(formData, "descriptionEn"),
     category,
     ageMin,
     ageMax,
@@ -114,7 +134,9 @@ export async function addPageAction(formData: FormData) {
 
   const imageUrl = await saveUploadedFile(image as File);
 
-  await prisma.page.create({ data: { bookId, order, text, imageUrl } });
+  await prisma.page.create({
+    data: { bookId, order, text, textEn: optText(formData, "textEn"), imageUrl },
+  });
 
   revalidatePath(`/admin/books/${bookId}/edit`);
   redirect(`/admin/books/${bookId}/edit`);
@@ -128,7 +150,11 @@ export async function updatePageAction(formData: FormData) {
   const text = String(formData.get("text") ?? "").trim();
   const image = formData.get("image");
 
-  const data: Record<string, unknown> = { order, text };
+  const data: Record<string, unknown> = {
+    order,
+    text,
+    textEn: optText(formData, "textEn"),
+  };
   if (image instanceof File && image.size > 0) {
     data.imageUrl = await saveUploadedFile(image);
   }

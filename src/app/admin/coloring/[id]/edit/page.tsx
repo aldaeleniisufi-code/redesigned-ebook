@@ -60,8 +60,14 @@ export default async function EditPackPage({
           <Field label={d.admin.fieldTitle}>
             <input name="title" defaultValue={pack.title} className="input" />
           </Field>
+          <Field label={d.adminColoring.titleEn}>
+            <input name="titleEn" defaultValue={pack.titleEn ?? ""} className="input" />
+          </Field>
           <Field label={d.admin.fieldDescription}>
             <textarea name="description" defaultValue={pack.description} rows={3} className="input" />
+          </Field>
+          <Field label={d.adminColoring.descriptionEn}>
+            <textarea name="descriptionEn" defaultValue={pack.descriptionEn ?? ""} rows={3} className="input" />
           </Field>
           <Field label={d.admin.fieldCategory}>
             <input name="category" defaultValue={pack.category} className="input" />

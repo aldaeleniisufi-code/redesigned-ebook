@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import BookCard from "@/components/BookCard";
-import { getDict } from "@/lib/i18n";
+import { getDict, getLocale, pickText } from "@/lib/i18n";
 
 export default async function LibraryPage({
   searchParams,
@@ -13,6 +13,7 @@ export default async function LibraryPage({
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
   const d = await getDict();
+  const locale = await getLocale();
 
   const { category } = await searchParams;
 
@@ -65,7 +66,17 @@ export default async function LibraryPage({
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {books.map((book) => (
-            <BookCard key={book.id} {...book} agesLabel={d.library.ages} />
+            <BookCard
+              key={book.id}
+              id={book.id}
+              title={pickText(locale, book.title, book.titleEn)}
+              coverImage={book.coverImage}
+              ageMin={book.ageMin}
+              ageMax={book.ageMax}
+              category={book.category}
+              priceCents={book.priceCents}
+              agesLabel={d.library.ages}
+            />
           ))}
         </div>
       )}

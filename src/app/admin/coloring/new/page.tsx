@@ -34,8 +34,14 @@ export default async function NewPackPage({
         <Field label={d.admin.fieldTitle}>
           <input name="title" className="input" />
         </Field>
+        <Field label={d.adminColoring.titleEn}>
+          <input name="titleEn" className="input" />
+        </Field>
         <Field label={d.admin.fieldDescription}>
           <textarea name="description" rows={3} className="input" />
+        </Field>
+        <Field label={d.adminColoring.descriptionEn}>
+          <textarea name="descriptionEn" rows={3} className="input" />
         </Field>
         <Field label={d.admin.fieldCategory}>
           <input name="category" defaultValue="Ζωγραφιές" className="input" />

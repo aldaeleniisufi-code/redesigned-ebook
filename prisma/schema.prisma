@@ -41,11 +41,14 @@ model ChildProfile {
 }
 
 model Book {
-  id          String            @id @default(cuid())
-  title       String
-  author      String
-  description String
-  coverImage  String
+  id            String          @id @default(cuid())
+  title         String
+  titleEn       String?
+  author        String
+  authorEn      String?
+  description   String
+  descriptionEn String?
+  coverImage    String
   ageMin      Int               @default(3)
   ageMax      Int               @default(8)
   category    String            @default("Παραμύθι")
@@ -58,12 +61,13 @@ model Book {
 }
 
 model Page {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   bookId   String
-  book     Book   @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  book     Book    @relation(fields: [bookId], references: [id], onDelete: Cascade)
   order    Int
   imageUrl String
   text     String
+  textEn   String?
 }
 
 model ReadingProgress {
@@ -92,10 +96,12 @@ model Purchase {
 }
 
 model ColoringPack {
-  id          String             @id @default(cuid())
-  title       String
-  description String
-  coverImage  String
+  id            String             @id @default(cuid())
+  title         String
+  titleEn       String?
+  description   String
+  descriptionEn String?
+  coverImage    String
   category    String             @default("Ζωγραφιές")
   priceCents  Int                @default(299)
   published   Boolean            @default(false)

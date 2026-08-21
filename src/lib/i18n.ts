@@ -145,6 +145,11 @@ const dictionaries = {
       pageText: "Κείμενο σελίδας",
       pageImage: "Εικόνα σελίδας",
       addPage: "Προσθήκη σελίδας",
+      titleEn: "Τίτλος (Αγγλικά)",
+      authorEn: "Συγγραφέας (Αγγλικά)",
+      descriptionEn: "Περιγραφή (Αγγλικά)",
+      pageTextEn: "Κείμενο σελίδας (Αγγλικά)",
+      enHint: "Προαιρετικό — αν το αφήσεις κενό, εμφανίζεται το αρχικό.",
     },
 
     coloring: {
@@ -175,6 +180,8 @@ const dictionaries = {
       packDetails: "Στοιχεία ζωγραφιάς",
       sheetImage: "Εικόνα ζωγραφικής (ασπρόμαυρη)",
       sheetImageNew: "Νέα εικόνα (προαιρετικό)",
+      titleEn: "Τίτλος (Αγγλικά)",
+      descriptionEn: "Περιγραφή (Αγγλικά)",
     },
   },
 
@@ -316,6 +323,11 @@ const dictionaries = {
       pageText: "Page text",
       pageImage: "Page image",
       addPage: "Add page",
+      titleEn: "Title (English)",
+      authorEn: "Author (English)",
+      descriptionEn: "Description (English)",
+      pageTextEn: "Page text (English)",
+      enHint: "Optional — if left empty, the original is shown.",
     },
 
     coloring: {
@@ -346,6 +358,8 @@ const dictionaries = {
       packDetails: "Coloring page details",
       sheetImage: "Coloring image (black & white)",
       sheetImageNew: "New image (optional)",
+      titleEn: "Title (English)",
+      descriptionEn: "Description (English)",
     },
   },
 } as const;
@@ -374,4 +388,15 @@ export async function setLocale(locale: Locale) {
 
 export async function getDict(): Promise<Dict> {
   return dictionaries[await getLocale()] as Dict;
+}
+
+// Επιλέγει το κείμενο περιεχομένου ανά γλώσσα. Αν λείπει η μετάφραση (en κενό),
+// επιστρέφει την αρχική γλώσσα (base).
+export function pickText(
+  locale: Locale,
+  base: string,
+  alt?: string | null
+): string {
+  if (locale === "en" && alt && alt.trim()) return alt;
+  return base;
 }

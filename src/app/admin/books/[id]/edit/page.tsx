@@ -75,13 +75,27 @@ export default async function EditBookPage({
           <Field label={d.admin.fieldTitle}>
             <input name="title" defaultValue={book.title} required className="input" />
           </Field>
+          <Field label={d.admin.titleEn}>
+            <input name="titleEn" defaultValue={book.titleEn ?? ""} className="input" />
+          </Field>
           <Field label={d.admin.fieldAuthor}>
             <input name="author" defaultValue={book.author} className="input" />
+          </Field>
+          <Field label={d.admin.authorEn}>
+            <input name="authorEn" defaultValue={book.authorEn ?? ""} className="input" />
           </Field>
           <Field label={d.admin.fieldDescription}>
             <textarea
               name="description"
               defaultValue={book.description}
+              rows={3}
+              className="input"
+            />
+          </Field>
+          <Field label={d.admin.descriptionEn}>
+            <textarea
+              name="descriptionEn"
+              defaultValue={book.descriptionEn ?? ""}
               rows={3}
               className="input"
             />
@@ -167,6 +181,13 @@ export default async function EditBookPage({
                     rows={2}
                     className="input"
                   />
+                  <textarea
+                    name="textEn"
+                    defaultValue={page.textEn ?? ""}
+                    rows={2}
+                    placeholder={d.admin.pageTextEn}
+                    className="input"
+                  />
                   <ImageInput name="image" className="input" />
                 </div>
                 <button
@@ -205,6 +226,9 @@ export default async function EditBookPage({
           <input type="hidden" name="bookId" value={book.id} />
           <Field label={d.admin.pageText}>
             <textarea name="text" rows={2} className="input" />
+          </Field>
+          <Field label={d.admin.pageTextEn}>
+            <textarea name="textEn" rows={2} className="input" />
           </Field>
           <Field label={d.admin.pageImage}>
             <ImageInput name="image" required className="input" />

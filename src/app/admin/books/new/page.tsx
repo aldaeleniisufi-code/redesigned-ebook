@@ -32,11 +32,20 @@ export default async function NewBookPage({
         <Field label={d.admin.fieldTitle}>
           <input name="title" required className="input" />
         </Field>
+        <Field label={d.admin.titleEn}>
+          <input name="titleEn" className="input" />
+        </Field>
         <Field label={d.admin.fieldAuthor}>
           <input name="author" className="input" />
         </Field>
+        <Field label={d.admin.authorEn}>
+          <input name="authorEn" className="input" />
+        </Field>
         <Field label={d.admin.fieldDescription}>
           <textarea name="description" rows={3} className="input" />
+        </Field>
+        <Field label={d.admin.descriptionEn}>
+          <textarea name="descriptionEn" rows={3} className="input" />
         </Field>
         <Field label={d.admin.fieldCategory}>
           <input name="category" defaultValue="Παραμύθι" className="input" />

@@ -2,13 +2,14 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import ColoringCard from "@/components/ColoringCard";
-import { getDict } from "@/lib/i18n";
+import { getDict, getLocale, pickText } from "@/lib/i18n";
 
 export default async function ColoringGalleryPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin/coloring");
   const d = await getDict();
+  const locale = await getLocale();
 
   const packs = await prisma.coloringPack.findMany({
     where: { published: true },
@@ -26,7 +27,14 @@ export default async function ColoringGalleryPage() {
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {packs.map((pack) => (
-            <ColoringCard key={pack.id} {...pack} />
+            <ColoringCard
+              key={pack.id}
+              id={pack.id}
+              title={pickText(locale, pack.title, pack.titleEn)}
+              coverImage={pack.coverImage}
+              category={pack.category}
+              priceCents={pack.priceCents}
+            />
           ))}
         </div>
       )}

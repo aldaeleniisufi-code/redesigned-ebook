@@ -8,7 +8,7 @@ import {
 import { getStripeClient } from "@/lib/stripe";
 import Paywall from "@/components/Paywall";
 import ColoringViewer from "@/components/ColoringViewer";
-import { getDict } from "@/lib/i18n";
+import { getDict, getLocale, pickText } from "@/lib/i18n";
 import { createColoringCheckoutAction } from "./actions";
 
 export default async function ColoringPackPage({
@@ -25,6 +25,7 @@ export default async function ColoringPackPage({
   const { id } = await params;
   const { session_id } = await searchParams;
   const d = await getDict();
+  const locale = await getLocale();
 
   const pack = await prisma.coloringPack.findUnique({
     where: { id },
@@ -33,7 +34,8 @@ export default async function ColoringPackPage({
 
   if (!pack || !pack.published) notFound();
 
-  const displayTitle = pack.title.trim() || d.coloring.untitled;
+  const displayTitle = pickText(locale, pack.title, pack.titleEn).trim() || d.coloring.untitled;
+  const displayDescription = pickText(locale, pack.description, pack.descriptionEn);
 
   let purchased = await hasColoringPurchase(session.user.id, pack.id);
 
@@ -57,7 +59,7 @@ export default async function ColoringPackPage({
         idField="packId"
         idValue={pack.id}
         title={displayTitle}
-        description={pack.description}
+        description={displayDescription}
         coverImage={pack.coverImage}
         priceCents={pack.priceCents}
         note={d.coloring.note}

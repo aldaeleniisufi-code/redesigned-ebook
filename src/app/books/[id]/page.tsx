@@ -6,7 +6,7 @@ import { hasPurchased, recordPurchase } from "@/lib/purchases";
 import { getStripeClient } from "@/lib/stripe";
 import BookReader from "@/components/BookReader";
 import Paywall from "@/components/Paywall";
-import { getDict } from "@/lib/i18n";
+import { getDict, getLocale, pickText } from "@/lib/i18n";
 import { createCheckoutAction } from "./actions";
 
 export default async function BookPage({
@@ -25,6 +25,7 @@ export default async function BookPage({
   const { id } = await params;
   const { session_id } = await searchParams;
   const d = await getDict();
+  const locale = await getLocale();
 
   const book = await prisma.book.findUnique({
     where: { id },
@@ -32,6 +33,9 @@ export default async function BookPage({
   });
 
   if (!book || !book.published) notFound();
+
+  const displayTitle = pickText(locale, book.title, book.titleEn);
+  const displayDescription = pickText(locale, book.description, book.descriptionEn);
 
   let purchased = await hasPurchased(session.user.id, book.id);
 
@@ -54,8 +58,8 @@ export default async function BookPage({
         action={createCheckoutAction}
         idField="bookId"
         idValue={book.id}
-        title={book.title}
-        description={book.description}
+        title={displayTitle}
+        description={displayDescription}
         coverImage={book.coverImage}
         priceCents={book.priceCents}
         note={d.paywall.note}
@@ -71,8 +75,13 @@ export default async function BookPage({
   return (
     <BookReader
       bookId={book.id}
-      title={book.title}
-      pages={book.pages}
+      title={displayTitle}
+      pages={book.pages.map((p) => ({
+        id: p.id,
+        order: p.order,
+        imageUrl: p.imageUrl,
+        text: pickText(locale, p.text, p.textEn),
+      }))}
       initialPage={progress?.completed ? 0 : (progress?.lastPage ?? 0)}
       labels={{
         page: d.reader.page,
