@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { createBookAction } from "../../actions";
 import { getDict } from "@/lib/i18n";
+import ImageInput from "@/components/ImageInput";
 
 export default async function NewBookPage({
   searchParams,
@@ -52,7 +53,7 @@ export default async function NewBookPage({
           <input type="number" name="price" step="0.01" min="0" defaultValue="2.99" className="input" />
         </Field>
         <Field label={d.admin.fieldCover}>
-          <input type="file" name="cover" accept="image/*" required className="input" />
+          <ImageInput name="cover" required className="input" />
         </Field>
         <button
           type="submit"

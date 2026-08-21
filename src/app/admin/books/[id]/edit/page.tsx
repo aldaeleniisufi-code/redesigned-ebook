@@ -9,6 +9,7 @@ import {
   deletePageAction,
 } from "../../../actions";
 import { getDict } from "@/lib/i18n";
+import ImageInput from "@/components/ImageInput";
 
 export default async function EditBookPage({
   params,
@@ -93,7 +94,7 @@ export default async function EditBookPage({
               <Image src={book.coverImage} alt={book.title} fill className="object-cover" unoptimized />
             </div>
             <Field label={d.admin.fieldCoverNew}>
-              <input type="file" name="cover" accept="image/*" className="input" />
+              <ImageInput name="cover" className="input" />
             </Field>
           </div>
           <button
@@ -138,7 +139,7 @@ export default async function EditBookPage({
                     rows={2}
                     className="input"
                   />
-                  <input type="file" name="image" accept="image/*" className="input" />
+                  <ImageInput name="image" className="input" />
                 </div>
                 <button
                   type="submit"
@@ -178,7 +179,7 @@ export default async function EditBookPage({
             <textarea name="text" rows={2} className="input" />
           </Field>
           <Field label={d.admin.pageImage}>
-            <input type="file" name="image" accept="image/*" required className="input" />
+            <ImageInput name="image" required className="input" />
           </Field>
           <button
             type="submit"
