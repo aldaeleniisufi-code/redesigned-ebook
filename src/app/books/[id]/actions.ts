@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { getActiveChildId } from "@/lib/session";
+import { getOrCreateProfileId } from "@/lib/profile";
 import { prisma } from "@/lib/prisma";
 import { getStripeClient, getAppUrl } from "@/lib/stripe";
 
@@ -11,8 +11,9 @@ export async function saveProgressAction(
   lastPage: number,
   completed: boolean
 ) {
-  const childProfileId = await getActiveChildId();
-  if (!childProfileId) return;
+  const session = await auth();
+  if (!session?.user?.id) return;
+  const childProfileId = await getOrCreateProfileId(session.user.id);
 
   await prisma.readingProgress.upsert({
     where: { childProfileId_bookId: { childProfileId, bookId } },

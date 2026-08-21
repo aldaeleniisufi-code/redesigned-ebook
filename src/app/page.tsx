@@ -7,12 +7,15 @@ export default async function HomePage() {
   const d = await getDict();
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 px-4 py-16 text-center">
-      <div className="text-7xl">🦁📖🚀</div>
+    <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center gap-8 px-4 py-16 text-center">
+      <div className="flex h-24 w-24 items-center justify-center rounded-full bg-brand-purple/10 text-5xl">
+        📚
+      </div>
+
       <h1 className="text-4xl font-bold text-brand-purple sm:text-5xl">
         {d.home.heading}
       </h1>
-      <p className="max-w-2xl text-lg text-foreground/80">{d.home.subtitle}</p>
+      <p className="max-w-xl text-lg text-foreground/70">{d.home.subtitle}</p>
 
       <div className="flex flex-wrap justify-center gap-4">
         {session ? (
@@ -40,29 +43,14 @@ export default async function HomePage() {
         )}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <FeatureCard emoji="🎨" title={d.home.feature1Title} text={d.home.feature1Text} />
-        <FeatureCard emoji="👨‍👩‍👧" title={d.home.feature2Title} text={d.home.feature2Text} />
-        <FeatureCard emoji="✨" title={d.home.feature3Title} text={d.home.feature3Text} />
+      <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold text-foreground/60">
+        <span className="rounded-full bg-white px-4 py-2 shadow-sm">
+          📖 {d.nav.library}
+        </span>
+        <span className="rounded-full bg-white px-4 py-2 shadow-sm">
+          🎨 {d.nav.coloring}
+        </span>
       </div>
-    </div>
-  );
-}
-
-function FeatureCard({
-  emoji,
-  title,
-  text,
-}: {
-  emoji: string;
-  title: string;
-  text: string;
-}) {
-  return (
-    <div className="flex flex-col items-center gap-2 rounded-3xl bg-white p-6 shadow-md">
-      <span className="text-4xl">{emoji}</span>
-      <h3 className="text-lg font-bold text-brand-purple">{title}</h3>
-      <p className="text-sm text-foreground/70">{text}</p>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getActiveChildId } from "@/lib/session";
 import {
   hasColoringPurchase,
   recordColoringPurchase,
@@ -22,9 +21,6 @@ export default async function ColoringPackPage({
   const session = await auth();
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin/coloring");
-
-  const activeChildId = await getActiveChildId();
-  if (!activeChildId) redirect("/profiles");
 
   const { id } = await params;
   const { session_id } = await searchParams;

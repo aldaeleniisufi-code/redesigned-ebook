@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getActiveChildId } from "@/lib/session";
+import { getOrCreateProfileId } from "@/lib/profile";
 import { hasPurchased, recordPurchase } from "@/lib/purchases";
 import { getStripeClient } from "@/lib/stripe";
 import BookReader from "@/components/BookReader";
@@ -20,8 +20,7 @@ export default async function BookPage({
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
 
-  const activeChildId = await getActiveChildId();
-  if (!activeChildId) redirect("/profiles");
+  const profileId = await getOrCreateProfileId(session.user.id);
 
   const { id } = await params;
   const { session_id } = await searchParams;
@@ -66,7 +65,7 @@ export default async function BookPage({
   }
 
   const progress = await prisma.readingProgress.findUnique({
-    where: { childProfileId_bookId: { childProfileId: activeChildId, bookId: book.id } },
+    where: { childProfileId_bookId: { childProfileId: profileId, bookId: book.id } },
   });
 
   return (

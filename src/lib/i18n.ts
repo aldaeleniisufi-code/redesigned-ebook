@@ -69,6 +69,15 @@ const dictionaries = {
       createProfile: "Δημιουργία προφίλ",
     },
 
+    profile: {
+      title: "Το προφίλ μου 👤",
+      history: "Ιστορικό αγορών",
+      books: "Βιβλία",
+      coloring: "Ζωγραφιές",
+      empty: "Δεν έχεις αγοράσει τίποτα ακόμα.",
+      open: "Άνοιξε",
+    },
+
     library: {
       title: "Η Βιβλιοθήκη μας 📚",
       all: "Όλα",
@@ -180,7 +189,7 @@ const dictionaries = {
       library: "Library",
       coloring: "Coloring",
       parent: "Parent portal",
-      profiles: "Profiles",
+      profiles: "Profile",
       admin: "Admin",
       adminColoring: "Coloring",
       logout: "Log out",
@@ -229,6 +238,15 @@ const dictionaries = {
       newProfile: "➕ New child profile",
       childName: "Child's name",
       createProfile: "Create profile",
+    },
+
+    profile: {
+      title: "My profile 👤",
+      history: "Purchase history",
+      books: "Books",
+      coloring: "Coloring",
+      empty: "You haven't bought anything yet.",
+      open: "Open",
     },
 
     library: {

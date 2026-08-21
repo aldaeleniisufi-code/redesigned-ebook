@@ -49,13 +49,7 @@ export default async function Navbar() {
                 {d.nav.coloring}
               </Link>
               <Link
-                href="/parent"
-                className="rounded-full px-4 py-2 font-semibold transition hover:bg-white/20"
-              >
-                {d.nav.parent}
-              </Link>
-              <Link
-                href="/profiles"
+                href="/profile"
                 className="rounded-full px-4 py-2 font-semibold transition hover:bg-white/20"
               >
                 {d.nav.profiles}

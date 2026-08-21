@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getActiveChildId } from "@/lib/session";
 import ColoringCard from "@/components/ColoringCard";
 import { getDict } from "@/lib/i18n";
 
@@ -10,9 +9,6 @@ export default async function ColoringGalleryPage() {
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin/coloring");
   const d = await getDict();
-
-  const activeChildId = await getActiveChildId();
-  if (!activeChildId) redirect("/profiles");
 
   const packs = await prisma.coloringPack.findMany({
     where: { published: true },

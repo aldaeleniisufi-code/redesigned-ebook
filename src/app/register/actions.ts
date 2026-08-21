@@ -41,7 +41,7 @@ export async function registerAction(
   });
 
   try {
-    await signIn("credentials", { email, password, redirectTo: "/profiles" });
+    await signIn("credentials", { email, password, redirectTo: "/library" });
   } catch (error) {
     if (error instanceof AuthError) {
       redirect("/login");

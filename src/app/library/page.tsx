@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getActiveChildId } from "@/lib/session";
 import BookCard from "@/components/BookCard";
 import { getDict } from "@/lib/i18n";
 
@@ -14,9 +13,6 @@ export default async function LibraryPage({
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
   const d = await getDict();
-
-  const activeChildId = await getActiveChildId();
-  if (!activeChildId) redirect("/profiles");
 
   const { category } = await searchParams;
 

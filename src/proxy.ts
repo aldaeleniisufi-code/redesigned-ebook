@@ -9,14 +9,11 @@ export default auth((req) => {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (
-    (pathname.startsWith("/parent") || pathname.startsWith("/profiles")) &&
-    !req.auth
-  ) {
+  if (pathname.startsWith("/profile") && !req.auth) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 });
 
 export const config = {
-  matcher: ["/admin/:path*", "/parent/:path*", "/profiles/:path*"],
+  matcher: ["/admin/:path*", "/profile/:path*"],
 };
