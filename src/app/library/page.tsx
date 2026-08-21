@@ -4,31 +4,16 @@ import { prisma } from "@/lib/prisma";
 import BookCard from "@/components/BookCard";
 import { getDict, getLocale, pickText } from "@/lib/i18n";
 
-export default async function LibraryPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>;
-}) {
+export default async function LibraryPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
   if (session.user.role === "ADMIN") redirect("/admin");
   const d = await getDict();
   const locale = await getLocale();
 
-  const { category } = await searchParams;
-
   const books = await prisma.book.findMany({
-    where: {
-      published: true,
-      ...(category ? { category } : {}),
-    },
-    orderBy: { createdAt: "desc" },
-  });
-
-  const categories = await prisma.book.findMany({
     where: { published: true },
-    select: { category: true, categoryEn: true },
-    distinct: ["category"],
+    orderBy: { createdAt: "desc" },
   });
 
   return (
@@ -36,30 +21,6 @@ export default async function LibraryPage({
       <h1 className="mb-8 text-center text-3xl font-bold text-brand-purple">
         {d.library.title}
       </h1>
-
-      <form method="get" className="mb-8 flex flex-wrap justify-center gap-2">
-        <a
-          href="/library"
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-            !category ? "bg-brand-purple text-white" : "bg-white text-brand-purple"
-          }`}
-        >
-          {d.library.all}
-        </a>
-        {categories.map((c) => (
-          <a
-            key={c.category}
-            href={`/library?category=${encodeURIComponent(c.category)}`}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-              category === c.category
-                ? "bg-brand-purple text-white"
-                : "bg-white text-brand-purple"
-            }`}
-          >
-            {pickText(locale, c.category, c.categoryEn)}
-          </a>
-        ))}
-      </form>
 
       {books.length === 0 ? (
         <p className="text-center text-foreground/60">{d.library.empty}</p>
