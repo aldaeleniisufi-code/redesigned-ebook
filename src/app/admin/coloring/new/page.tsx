@@ -43,7 +43,7 @@ export default async function NewPackPage({
         <Field label={d.admin.fieldPrice}>
           <input type="number" name="price" step="0.01" min="0" defaultValue="1.99" className="input" />
         </Field>
-        <Field label={d.admin.fieldCover}>
+        <Field label={d.adminColoring.sheetImage}>
           <ImageInput name="cover" required className="input" />
         </Field>
         <button
