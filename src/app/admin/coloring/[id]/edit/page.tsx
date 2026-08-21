@@ -72,6 +72,9 @@ export default async function EditPackPage({
           <Field label={d.admin.fieldCategory}>
             <input name="category" defaultValue={pack.category} className="input" />
           </Field>
+          <Field label={d.admin.categoryEn}>
+            <input name="categoryEn" defaultValue={pack.categoryEn ?? ""} className="input" />
+          </Field>
           <Field label={d.admin.fieldPrice}>
             <input
               type="number"

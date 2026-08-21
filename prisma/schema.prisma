@@ -52,6 +52,7 @@ model Book {
   ageMin      Int               @default(3)
   ageMax      Int               @default(8)
   category    String            @default("Παραμύθι")
+  categoryEn  String?
   priceCents  Int               @default(299)
   published   Boolean           @default(false)
   createdAt   DateTime          @default(now())
@@ -103,6 +104,7 @@ model ColoringPack {
   descriptionEn String?
   coverImage    String
   category    String             @default("Ζωγραφιές")
+  categoryEn  String?
   priceCents  Int                @default(299)
   published   Boolean            @default(false)
   createdAt   DateTime           @default(now())

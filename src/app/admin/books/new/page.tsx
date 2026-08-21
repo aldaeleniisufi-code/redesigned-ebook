@@ -50,6 +50,9 @@ export default async function NewBookPage({
         <Field label={d.admin.fieldCategory}>
           <input name="category" defaultValue="Παραμύθι" className="input" />
         </Field>
+        <Field label={d.admin.categoryEn}>
+          <input name="categoryEn" className="input" />
+        </Field>
         <div className="flex gap-4">
           <Field label={d.admin.fieldAgeMin}>
             <input type="number" name="ageMin" defaultValue={3} className="input" />

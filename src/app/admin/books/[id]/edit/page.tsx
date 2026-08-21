@@ -103,6 +103,9 @@ export default async function EditBookPage({
           <Field label={d.admin.fieldCategory}>
             <input name="category" defaultValue={book.category} className="input" />
           </Field>
+          <Field label={d.admin.categoryEn}>
+            <input name="categoryEn" defaultValue={book.categoryEn ?? ""} className="input" />
+          </Field>
           <div className="flex gap-4">
             <Field label={d.admin.fieldAgeMin}>
               <input

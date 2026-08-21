@@ -46,6 +46,7 @@ export async function createPackAction(formData: FormData) {
       description,
       descriptionEn: optText(formData, "descriptionEn"),
       category,
+      categoryEn: optText(formData, "categoryEn"),
       priceCents,
       coverImage: imageUrl,
       pages: { create: { order: 1, imageUrl } },
@@ -72,6 +73,7 @@ export async function updatePackAction(formData: FormData) {
     description,
     descriptionEn: optText(formData, "descriptionEn"),
     category,
+    categoryEn: optText(formData, "categoryEn"),
     priceCents,
   };
   if (cover instanceof File && cover.size > 0) {

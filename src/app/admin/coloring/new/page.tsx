@@ -46,6 +46,9 @@ export default async function NewPackPage({
         <Field label={d.admin.fieldCategory}>
           <input name="category" defaultValue="Ζωγραφιές" className="input" />
         </Field>
+        <Field label={d.admin.categoryEn}>
+          <input name="categoryEn" className="input" />
+        </Field>
         <Field label={d.admin.fieldPrice}>
           <input type="number" name="price" step="0.01" min="0" defaultValue="1.99" className="input" />
         </Field>

@@ -27,7 +27,7 @@ export default async function LibraryPage({
 
   const categories = await prisma.book.findMany({
     where: { published: true },
-    select: { category: true },
+    select: { category: true, categoryEn: true },
     distinct: ["category"],
   });
 
@@ -56,7 +56,7 @@ export default async function LibraryPage({
                 : "bg-white text-brand-purple"
             }`}
           >
-            {c.category}
+            {pickText(locale, c.category, c.categoryEn)}
           </a>
         ))}
       </form>
@@ -73,7 +73,7 @@ export default async function LibraryPage({
               coverImage={book.coverImage}
               ageMin={book.ageMin}
               ageMax={book.ageMax}
-              category={book.category}
+              category={pickText(locale, book.category, book.categoryEn)}
               priceCents={book.priceCents}
               agesLabel={d.library.ages}
             />

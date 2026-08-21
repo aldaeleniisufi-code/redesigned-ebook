@@ -32,7 +32,7 @@ export default async function ColoringGalleryPage() {
               id={pack.id}
               title={pickText(locale, pack.title, pack.titleEn)}
               coverImage={pack.coverImage}
-              category={pack.category}
+              category={pickText(locale, pack.category, pack.categoryEn)}
               priceCents={pack.priceCents}
             />
           ))}
