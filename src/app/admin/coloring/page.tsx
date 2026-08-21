@@ -43,7 +43,9 @@ export default async function AdminColoringPage() {
             className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-md"
           >
             <div>
-              <h2 className="text-lg font-bold text-foreground">{pack.title}</h2>
+              <h2 className="text-lg font-bold text-foreground">
+                {pack.title.trim() || d.coloring.untitled}
+              </h2>
               <p className="text-sm text-foreground/60">
                 {pack._count.pages} {d.admin.pages} · {formatPrice(pack.priceCents)} ·{" "}
                 {pack.published ? (

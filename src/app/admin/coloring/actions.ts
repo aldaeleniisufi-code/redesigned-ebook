@@ -28,7 +28,7 @@ export async function createPackAction(formData: FormData) {
   const priceCents = parsePriceCents(formData);
   const cover = formData.get("cover");
 
-  if (!title || !(cover instanceof File) || cover.size === 0) {
+  if (!(cover instanceof File) || cover.size === 0) {
     redirect("/admin/coloring/new?error=1");
   }
 

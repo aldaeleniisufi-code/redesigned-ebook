@@ -37,6 +37,8 @@ export default async function ColoringPackPage({
 
   if (!pack || !pack.published) notFound();
 
+  const displayTitle = pack.title.trim() || d.coloring.untitled;
+
   let purchased = await hasColoringPurchase(session.user.id, pack.id);
 
   if (!purchased && session_id) {
@@ -58,7 +60,7 @@ export default async function ColoringPackPage({
         action={createColoringCheckoutAction}
         idField="packId"
         idValue={pack.id}
-        title={pack.title}
+        title={displayTitle}
         description={pack.description}
         coverImage={pack.coverImage}
         priceCents={pack.priceCents}
@@ -70,7 +72,7 @@ export default async function ColoringPackPage({
 
   return (
     <ColoringViewer
-      title={pack.title}
+      title={displayTitle}
       pages={pack.pages.map((p) => ({ id: p.id, order: p.order, imageUrl: p.imageUrl }))}
       labels={{
         sheet: d.coloring.sheet,

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getStripeClient, getAppUrl } from "@/lib/stripe";
+import { getDict } from "@/lib/i18n";
 
 export async function createColoringCheckoutAction(formData: FormData) {
   const session = await auth();
@@ -15,6 +16,8 @@ export async function createColoringCheckoutAction(formData: FormData) {
 
   const stripe = getStripeClient();
   const appUrl = getAppUrl();
+  const d = await getDict();
+  const productName = pack.title.trim() || d.coloring.untitled;
 
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",
@@ -23,8 +26,8 @@ export async function createColoringCheckoutAction(formData: FormData) {
         price_data: {
           currency: "eur",
           product_data: {
-            name: pack.title,
-            description: pack.description,
+            name: productName,
+            ...(pack.description.trim() ? { description: pack.description } : {}),
           },
           unit_amount: pack.priceCents,
         },

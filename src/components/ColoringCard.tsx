@@ -33,7 +33,9 @@ export default function ColoringCard({
         <span className="w-fit rounded-full bg-brand-teal/20 px-3 py-1 text-xs font-bold text-brand-teal">
           {category}
         </span>
-        <h3 className="text-lg font-bold text-foreground">{title}</h3>
+        {title.trim() && (
+          <h3 className="text-lg font-bold text-foreground">{title}</h3>
+        )}
         <div className="mt-auto flex items-center justify-end">
           <span className="rounded-full bg-brand-orange/10 px-3 py-1 text-sm font-bold text-brand-orange">
             {formatPrice(priceCents)}

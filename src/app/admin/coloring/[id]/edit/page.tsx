@@ -58,7 +58,7 @@ export default async function EditPackPage({
         <form action={updatePackAction} className="flex flex-col gap-4">
           <input type="hidden" name="id" value={pack.id} />
           <Field label={d.admin.fieldTitle}>
-            <input name="title" defaultValue={pack.title} required className="input" />
+            <input name="title" defaultValue={pack.title} className="input" />
           </Field>
           <Field label={d.admin.fieldDescription}>
             <textarea name="description" defaultValue={pack.description} rows={3} className="input" />

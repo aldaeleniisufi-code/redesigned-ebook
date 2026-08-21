@@ -32,7 +32,7 @@ export default async function NewPackPage({
         className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-md"
       >
         <Field label={d.admin.fieldTitle}>
-          <input name="title" required className="input" />
+          <input name="title" className="input" />
         </Field>
         <Field label={d.admin.fieldDescription}>
           <textarea name="description" rows={3} className="input" />

@@ -140,6 +140,7 @@ const dictionaries = {
 
     coloring: {
       galleryTitle: "Ζωγραφιές 🎨",
+      untitled: "Ζωγραφιά",
       empty: "Δεν υπάρχουν ζωγραφιές ακόμα. Έλα ξανά σύντομα! 🌈",
       note:
         "Αγόρασε αυτή τη ζωγραφιά — η αγορά ισχύει για όλα τα παιδικά προφίλ του λογαριασμού σου.",
@@ -301,6 +302,7 @@ const dictionaries = {
 
     coloring: {
       galleryTitle: "Coloring 🎨",
+      untitled: "Coloring page",
       empty: "No coloring sheets yet. Come back soon! 🌈",
       note:
         "Buy this coloring page — the purchase works for all the child profiles on your account.",
