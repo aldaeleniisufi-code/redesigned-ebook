@@ -11,9 +11,24 @@ const fredoka = Fredoka({
 
 export async function generateMetadata(): Promise<Metadata> {
   const d = await getDict();
+  const locale = await getLocale();
   return {
+    metadataBase: new URL("https://kidleido.com"),
     title: d.metaTitle,
     description: d.metaDescription,
+    openGraph: {
+      title: d.metaTitle,
+      description: d.metaDescription,
+      url: "https://kidleido.com",
+      siteName: "Kidleido",
+      type: "website",
+      locale: locale === "en" ? "en_US" : "el_GR",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: d.metaTitle,
+      description: d.metaDescription,
+    },
   };
 }
 
