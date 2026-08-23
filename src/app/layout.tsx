@@ -16,6 +16,9 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL("https://kidleido.com"),
     title: d.metaTitle,
     description: d.metaDescription,
+    verification: {
+      google: "UcepqbI8nNqZgtBQ7ka2vf-BstULFKDl2xtX_NYa30o",
+    },
     openGraph: {
       title: d.metaTitle,
       description: d.metaDescription,
