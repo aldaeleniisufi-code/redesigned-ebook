@@ -127,6 +127,7 @@ model ColoringPurchase {
   packId          String
   pack            ColoringPack @relation(fields: [packId], references: [id], onDelete: Cascade)
   stripeSessionId String
+  downloads       Int          @default(0)
   createdAt       DateTime     @default(now())
 
   @@unique([userId, packId])

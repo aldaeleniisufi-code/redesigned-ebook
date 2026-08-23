@@ -69,10 +69,20 @@ export default async function ColoringPackPage({
     );
   }
 
+  const purchase = isFree
+    ? null
+    : await prisma.coloringPurchase.findUnique({
+        where: { userId_packId: { userId: session.user.id, packId: pack.id } },
+      });
+
   return (
     <ColoringViewer
       title={displayTitle}
       pages={pack.pages.map((p) => ({ id: p.id, order: p.order, imageUrl: p.imageUrl }))}
+      packId={pack.id}
+      isFree={isFree}
+      downloadsUsed={purchase?.downloads ?? 0}
+      downloadLimit={5}
       labels={{
         sheet: d.coloring.sheet,
         download: d.coloring.download,
@@ -83,6 +93,8 @@ export default async function ColoringPackPage({
         eraser: d.coloring.eraser,
         clear: d.coloring.clear,
         downloadDrawing: d.coloring.downloadDrawing,
+        downloadsRemaining: d.coloring.downloadsRemaining,
+        limitReached: d.coloring.limitReached,
       }}
     />
   );
