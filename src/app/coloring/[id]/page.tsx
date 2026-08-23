@@ -40,7 +40,8 @@ export default async function ColoringPackPage({
   const isFree = pack.priceCents === 0;
   let purchased = isFree || (await hasColoringPurchase(session.user.id, pack.id));
 
-  if (!purchased && session_id) {
+  // Runs on both the first purchase and a repeat purchase (to refill downloads).
+  if (!isFree && session_id) {
     const stripe = getStripeClient();
     const checkoutSession = await stripe.checkout.sessions.retrieve(session_id);
     if (
@@ -83,6 +84,8 @@ export default async function ColoringPackPage({
       isFree={isFree}
       downloadsUsed={purchase?.downloads ?? 0}
       downloadLimit={5}
+      priceCents={pack.priceCents}
+      buyAgainAction={createColoringCheckoutAction}
       labels={{
         sheet: d.coloring.sheet,
         download: d.coloring.download,
@@ -95,6 +98,7 @@ export default async function ColoringPackPage({
         downloadDrawing: d.coloring.downloadDrawing,
         downloadsRemaining: d.coloring.downloadsRemaining,
         limitReached: d.coloring.limitReached,
+        buyAgain: d.coloring.buyAgain,
       }}
     />
   );

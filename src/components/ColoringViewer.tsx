@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import ColoringCanvas from "@/components/ColoringCanvas";
+import { formatPrice } from "@/lib/format";
 
 type Sheet = { id: string; order: number; imageUrl: string };
 
@@ -18,6 +19,7 @@ export type ColoringLabels = {
   downloadDrawing: string;
   downloadsRemaining: string;
   limitReached: string;
+  buyAgain: string;
 };
 
 function blobProxyUrl(url: string) {
@@ -64,6 +66,8 @@ export default function ColoringViewer({
   isFree,
   downloadsUsed,
   downloadLimit,
+  priceCents,
+  buyAgainAction,
 }: {
   title: string;
   pages: Sheet[];
@@ -72,6 +76,8 @@ export default function ColoringViewer({
   isFree: boolean;
   downloadsUsed: number;
   downloadLimit: number;
+  priceCents: number;
+  buyAgainAction: (formData: FormData) => void | Promise<void>;
 }) {
   const [active, setActive] = useState<Sheet | null>(null);
   const [remaining, setRemaining] = useState(
@@ -119,15 +125,26 @@ export default function ColoringViewer({
       </h1>
 
       {limited && (
-        <p className="mb-8 text-center text-sm font-semibold">
+        <div className="mb-8 flex flex-col items-center gap-3 text-center text-sm font-semibold">
           {limitReached ? (
-            <span className="text-brand-orange">{labels.limitReached}</span>
+            <>
+              <span className="text-brand-orange">{labels.limitReached}</span>
+              <form action={buyAgainAction}>
+                <input type="hidden" name="packId" value={packId} />
+                <button
+                  type="submit"
+                  className="rounded-full bg-brand-orange px-6 py-2.5 font-bold text-white shadow transition hover:brightness-110"
+                >
+                  {labels.buyAgain} · {formatPrice(priceCents)}
+                </button>
+              </form>
+            </>
           ) : (
             <span className="text-foreground/60">
               {labels.downloadsRemaining.replace("{n}", String(remaining))}
             </span>
           )}
-        </p>
+        </div>
       )}
 
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">

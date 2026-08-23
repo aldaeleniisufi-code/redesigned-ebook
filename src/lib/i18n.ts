@@ -173,7 +173,8 @@ const dictionaries = {
       clear: "Καθάρισμα",
       downloadDrawing: "⬇ Κατέβασε τη ζωγραφιά μου",
       downloadsRemaining: "Απομένουν {n} κατεβάσματα",
-      limitReached: "Έφτασες το όριο κατεβασμάτων (μπορείς πάντα να το βλέπεις και να το εκτυπώνεις online)",
+      limitReached: "Έφτασες το όριο των 5 κατεβασμάτων. Μπορείς πάντα να το βλέπεις και να το εκτυπώνεις online — ή αγόρασέ το ξανά για 5 νέα κατεβάσματα.",
+      buyAgain: "Αγόρασε ξανά για 5 κατεβάσματα",
     },
 
     adminColoring: {
@@ -357,7 +358,8 @@ const dictionaries = {
       clear: "Clear",
       downloadDrawing: "⬇ Download my drawing",
       downloadsRemaining: "{n} downloads left",
-      limitReached: "You've reached the download limit (you can always view and print it online)",
+      limitReached: "You've reached the 5-download limit. You can always view and print it online — or buy it again for 5 more downloads.",
+      buyAgain: "Buy again for 5 downloads",
     },
 
     adminColoring: {

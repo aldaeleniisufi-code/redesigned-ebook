@@ -17,9 +17,20 @@ export async function recordColoringPurchase(
   packId: string,
   stripeSessionId: string
 ) {
+  const existing = await prisma.coloringPurchase.findUnique({
+    where: { userId_packId: { userId, packId } },
+  });
+
+  // Idempotency: the webhook and the success page may both call this with the
+  // same session id — only the first should take effect. A *different* session
+  // id means a fresh payment, so reset the download counter (5 more downloads).
+  if (existing && existing.stripeSessionId === stripeSessionId) {
+    return;
+  }
+
   await prisma.coloringPurchase.upsert({
     where: { userId_packId: { userId, packId } },
-    update: {},
+    update: { stripeSessionId, downloads: 0 },
     create: { userId, packId, stripeSessionId },
   });
 
