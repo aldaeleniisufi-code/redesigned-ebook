@@ -18,30 +18,53 @@ export type ColoringLabels = {
   downloadDrawing: string;
 };
 
-async function downloadImage(url: string, filename: string) {
-  try {
-    const res = await fetch(url, { mode: "cors" });
-    const blob = await res.blob();
-    const objectUrl = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = objectUrl;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(objectUrl);
-  } catch {
-    window.open(url, "_blank");
-  }
+function blobProxyUrl(url: string, opts?: { download?: boolean; name?: string }) {
+  const params = new URLSearchParams({ u: url });
+  if (opts?.download) params.set("download", "1");
+  if (opts?.name) params.set("name", opts.name);
+  return `/api/blob?${params.toString()}`;
 }
 
+// Downloads via a same-origin route that sets Content-Disposition: attachment,
+// so the browser saves the file directly (no pop-up, no cross-origin issues).
+function downloadImage(url: string, filename: string) {
+  const a = document.createElement("a");
+  a.href = blobProxyUrl(url, { download: true, name: filename });
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+// Prints via a hidden iframe instead of window.open, which pop-up blockers stop.
 function printImage(url: string) {
-  const w = window.open("", "_blank");
-  if (!w) return;
-  w.document.write(
-    `<html><head><title>Print</title><style>body{margin:0}img{width:100%;height:auto}</style></head><body><img src="${url}" onload="window.focus();window.print();" /></body></html>`
-  );
-  w.document.close();
+  const iframe = document.createElement("iframe");
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  iframe.srcdoc = `<!doctype html><html><head><style>@page{margin:1cm}html,body{margin:0}img{width:100%;height:auto}</style></head><body><img src="${blobProxyUrl(
+    url
+  )}" /></body></html>`;
+  iframe.onload = () => {
+    const win = iframe.contentWindow;
+    if (!win) return;
+    const img = iframe.contentDocument?.querySelector("img");
+    const doPrint = () => {
+      win.focus();
+      win.print();
+      setTimeout(() => iframe.remove(), 1000);
+    };
+    if (img && !img.complete) {
+      img.addEventListener("load", doPrint, { once: true });
+      img.addEventListener("error", doPrint, { once: true });
+    } else {
+      doPrint();
+    }
+  };
+  document.body.appendChild(iframe);
 }
 
 export default function ColoringViewer({
