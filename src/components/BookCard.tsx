@@ -11,6 +11,7 @@ export default function BookCard({
   category,
   priceCents,
   agesLabel,
+  freeLabel,
 }: {
   id: string;
   title: string;
@@ -20,6 +21,7 @@ export default function BookCard({
   category: string;
   priceCents: number;
   agesLabel: string;
+  freeLabel: string;
 }) {
   return (
     <Link
@@ -44,9 +46,15 @@ export default function BookCard({
           <p className="text-sm text-foreground/60">
             {agesLabel} {ageMin}-{ageMax}
           </p>
-          <span className="rounded-full bg-brand-orange/10 px-3 py-1 text-sm font-bold text-brand-orange">
-            {formatPrice(priceCents)}
-          </span>
+          {priceCents === 0 ? (
+            <span className="rounded-full bg-brand-teal/20 px-3 py-1 text-sm font-bold text-brand-teal">
+              {freeLabel}
+            </span>
+          ) : (
+            <span className="rounded-full bg-brand-orange/10 px-3 py-1 text-sm font-bold text-brand-orange">
+              {formatPrice(priceCents)}
+            </span>
+          )}
         </div>
       </div>
     </Link>

@@ -13,6 +13,7 @@ export async function createColoringCheckoutAction(formData: FormData) {
   const packId = String(formData.get("packId") ?? "");
   const pack = await prisma.coloringPack.findUnique({ where: { id: packId } });
   if (!pack || !pack.published) redirect("/coloring");
+  if (pack.priceCents === 0) redirect(`/coloring/${pack.id}`);
 
   const stripe = getStripeClient();
   const appUrl = getAppUrl();

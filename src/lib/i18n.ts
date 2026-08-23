@@ -84,6 +84,7 @@ const dictionaries = {
       all: "Όλα",
       empty: "Δεν βρέθηκαν βιβλία ακόμα. Έλα ξανά σύντομα! 🌟",
       ages: "Ηλικίες",
+      free: "Δωρεάν",
     },
 
     paywall: {
@@ -157,6 +158,7 @@ const dictionaries = {
     coloring: {
       galleryTitle: "Ζωγραφιές 🎨",
       untitled: "Ζωγραφιά",
+      free: "Δωρεάν",
       empty: "Δεν υπάρχουν ζωγραφιές ακόμα. Έλα ξανά σύντομα! 🌈",
       note:
         "Αγόρασε αυτή τη ζωγραφιά — η αγορά ισχύει για όλα τα παιδικά προφίλ του λογαριασμού σου.",
@@ -264,6 +266,7 @@ const dictionaries = {
       all: "All",
       empty: "No books yet. Come back soon! 🌟",
       ages: "Ages",
+      free: "Free",
     },
 
     paywall: {
@@ -337,6 +340,7 @@ const dictionaries = {
     coloring: {
       galleryTitle: "Coloring 🎨",
       untitled: "Coloring page",
+      free: "Free",
       empty: "No coloring sheets yet. Come back soon! 🌈",
       note:
         "Buy this coloring page — the purchase works for all the child profiles on your account.",

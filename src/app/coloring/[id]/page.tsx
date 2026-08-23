@@ -37,7 +37,8 @@ export default async function ColoringPackPage({
   const displayTitle = pickText(locale, pack.title, pack.titleEn).trim() || d.coloring.untitled;
   const displayDescription = pickText(locale, pack.description, pack.descriptionEn);
 
-  let purchased = await hasColoringPurchase(session.user.id, pack.id);
+  const isFree = pack.priceCents === 0;
+  let purchased = isFree || (await hasColoringPurchase(session.user.id, pack.id));
 
   if (!purchased && session_id) {
     const stripe = getStripeClient();

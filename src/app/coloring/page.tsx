@@ -34,6 +34,7 @@ export default async function ColoringGalleryPage() {
               coverImage={pack.coverImage}
               category={pickText(locale, pack.category, pack.categoryEn)}
               priceCents={pack.priceCents}
+              freeLabel={d.coloring.free}
             />
           ))}
         </div>

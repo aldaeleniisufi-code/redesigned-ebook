@@ -29,6 +29,7 @@ export async function createCheckoutAction(formData: FormData) {
   const bookId = String(formData.get("bookId") ?? "");
   const book = await prisma.book.findUnique({ where: { id: bookId } });
   if (!book || !book.published) redirect("/library");
+  if (book.priceCents === 0) redirect(`/books/${book.id}`);
 
   const stripe = getStripeClient();
   const appUrl = getAppUrl();

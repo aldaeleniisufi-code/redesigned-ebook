@@ -37,7 +37,8 @@ export default async function BookPage({
   const displayTitle = pickText(locale, book.title, book.titleEn);
   const displayDescription = pickText(locale, book.description, book.descriptionEn);
 
-  let purchased = await hasPurchased(session.user.id, book.id);
+  const isFree = book.priceCents === 0;
+  let purchased = isFree || (await hasPurchased(session.user.id, book.id));
 
   if (!purchased && session_id) {
     const stripe = getStripeClient();

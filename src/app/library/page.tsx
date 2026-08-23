@@ -37,6 +37,7 @@ export default async function LibraryPage() {
               category={pickText(locale, book.category, book.categoryEn)}
               priceCents={book.priceCents}
               agesLabel={d.library.ages}
+              freeLabel={d.library.free}
             />
           ))}
         </div>
