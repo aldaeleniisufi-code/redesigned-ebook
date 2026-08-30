@@ -28,6 +28,8 @@ export default async function FashionPage() {
           surprise: f.surprise,
           reset: f.reset,
           save: f.save,
+          girl: f.girl,
+          boy: f.boy,
         }}
       />
     </div>

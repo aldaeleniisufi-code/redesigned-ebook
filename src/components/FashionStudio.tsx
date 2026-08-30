@@ -15,29 +15,44 @@ export type FashionLabels = {
   surprise: string;
   reset: string;
   save: string;
+  girl: string;
+  boy: string;
 };
 
-const SKIN = ["#F7C9A0", "#E0A878", "#B0764A", "#8A5A34"];
-const HAIR_COLORS = ["#3B2A1E", "#111827", "#E8B84B", "#C0432B", "#8B5CF6", "#EC4899"];
-const DRESS_COLORS = ["#E86A5A", "#8FD6C2", "#F4C95D", "#2E6DB4", "#8B5CF6", "#EC4899"];
+const SKIN = ["#F7C9A0", "#E9B487", "#D69A6A", "#B0764A", "#8A5A34", "#6B4423"];
+const HAIR_COLORS = [
+  "#3B2A1E", "#111827", "#6B4423", "#A9743B", "#E8B84B", "#C0432B",
+  "#9CA3AF", "#8B5CF6", "#EC4899", "#2E6DB4",
+];
+const DRESS_COLORS = [
+  "#E86A5A", "#EC4899", "#F97316", "#F4C95D", "#22C55E", "#8FD6C2",
+  "#14B8A6", "#2E6DB4", "#6366F1", "#8B5CF6", "#111827", "#FFFFFF",
+];
 const BACKGROUNDS = [
   { id: "cream", value: "#FFF3D9" },
   { id: "mint", value: "#CDEFE5" },
   { id: "blue", value: "#CFE2F6" },
   { id: "pink", value: "#F8D6E4" },
   { id: "purple", value: "#E5D8F7" },
+  { id: "peach", value: "#FBDBC4" },
 ];
 
-const HAIR_STYLES = ["long", "bob", "ponytail", "curly"] as const;
-const OUTFITS = ["dress", "skirt", "romper"] as const;
+const HAIR_STYLES = ["long", "bob", "ponytail", "curly", "short", "spiky"] as const;
+const OUTFITS_BY = {
+  girl: ["dress", "skirt", "romper"],
+  boy: ["tshorts", "shirtpants", "hoodie"],
+} as const;
 const SHOES = ["flats", "boots", "sneakers", "bare"] as const;
 const ACCESSORIES = ["none", "crown", "wings", "wand", "bow"] as const;
 
+type Character = "girl" | "boy";
+
 type State = {
+  character: Character;
   skin: string;
   hairStyle: (typeof HAIR_STYLES)[number];
   hairColor: string;
-  outfit: (typeof OUTFITS)[number];
+  outfit: string;
   dressColor: string;
   shoes: (typeof SHOES)[number];
   accessory: (typeof ACCESSORIES)[number];
@@ -45,6 +60,7 @@ type State = {
 };
 
 const DEFAULT: State = {
+  character: "girl",
   skin: SKIN[0],
   hairStyle: "long",
   hairColor: HAIR_COLORS[0],
@@ -59,7 +75,6 @@ function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// darken a hex color by mixing toward black
 function shade(hex: string, amt = 0.18) {
   const n = parseInt(hex.slice(1), 16);
   const r = Math.round(((n >> 16) & 255) * (1 - amt));
@@ -77,12 +92,18 @@ export default function FashionStudio({ labels }: { labels: FashionLabels }) {
 
   const set = (patch: Partial<State>) => setS((prev) => ({ ...prev, ...patch }));
 
+  function setCharacter(character: Character) {
+    setS((prev) => ({ ...prev, character, outfit: OUTFITS_BY[character][0] }));
+  }
+
   function surprise() {
+    const character = pick(["girl", "boy"] as const);
     setS({
+      character,
       skin: pick(SKIN),
       hairStyle: pick(HAIR_STYLES),
       hairColor: pick(HAIR_COLORS),
-      outfit: pick(OUTFITS),
+      outfit: pick(OUTFITS_BY[character]),
       dressColor: pick(DRESS_COLORS),
       shoes: pick(SHOES),
       accessory: pick(ACCESSORIES),
@@ -113,17 +134,17 @@ export default function FashionStudio({ labels }: { labels: FashionLabels }) {
     img.src = url;
   }
 
+  const outfits = OUTFITS_BY[s.character];
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       <div className="mb-4 text-center">
-        <h1 className="text-2xl font-bold text-brand-purple sm:text-3xl">
-          {labels.title}
-        </h1>
+        <h1 className="text-2xl font-bold text-brand-purple sm:text-3xl">{labels.title}</h1>
         <p className="text-foreground/70">{labels.subtitle}</p>
       </div>
 
       <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_320px]">
-        {/* ---------- Character ---------- */}
+        {/* Character */}
         <div className="flex flex-col items-center gap-4">
           <div className="w-full max-w-sm overflow-hidden rounded-3xl shadow-lg">
             <Doll ref={svgRef} s={s} />
@@ -150,14 +171,13 @@ export default function FashionStudio({ labels }: { labels: FashionLabels }) {
           </div>
         </div>
 
-        {/* ---------- Controls ---------- */}
+        {/* Controls */}
         <div className="rounded-3xl bg-white p-4 shadow-md">
-          {/* tabs */}
           <div className="mb-4 flex flex-wrap gap-1.5">
             {(
               [
                 ["hair", "💇", labels.tabHair],
-                ["outfit", "👗", labels.tabOutfit],
+                ["outfit", "👕", labels.tabOutfit],
                 ["shoes", "👟", labels.tabShoes],
                 ["accessory", "👑", labels.tabAccessory],
                 ["face", "😊", labels.tabFace],
@@ -186,28 +206,18 @@ export default function FashionStudio({ labels }: { labels: FashionLabels }) {
                 selected={s.hairStyle}
                 onSelect={(id) => set({ hairStyle: id })}
               />
-              <Swatches
-                label={labels.color}
-                colors={HAIR_COLORS}
-                selected={s.hairColor}
-                onSelect={(c) => set({ hairColor: c })}
-              />
+              <Swatches label={labels.color} colors={HAIR_COLORS} selected={s.hairColor} onSelect={(c) => set({ hairColor: c })} />
             </>
           )}
 
           {tab === "outfit" && (
             <>
               <OptionRow
-                options={OUTFITS.map((id) => ({ id, node: <OutfitIcon outfit={id} color={s.dressColor} /> }))}
+                options={outfits.map((id) => ({ id, node: <OutfitIcon outfit={id} color={s.dressColor} /> }))}
                 selected={s.outfit}
                 onSelect={(id) => set({ outfit: id })}
               />
-              <Swatches
-                label={labels.color}
-                colors={DRESS_COLORS}
-                selected={s.dressColor}
-                onSelect={(c) => set({ dressColor: c })}
-              />
+              <Swatches label={labels.color} colors={DRESS_COLORS} selected={s.dressColor} onSelect={(c) => set({ dressColor: c })} />
             </>
           )}
 
@@ -228,23 +238,26 @@ export default function FashionStudio({ labels }: { labels: FashionLabels }) {
           )}
 
           {tab === "face" && (
-            <Swatches
-              label=""
-              colors={SKIN}
-              selected={s.skin}
-              onSelect={(c) => set({ skin: c })}
-              big
-            />
+            <>
+              <div className="mb-4 flex gap-2">
+                {(["girl", "boy"] as Character[]).map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setCharacter(c)}
+                    className={`flex-1 rounded-2xl px-3 py-2.5 text-sm font-bold transition ${
+                      s.character === c ? "bg-brand-purple text-white" : "bg-brand-purple/8 text-brand-purple hover:bg-brand-purple/15"
+                    }`}
+                  >
+                    {c === "girl" ? labels.girl : labels.boy}
+                  </button>
+                ))}
+              </div>
+              <Swatches label="" colors={SKIN} selected={s.skin} onSelect={(c) => set({ skin: c })} big />
+            </>
           )}
 
           {tab === "bg" && (
-            <Swatches
-              label=""
-              colors={BACKGROUNDS.map((b) => b.value)}
-              selected={s.bg}
-              onSelect={(c) => set({ bg: c })}
-              big
-            />
+            <Swatches label="" colors={BACKGROUNDS.map((b) => b.value)} selected={s.bg} onSelect={(c) => set({ bg: c })} big />
           )}
         </div>
       </div>
@@ -270,9 +283,7 @@ function OptionRow<T extends string>({
           key={o.id}
           onClick={() => onSelect(o.id)}
           className={`flex aspect-square items-center justify-center rounded-2xl bg-brand-purple/5 p-1.5 transition ${
-            selected === o.id
-              ? "ring-2 ring-brand-pink"
-              : "ring-1 ring-transparent hover:bg-brand-purple/10"
+            selected === o.id ? "ring-2 ring-brand-pink" : "ring-1 ring-transparent hover:bg-brand-purple/10"
           }`}
         >
           <svg viewBox="0 0 100 100" className="h-full w-full">
@@ -300,9 +311,7 @@ function Swatches({
   return (
     <div>
       {label && (
-        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-foreground/50">
-          {label}
-        </p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-foreground/50">{label}</p>
       )}
       <div className="flex flex-wrap gap-2">
         {colors.map((c) => (
@@ -311,9 +320,7 @@ function Swatches({
             onClick={() => onSelect(c)}
             aria-label={c}
             className={`rounded-full transition ${big ? "h-11 w-11" : "h-9 w-9"} ${
-              selected === c
-                ? "ring-4 ring-brand-pink/40 scale-110"
-                : "ring-2 ring-white hover:scale-105"
+              selected === c ? "ring-4 ring-brand-pink/40 scale-110" : "ring-2 ring-white hover:scale-105"
             }`}
             style={{ backgroundColor: c, boxShadow: "0 0 0 1px rgba(0,0,0,0.08)" }}
           />
@@ -323,7 +330,7 @@ function Swatches({
   );
 }
 
-/* ---------------- Icons (mini previews) ---------------- */
+/* ---------------- Mini preview icons ---------------- */
 
 function HairIcon({ style, color }: { style: string; color: string }) {
   return (
@@ -346,13 +353,16 @@ function HairIcon({ style, color }: { style: string; color: string }) {
           <circle cx="70" cy="56" r="9" fill={color} />
         </>
       )}
+      {style === "short" && <path d="M27 50a23 23 0 0146 0c0-14-10-22-23-22S27 36 27 50z" fill={color} />}
+      {style === "spiky" && (
+        <path d="M28 50l6-20 6 16 6-20 6 20 6-16 6 20z" fill={color} />
+      )}
     </>
   );
 }
 
 function OutfitIcon({ outfit, color }: { outfit: string; color: string }) {
-  if (outfit === "dress")
-    return <path d="M38 28h24l14 50H24z" fill={color} />;
+  if (outfit === "dress") return <path d="M38 28h24l14 50H24z" fill={color} />;
   if (outfit === "skirt")
     return (
       <>
@@ -360,11 +370,37 @@ function OutfitIcon({ outfit, color }: { outfit: string; color: string }) {
         <path d="M34 54h32l8 28H26z" fill={shade(color)} />
       </>
     );
+  if (outfit === "romper")
+    return (
+      <>
+        <rect x="36" y="28" width="28" height="30" rx="6" fill={color} />
+        <rect x="38" y="56" width="10" height="22" rx="4" fill={shade(color)} />
+        <rect x="52" y="56" width="10" height="22" rx="4" fill={shade(color)} />
+      </>
+    );
+  if (outfit === "tshorts")
+    return (
+      <>
+        <rect x="34" y="28" width="32" height="26" rx="6" fill={color} />
+        <rect x="38" y="54" width="11" height="18" rx="4" fill={shade(color)} />
+        <rect x="51" y="54" width="11" height="18" rx="4" fill={shade(color)} />
+      </>
+    );
+  if (outfit === "shirtpants")
+    return (
+      <>
+        <rect x="34" y="28" width="32" height="24" rx="6" fill={color} />
+        <rect x="38" y="52" width="11" height="28" rx="4" fill={shade(color)} />
+        <rect x="51" y="52" width="11" height="28" rx="4" fill={shade(color)} />
+      </>
+    );
+  // hoodie
   return (
     <>
-      <rect x="36" y="28" width="28" height="30" rx="6" fill={color} />
-      <rect x="38" y="56" width="10" height="22" rx="4" fill={shade(color)} />
-      <rect x="52" y="56" width="10" height="22" rx="4" fill={shade(color)} />
+      <rect x="32" y="28" width="36" height="28" rx="10" fill={color} />
+      <path d="M42 28q8 8 16 0" stroke={shade(color)} strokeWidth="3" fill="none" />
+      <rect x="38" y="56" width="11" height="24" rx="4" fill={shade(color)} />
+      <rect x="51" y="56" width="11" height="24" rx="4" fill={shade(color)} />
     </>
   );
 }
@@ -404,13 +440,7 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
   const hair = s.hairColor;
 
   return (
-    <svg
-      ref={ref}
-      viewBox="0 0 300 400"
-      xmlns="http://www.w3.org/2000/svg"
-      className="block h-auto w-full"
-    >
-      {/* background */}
+    <svg ref={ref} viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" className="block h-auto w-full">
       <rect width="300" height="400" fill={s.bg} />
       <g fill="#ffffff" opacity="0.5">
         <path d="M40 50l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" />
@@ -419,7 +449,7 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
         <path d="M35 320l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z" />
       </g>
 
-      {/* wings (behind body) */}
+      {/* wings */}
       {s.accessory === "wings" && (
         <g fill="#ffffff" opacity="0.75" stroke="#8FD6C2" strokeWidth="3">
           <path d="M150 210C110 170 70 175 70 220s40 55 80 30z" />
@@ -439,26 +469,14 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
           <circle cx="190" cy="180" r="20" />
         </g>
       )}
-      {s.hairStyle === "ponytail" && (
-        <ellipse cx="212" cy="150" rx="18" ry="40" fill={hair} />
-      )}
+      {s.hairStyle === "ponytail" && <ellipse cx="212" cy="150" rx="18" ry="40" fill={hair} />}
 
       {/* legs */}
       <rect x="132" y="298" width="16" height="80" rx="8" fill={skin} />
       <rect x="152" y="298" width="16" height="80" rx="8" fill={skin} />
 
-      {/* shoes */}
-      {s.shoes !== "bare" && (
-        <>
-          <ShoeOnDoll x={140} color={s.shoes === "sneakers" ? "#ffffff" : dressDark} type={s.shoes} />
-          <ShoeOnDoll x={160} color={s.shoes === "sneakers" ? "#ffffff" : dressDark} type={s.shoes} />
-        </>
-      )}
-
       {/* outfit */}
-      {s.outfit === "dress" && (
-        <path d="M118 175h64l26 130H92z" fill={dress} />
-      )}
+      {s.outfit === "dress" && <path d="M118 175h64l26 130H92z" fill={dress} />}
       {s.outfit === "skirt" && (
         <>
           <rect x="120" y="172" width="60" height="52" rx="10" fill={dress} />
@@ -472,6 +490,29 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
           <path d="M152 236h30l4 44h-26z" fill={dressDark} />
         </>
       )}
+      {s.outfit === "tshorts" && (
+        <>
+          <rect x="114" y="172" width="72" height="74" rx="12" fill={dress} />
+          <rect x="120" y="238" width="26" height="52" rx="8" fill={dressDark} />
+          <rect x="154" y="238" width="26" height="52" rx="8" fill={dressDark} />
+        </>
+      )}
+      {s.outfit === "shirtpants" && (
+        <>
+          <rect x="114" y="172" width="72" height="70" rx="12" fill={dress} />
+          <rect x="126" y="236" width="22" height="142" rx="9" fill={dressDark} />
+          <rect x="152" y="236" width="22" height="142" rx="9" fill={dressDark} />
+        </>
+      )}
+      {s.outfit === "hoodie" && (
+        <>
+          <rect x="112" y="168" width="76" height="80" rx="16" fill={dress} />
+          <path d="M126 176q24 16 48 0" stroke={dressDark} strokeWidth="4" fill="none" />
+          <path d="M138 210h24" stroke={dressDark} strokeWidth="4" strokeLinecap="round" />
+          <rect x="126" y="240" width="22" height="138" rx="9" fill={dressDark} />
+          <rect x="152" y="240" width="22" height="138" rx="9" fill={dressDark} />
+        </>
+      )}
 
       {/* arms */}
       <rect x="96" y="178" width="16" height="78" rx="8" fill={skin} transform="rotate(9 104 178)" />
@@ -479,7 +520,21 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
       <circle cx="92" cy="256" r="9" fill={skin} />
       <circle cx="208" cy="256" r="9" fill={skin} />
 
-      {/* wand in hand */}
+      {/* shoes (on top of pant cuffs) */}
+      {s.shoes !== "bare" && (
+        <g fill={s.shoes === "sneakers" ? "#ffffff" : dressDark} stroke="#0003">
+          <path d="M131 374h18a4 4 0 014 4v4h-26v-4a4 4 0 014-4z" />
+          <path d="M151 374h18a4 4 0 014 4v4h-26v-4a4 4 0 014-4z" />
+          {s.shoes === "boots" && (
+            <>
+              <rect x="132" y="350" width="16" height="28" rx="4" />
+              <rect x="152" y="350" width="16" height="28" rx="4" />
+            </>
+          )}
+        </g>
+      )}
+
+      {/* wand */}
       {s.accessory === "wand" && (
         <g>
           <rect x="205" y="200" width="6" height="58" rx="3" fill="#8B5A2B" transform="rotate(20 208 230)" />
@@ -487,7 +542,7 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
         </g>
       )}
 
-      {/* neck + head */}
+      {/* head */}
       <rect x="141" y="150" width="18" height="20" fill={skinDark} />
       <circle cx="150" cy="120" r="48" fill={skin} />
       <circle cx="104" cy="122" r="8" fill={skin} />
@@ -519,8 +574,14 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
           <circle cx="182" cy="92" r="18" />
         </g>
       )}
+      {s.hairStyle === "short" && (
+        <path d="M104 120C104 74 196 74 196 120c0-26-20-42-46-42s-46 16-46 42z" fill={hair} />
+      )}
+      {s.hairStyle === "spiky" && (
+        <path d="M104 118l8-34 10 26 8-32 12 30 8-32 10 30 8-24 6 26z" fill={hair} />
+      )}
 
-      {/* accessories on head */}
+      {/* head accessories */}
       {s.accessory === "crown" && (
         <path d="M120 84l10 14 20-22 20 22 10-14 4 20h-68z" fill="#F4C95D" stroke="#C9982E" strokeWidth="2" />
       )}
@@ -534,13 +595,3 @@ const Doll = ({ ref, s }: { ref: React.Ref<SVGSVGElement>; s: State }) => {
     </svg>
   );
 };
-
-function ShoeOnDoll({ x, color, type }: { x: number; color: string; type: string }) {
-  return (
-    <g>
-      <path d={`M${x - 8} 372h16v${type === "boots" ? "-26" : "10"}h-16z`} fill={color} opacity="0.001" />
-      <path d={`M${x - 9} 374h18a4 4 0 014 4v4h-26v-4a4 4 0 014-4z`} fill={color} stroke="#0003" />
-      {type === "boots" && <rect x={x - 8} y="348" width="16" height="28" rx="4" fill={color} />}
-    </g>
-  );
-}

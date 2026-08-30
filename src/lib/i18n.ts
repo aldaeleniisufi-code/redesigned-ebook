@@ -219,6 +219,8 @@ const dictionaries = {
       reset: "↺ Από την αρχή",
       save: "⬇ Αποθήκευσε το look",
       back: "← Πίσω",
+      girl: "👧 Κορίτσι",
+      boy: "👦 Αγόρι",
     },
 
     draw: {
@@ -494,6 +496,8 @@ const dictionaries = {
       reset: "↺ Start over",
       save: "⬇ Save my look",
       back: "← Back",
+      girl: "👧 Girl",
+      boy: "👦 Boy",
     },
 
     draw: {

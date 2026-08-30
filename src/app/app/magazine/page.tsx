@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { getDict, getLocale, pickText } from "@/lib/i18n";
-import { getCurrentIssue } from "@/lib/magazine";
+import { MAGAZINE_ISSUES, getIssueById } from "@/lib/magazine";
 
-export default async function MagazinePage() {
+export default async function MagazinePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ issue?: string }>;
+}) {
   const d = await getDict();
   const locale = await getLocale();
-  const issue = getCurrentIssue();
+  const { issue: issueId } = await searchParams;
+  const issue = getIssueById(issueId);
   const t = (o: { el: string; en: string }) => pickText(locale, o.el, o.en);
 
   return (
@@ -18,9 +23,28 @@ export default async function MagazinePage() {
       </Link>
 
       <div className="py-6">
-        <h1 className="mb-6 text-center text-2xl font-bold text-brand-purple sm:text-3xl">
+        <h1 className="mb-4 text-center text-2xl font-bold text-brand-purple sm:text-3xl">
           {d.magazine.title}
         </h1>
+
+        {/* issue chips */}
+        {MAGAZINE_ISSUES.length > 1 && (
+          <div className="mb-6 flex flex-wrap justify-center gap-2">
+            {[...MAGAZINE_ISSUES].reverse().map((iss) => (
+              <Link
+                key={iss.id}
+                href={iss.id === getIssueById().id ? "/app/magazine" : `/app/magazine?issue=${iss.id}`}
+                className={`rounded-full px-4 py-1.5 text-sm font-bold transition ${
+                  iss.id === issue.id
+                    ? "bg-brand-purple text-white"
+                    : "bg-brand-purple/8 text-brand-purple hover:bg-brand-purple/15"
+                }`}
+              >
+                {t(iss.season)}
+              </Link>
+            ))}
+          </div>
+        )}
 
         {/* cover */}
         <div className="relative mb-8 overflow-hidden rounded-3xl bg-brand-purple px-6 py-10 text-center text-white shadow-lg">

@@ -101,8 +101,90 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
       },
     ],
   },
+  {
+    id: "issue-2",
+    number: 2,
+    season: { el: "Τεύχος 2 · Φθινόπωρο", en: "Issue 2 · Autumn" },
+    title: {
+      el: "Φιλίες, δράκοι και φθινοπωρινά χρώματα!",
+      en: "Friendships, dragons and autumn colors!",
+    },
+    articles: [
+      {
+        id: "story",
+        emoji: "🐉",
+        kicker: { el: "Η ιστορία του μήνα", en: "Story of the month" },
+        title: {
+          el: "Ο Πρίγκιπας Λέων και το Δρακάκι",
+          en: "Prince Leon and the Little Dragon",
+        },
+        body: {
+          el: "Ο Πρίγκιπας Λέων συναντά ένα δρακάκι που φαίνεται τρομακτικό… μα κρύβει μια μεγάλη έκπληξη. Μια ιστορία για τη φιλία!",
+          en: "Prince Leon meets a dragon that looks scary… but hides a big surprise. A story about friendship!",
+        },
+        href: "/library",
+        cta: { el: "Διάβασέ το", en: "Read it" },
+        className: "bg-brand-yellow text-brand-purple",
+      },
+      {
+        id: "fashion",
+        emoji: "👕",
+        kicker: { el: "Μόδα", en: "Fashion" },
+        title: {
+          el: "Νέο: ρούχα για αγόρια & κορίτσια!",
+          en: "New: outfits for boys & girls!",
+        },
+        body: {
+          el: "Το Fashion Studio απέκτησε νέους χαρακτήρες, περισσότερα ρούχα και πολλά νέα χρώματα. Φτιάξε το τέλειο φθινοπωρινό look!",
+          en: "The Fashion Studio now has new characters, more outfits and lots of new colors. Make the perfect autumn look!",
+        },
+        href: "/app/fashion",
+        cta: { el: "Παίξε τώρα", en: "Play now" },
+        className: "bg-brand-pink text-white",
+      },
+      {
+        id: "craft",
+        emoji: "🍁",
+        kicker: { el: "Κατασκευή", en: "Craft" },
+        title: { el: "Φτιάξε ένα φθινοπωρινό δέντρο", en: "Make an autumn tree" },
+        body: {
+          el: "1) Ζωγράφισε έναν κορμό. 2) Βούτηξε το δάχτυλό σου σε κόκκινη, πορτοκαλί και κίτρινη μπογιά. 3) Πάτα «φυλλαράκια» γύρω από τα κλαδιά. Έτοιμο το φθινόπωρο! 🍂",
+          en: "1) Draw a trunk. 2) Dip your finger in red, orange and yellow paint. 3) Dot 'leaves' around the branches. Autumn is ready! 🍂",
+        },
+        className: "bg-brand-teal text-brand-purple",
+      },
+      {
+        id: "fact",
+        emoji: "💡",
+        kicker: { el: "Ξέρεις ότι…;", en: "Did you know?" },
+        title: { el: "Γιατί πέφτουν τα φύλλα;", en: "Why do leaves fall?" },
+        body: {
+          el: "Το φθινόπωρο τα δέντρα «κοιμούνται» για τον χειμώνα. Ρίχνουν τα φύλλα τους για να εξοικονομήσουν νερό και ενέργεια — και το άνοιξη βγάζουν καινούρια!",
+          en: "In autumn, trees get ready to 'sleep' for winter. They drop their leaves to save water and energy — and grow new ones in spring!",
+        },
+        className: "bg-brand-blue text-white",
+      },
+      {
+        id: "activity",
+        emoji: "🦋",
+        kicker: { el: "Δραστηριότητα", en: "Activity" },
+        title: { el: "Ζωγράφισε το αγαπημένο σου ζώο", en: "Draw your favorite animal" },
+        body: {
+          el: "Άνοιξε τη Δημιουργική γωνιά, διάλεξε χρώματα και ζωγράφισε το αγαπημένο σου ζωάκι — και βάλ' του κι ένα αστεράκι για φίλο!",
+          en: "Open the Creative corner, pick your colors and draw your favorite animal — and give it a little star for a friend!",
+        },
+        href: "/app/draw",
+        cta: { el: "Ζωγράφισε", en: "Draw" },
+        className: "bg-white text-brand-purple ring-2 ring-brand-yellow",
+      },
+    ],
+  },
 ];
 
 export function getCurrentIssue(): MagazineIssue {
   return MAGAZINE_ISSUES[MAGAZINE_ISSUES.length - 1];
+}
+
+export function getIssueById(id?: string): MagazineIssue {
+  return MAGAZINE_ISSUES.find((i) => i.id === id) ?? getCurrentIssue();
 }
