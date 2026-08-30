@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { saveProgressAction } from "@/app/books/[id]/actions";
@@ -58,29 +57,28 @@ export default function BookReader({
     <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-10">
       <h1 className="text-center text-3xl font-bold text-brand-purple">{title}</h1>
 
-      <div className="relative h-[420px] w-full max-w-xl overflow-hidden rounded-3xl bg-white shadow-xl [perspective:1200px]">
+      <div className="w-full max-w-xl overflow-hidden rounded-3xl bg-white p-4 shadow-xl sm:p-6">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={page.id}
             custom={direction}
-            initial={{ rotateY: direction > 0 ? 90 : -90, opacity: 0 }}
-            animate={{ rotateY: 0, opacity: 1 }}
-            exit={{ rotateY: direction > 0 ? -90 : 90, opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="absolute inset-0 flex flex-col items-center gap-4 p-6 [transform-style:preserve-3d]"
+            initial={{ opacity: 0, x: direction > 0 ? 40 : -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction > 0 ? -40 : 40 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-4"
           >
-            <div className="relative h-56 w-full overflow-hidden rounded-2xl">
-              <Image
-                src={page.imageUrl}
-                alt={`${title} - ${labels.page} ${page.order}`}
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-            <p className="text-center text-lg leading-relaxed text-foreground">
-              {page.text}
-            </p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={page.imageUrl}
+              alt={`${title} - ${labels.page} ${page.order}`}
+              className="mx-auto block max-h-[65vh] w-auto max-w-full rounded-2xl bg-brand-purple/5"
+            />
+            {page.text.trim() && (
+              <p className="text-center text-lg leading-relaxed text-foreground sm:text-xl">
+                {page.text}
+              </p>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
