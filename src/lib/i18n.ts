@@ -281,7 +281,9 @@ const dictionaries = {
       perMonth: "/μήνα",
       perYear: "/χρόνο",
       yearlyHint: "2 μήνες δώρο 🎁",
-      subscribe: "Γίνε Premium",
+      trial: "🎁 14 ημέρες δωρεάν",
+      then: "μετά",
+      subscribe: "Ξεκίνα δωρεάν δοκιμή",
       activeTitle: "Είσαι Premium! ✨",
       activeText: "Έχεις πρόσβαση σε όλα τα βιβλία και τις ζωγραφιές.",
       renews: "Ανανεώνεται",
@@ -289,7 +291,7 @@ const dictionaries = {
       successMsg: "Καλώς ήρθες στο Premium! 🎉",
       bannerText: "Ξεκλείδωσε τα πάντα με το Premium",
       bannerCta: "Δες τα πλάνα →",
-      note: "Ακύρωση όποτε θέλεις. Ασφαλής πληρωμή μέσω Stripe.",
+      note: "14 ημέρες δωρεάν, μετά χρέωση. Ακύρωση όποτε θέλεις. Ασφαλής πληρωμή μέσω Stripe.",
     },
 
     adminColoring: {
@@ -581,7 +583,9 @@ const dictionaries = {
       perMonth: "/mo",
       perYear: "/yr",
       yearlyHint: "2 months free 🎁",
-      subscribe: "Go Premium",
+      trial: "🎁 14 days free",
+      then: "then",
+      subscribe: "Start free trial",
       activeTitle: "You're Premium! ✨",
       activeText: "You have access to all books and coloring pages.",
       renews: "Renews",
@@ -589,7 +593,7 @@ const dictionaries = {
       successMsg: "Welcome to Premium! 🎉",
       bannerText: "Unlock everything with Premium",
       bannerCta: "See the plans →",
-      note: "Cancel anytime. Secure payment via Stripe.",
+      note: "14 days free, then billed. Cancel anytime. Secure payment via Stripe.",
     },
 
     adminColoring: {

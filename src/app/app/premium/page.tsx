@@ -38,6 +38,11 @@ export default async function PremiumPage({
             {p.title}
           </h1>
           <p className="mt-1 text-foreground/70">{p.subtitle}</p>
+          {!sub.active && (
+            <span className="mt-3 inline-block rounded-full bg-brand-teal/25 px-4 py-1.5 text-sm font-bold text-brand-purple">
+              {p.trial}
+            </span>
+          )}
         </div>
 
         {success && !sub.active && (
@@ -90,11 +95,12 @@ export default async function PremiumPage({
                   {p.monthly}
                 </span>
                 <span className="text-3xl font-bold text-brand-purple">
-                  {formatPrice(499)}
+                  {formatPrice(699)}
                   <span className="text-base font-semibold text-foreground/50">
                     {p.perMonth}
                   </span>
                 </span>
+                <span className="text-xs font-semibold text-brand-teal">{p.trial}</span>
                 <button
                   type="submit"
                   className="mt-2 w-full rounded-full bg-brand-purple px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
@@ -116,11 +122,12 @@ export default async function PremiumPage({
                   {p.yearly}
                 </span>
                 <span className="text-3xl font-bold text-brand-purple">
-                  {formatPrice(3999)}
+                  {formatPrice(6999)}
                   <span className="text-base font-semibold text-brand-purple/60">
                     {p.perYear}
                   </span>
                 </span>
+                <span className="text-xs font-semibold text-brand-purple/70">{p.trial}</span>
                 <button
                   type="submit"
                   className="mt-2 w-full rounded-full bg-brand-purple px-6 py-3 font-bold text-white shadow transition hover:brightness-110"
