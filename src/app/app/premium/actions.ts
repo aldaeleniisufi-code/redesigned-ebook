@@ -5,10 +5,9 @@ import { auth } from "@/auth";
 import { getStripeClient, getAppUrl } from "@/lib/stripe";
 import { getOrCreateStripeCustomer } from "@/lib/subscription";
 
-const TRIAL_DAYS = 14;
 const PLANS = {
-  monthly: { amount: 699, interval: "month" as const, name: "Kidleido Premium — Μηνιαία" },
-  yearly: { amount: 6999, interval: "year" as const, name: "Kidleido Premium — Ετήσια" },
+  monthly: { amount: 699, interval: "month" as const, name: "Kidleido Premium — Μηνιαία", trialDays: 14 },
+  yearly: { amount: 7689, interval: "year" as const, name: "Kidleido Premium — Ετήσια", trialDays: 0 },
 };
 
 export async function createSubscriptionCheckoutAction(formData: FormData) {
@@ -41,7 +40,7 @@ export async function createSubscriptionCheckoutAction(formData: FormData) {
     metadata: { userId: session.user.id, type: "subscription" },
     subscription_data: {
       metadata: { userId: session.user.id },
-      trial_period_days: TRIAL_DAYS,
+      ...(plan.trialDays ? { trial_period_days: plan.trialDays } : {}),
     },
   });
 
