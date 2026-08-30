@@ -236,6 +236,37 @@ const dictionaries = {
       title: "Παιδικό περιοδικό 📖",
     },
 
+    parents: {
+      title: "Γονική περιοχή 🔒",
+      gateTitle: "Μόνο για μεγάλους 🔒",
+      gatePrompt: "Λύσε για να μπεις:",
+      gateError: "Ουπς! Δοκίμασε ξανά.",
+      gateButton: "Είσοδος",
+      screenTime: "⏱️ Χρόνος χρήσης",
+      screenTimeDesc: "Όριο ημερήσιας χρήσης της εφαρμογής.",
+      unlimited: "Χωρίς όριο",
+      minutes: "λεπτά",
+      purchasesTitle: "🛍️ Αγορές",
+      noPurchases: "Καμία αγορά ακόμα.",
+      downloadsLeft: "Κατεβάσματα: {n}/5",
+      safetyTitle: "🛡️ Ασφάλεια",
+      safetyText:
+        "Το Kidleido είναι σχεδιασμένο για παιδιά: χωρίς ανοιχτό chat, χωρίς διαφημίσεις και χωρίς εξωτερικούς συνδέσμους.",
+      accountTitle: "👤 Λογαριασμός",
+      logout: "Αποσύνδεση",
+      open: "Άνοιγμα",
+      saved: "Αποθηκεύτηκε ✓",
+    },
+
+    timeguard: {
+      title: "Ώρα για διάλειμμα! 🌙",
+      text: "Ο χρόνος για σήμερα τελείωσε. Ζήτα από έναν μεγάλο αν θέλεις κι άλλο!",
+      extend: "Γονέας: +15 λεπτά",
+      prompt: "Λύσε για να συνεχίσεις:",
+      error: "Δοκίμασε ξανά.",
+      button: "ΟΚ",
+    },
+
     adminColoring: {
       title: "Διαχείριση Ζωγραφιών 🎨",
       newPack: "➕ Νέα ζωγραφιά",
@@ -478,6 +509,37 @@ const dictionaries = {
 
     magazine: {
       title: "Kids magazine 📖",
+    },
+
+    parents: {
+      title: "Parents area 🔒",
+      gateTitle: "Grown-ups only 🔒",
+      gatePrompt: "Solve to enter:",
+      gateError: "Oops! Try again.",
+      gateButton: "Enter",
+      screenTime: "⏱️ Screen time",
+      screenTimeDesc: "Daily time limit for the app.",
+      unlimited: "Unlimited",
+      minutes: "min",
+      purchasesTitle: "🛍️ Purchases",
+      noPurchases: "No purchases yet.",
+      downloadsLeft: "Downloads: {n}/5",
+      safetyTitle: "🛡️ Safety",
+      safetyText:
+        "Kidleido is designed for kids: no open chat, no ads and no external links.",
+      accountTitle: "👤 Account",
+      logout: "Log out",
+      open: "Open",
+      saved: "Saved ✓",
+    },
+
+    timeguard: {
+      title: "Time for a break! 🌙",
+      text: "Today's time is up. Ask a grown-up if you'd like more!",
+      extend: "Parent: +15 min",
+      prompt: "Solve to continue:",
+      error: "Try again.",
+      button: "OK",
     },
 
     adminColoring: {

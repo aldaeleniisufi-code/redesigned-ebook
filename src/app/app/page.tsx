@@ -154,7 +154,7 @@ export default async function AppHubPage() {
       {/* parents area link */}
       <div className="mt-8 flex justify-center">
         <Link
-          href="/profile"
+          href="/app/parents"
           className="flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-brand-purple shadow-sm ring-1 ring-brand-purple/10 transition hover:shadow-md"
         >
           🔒 {a.parents}
