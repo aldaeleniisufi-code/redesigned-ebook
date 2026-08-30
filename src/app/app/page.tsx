@@ -48,7 +48,7 @@ export default async function AppHubPage() {
       emoji: "📰",
       title: a.magazine,
       desc: a.magazineDesc,
-      soon: true,
+      href: "/app/magazine",
       className: "bg-brand-blue text-white",
     },
     {

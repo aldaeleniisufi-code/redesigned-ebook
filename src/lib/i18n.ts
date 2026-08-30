@@ -232,6 +232,10 @@ const dictionaries = {
       save: "⬇ Αποθήκευση",
     },
 
+    magazine: {
+      title: "Παιδικό περιοδικό 📖",
+    },
+
     adminColoring: {
       title: "Διαχείριση Ζωγραφιών 🎨",
       newPack: "➕ Νέα ζωγραφιά",
@@ -470,6 +474,10 @@ const dictionaries = {
       size: "Size",
       clear: "🗑 Clear",
       save: "⬇ Save",
+    },
+
+    magazine: {
+      title: "Kids magazine 📖",
     },
 
     adminColoring: {
