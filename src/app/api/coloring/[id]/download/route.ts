@@ -3,6 +3,7 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { hasActiveSubscription } from "@/lib/subscription";
 
 const DOWNLOAD_LIMIT = 5;
 const ALLOWED_HOST_SUFFIX = ".public.blob.vercel-storage.com";
@@ -39,9 +40,10 @@ export async function GET(
   }
 
   const isFree = pack.priceCents === 0;
+  const subscribed = await hasActiveSubscription(session.user.id);
   let remaining = DOWNLOAD_LIMIT;
 
-  if (!isFree) {
+  if (!isFree && !subscribed) {
     const purchase = await prisma.coloringPurchase.findUnique({
       where: { userId_packId: { userId: session.user.id, packId } },
     });

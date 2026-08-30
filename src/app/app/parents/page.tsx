@@ -102,6 +102,19 @@ export default async function ParentsPage() {
             )}
           </section>
 
+          {/* Premium */}
+          <Link
+            href="/app/premium"
+            className="flex items-center justify-between gap-3 rounded-3xl bg-brand-purple p-5 text-white shadow-md transition hover:brightness-110"
+          >
+            <span className="flex items-center gap-2 font-bold">
+              <span className="text-2xl">✨</span> {d.premium.title}
+            </span>
+            <span className="rounded-full bg-brand-yellow px-4 py-1.5 text-sm font-bold text-brand-purple">
+              {d.premium.bannerCta}
+            </span>
+          </Link>
+
           {/* Safety */}
           <section className="rounded-3xl bg-brand-teal/15 p-5">
             <h2 className="text-lg font-bold text-brand-purple">{p.safetyTitle}</h2>

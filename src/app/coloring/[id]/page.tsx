@@ -5,6 +5,7 @@ import {
   hasColoringPurchase,
   recordColoringPurchase,
 } from "@/lib/coloring-purchases";
+import { hasActiveSubscription } from "@/lib/subscription";
 import { getStripeClient } from "@/lib/stripe";
 import Paywall from "@/components/Paywall";
 import ColoringViewer from "@/components/ColoringViewer";
@@ -38,7 +39,10 @@ export default async function ColoringPackPage({
   const displayDescription = pickText(locale, pack.description, pack.descriptionEn);
 
   const isFree = pack.priceCents === 0;
-  let purchased = isFree || (await hasColoringPurchase(session.user.id, pack.id));
+  const subscribed = await hasActiveSubscription(session.user.id);
+  const unlimited = isFree || subscribed;
+  let purchased =
+    unlimited || (await hasColoringPurchase(session.user.id, pack.id));
 
   // Runs on both the first purchase and a repeat purchase (to refill downloads).
   if (!isFree && session_id) {
@@ -70,7 +74,7 @@ export default async function ColoringPackPage({
     );
   }
 
-  const purchase = isFree
+  const purchase = unlimited
     ? null
     : await prisma.coloringPurchase.findUnique({
         where: { userId_packId: { userId: session.user.id, packId: pack.id } },
@@ -81,7 +85,7 @@ export default async function ColoringPackPage({
       title={displayTitle}
       pages={pack.pages.map((p) => ({ id: p.id, order: p.order, imageUrl: p.imageUrl }))}
       packId={pack.id}
-      isFree={isFree}
+      isFree={unlimited}
       downloadsUsed={purchase?.downloads ?? 0}
       downloadLimit={5}
       priceCents={pack.priceCents}

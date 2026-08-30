@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getOrCreateProfileId } from "@/lib/profile";
 import { hasPurchased, recordPurchase } from "@/lib/purchases";
+import { hasActiveSubscription } from "@/lib/subscription";
 import { getStripeClient } from "@/lib/stripe";
 import BookReader from "@/components/BookReader";
 import Paywall from "@/components/Paywall";
@@ -38,7 +39,10 @@ export default async function BookPage({
   const displayDescription = pickText(locale, book.description, book.descriptionEn);
 
   const isFree = book.priceCents === 0;
-  let purchased = isFree || (await hasPurchased(session.user.id, book.id));
+  let purchased =
+    isFree ||
+    (await hasActiveSubscription(session.user.id)) ||
+    (await hasPurchased(session.user.id, book.id));
 
   if (!purchased && session_id) {
     const stripe = getStripeClient();

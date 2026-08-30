@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import { getDict } from "@/lib/i18n";
+import { hasActiveSubscription } from "@/lib/subscription";
 import AgeLevelToggle from "@/components/AgeLevelToggle";
 
 type Tile = {
@@ -17,6 +18,9 @@ export default async function AppHubPage() {
   const session = await auth();
   const d = await getDict();
   const a = d.app;
+  const isPremium = session?.user?.id
+    ? await hasActiveSubscription(session.user.id)
+    : false;
 
   const tiles: Tile[] = [
     {
@@ -103,6 +107,22 @@ export default async function AppHubPage() {
             </Link>
           </div>
         </div>
+      )}
+
+      {/* premium banner */}
+      {!isPremium && (
+        <Link
+          href="/app/premium"
+          className="mb-6 flex items-center justify-between gap-3 rounded-3xl bg-brand-purple p-4 text-white shadow-md transition hover:brightness-110"
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-3xl">✨</span>
+            <span className="font-bold">{d.premium.bannerText}</span>
+          </span>
+          <span className="shrink-0 rounded-full bg-brand-yellow px-4 py-2 text-sm font-bold text-brand-purple">
+            {d.premium.bannerCta}
+          </span>
+        </Link>
       )}
 
       {/* tile grid */}
