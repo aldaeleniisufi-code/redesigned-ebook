@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fredoka } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -32,8 +32,20 @@ export async function generateMetadata(): Promise<Metadata> {
       title: d.metaTitle,
       description: d.metaDescription,
     },
+    appleWebApp: {
+      capable: true,
+      title: "Kidleido",
+      statusBarStyle: "default",
+    },
+    icons: {
+      apple: "/apple-touch-icon.png",
+    },
   };
 }
+
+export const viewport: Viewport = {
+  themeColor: "#173f73",
+};
 
 export default async function RootLayout({
   children,

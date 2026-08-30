@@ -49,6 +49,13 @@ export default async function HomePage() {
         )}
       </div>
 
+      <Link
+        href="/app"
+        className="mt-2 rounded-full bg-brand-teal px-8 py-4 text-lg font-bold text-brand-purple shadow-lg transition hover:scale-105 hover:brightness-105"
+      >
+        {d.app.openApp}
+      </Link>
+
       <div className="mt-4 flex flex-wrap justify-center gap-3 text-sm font-semibold text-foreground/60">
         <span className="rounded-full bg-white px-4 py-2 shadow-sm">
           📖 {d.nav.library}
