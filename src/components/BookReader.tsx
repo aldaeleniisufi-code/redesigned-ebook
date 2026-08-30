@@ -75,7 +75,7 @@ export default function BookReader({
               className="mx-auto block max-h-[65vh] w-auto max-w-full rounded-2xl bg-brand-purple/5"
             />
             {page.text.trim() && (
-              <p className="text-center text-lg leading-relaxed text-foreground sm:text-xl">
+              <p className="text-center text-xl font-medium leading-relaxed text-foreground sm:text-2xl">
                 {page.text}
               </p>
             )}
