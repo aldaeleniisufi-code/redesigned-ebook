@@ -53,10 +53,10 @@ export default async function AppHubPage() {
     },
     {
       key: "activities",
-      emoji: "✂️",
+      emoji: "🖍️",
       title: a.activities,
       desc: a.activitiesDesc,
-      soon: true,
+      href: "/app/draw",
       className: "bg-white text-brand-purple ring-2 ring-brand-yellow",
     },
     {

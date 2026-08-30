@@ -193,7 +193,7 @@ const dictionaries = {
       magazine: "Περιοδικό",
       magazineDesc: "Μόδα, νέα & κατασκευές",
       activities: "Δημιουργική γωνιά",
-      activitiesDesc: "Για εκτύπωση",
+      activitiesDesc: "Ζωγράφισε ελεύθερα",
       profile: "Το προφίλ μου",
       profileDesc: "Avatar & αστεράκια",
       parents: "Γονική περιοχή",
@@ -219,6 +219,17 @@ const dictionaries = {
       reset: "↺ Από την αρχή",
       save: "⬇ Αποθήκευσε το look",
       back: "← Πίσω",
+    },
+
+    draw: {
+      title: "Ζωγράφισε ελεύθερα 🖍️",
+      subtitle: "Ζωγράφισε ό,τι φαντάζεσαι!",
+      brush: "Πινέλο",
+      eraser: "Σβήστρα",
+      stickers: "Αυτοκόλλητα",
+      size: "Μέγεθος",
+      clear: "🗑 Καθάρισμα",
+      save: "⬇ Αποθήκευση",
     },
 
     adminColoring: {
@@ -422,7 +433,7 @@ const dictionaries = {
       magazine: "Magazine",
       magazineDesc: "Fashion, news & crafts",
       activities: "Creative corner",
-      activitiesDesc: "Printable fun",
+      activitiesDesc: "Free drawing",
       profile: "My profile",
       profileDesc: "Avatar & stars",
       parents: "Parents area",
@@ -448,6 +459,17 @@ const dictionaries = {
       reset: "↺ Start over",
       save: "⬇ Save my look",
       back: "← Back",
+    },
+
+    draw: {
+      title: "Free drawing 🖍️",
+      subtitle: "Draw anything you imagine!",
+      brush: "Brush",
+      eraser: "Eraser",
+      stickers: "Stickers",
+      size: "Size",
+      clear: "🗑 Clear",
+      save: "⬇ Save",
     },
 
     adminColoring: {
