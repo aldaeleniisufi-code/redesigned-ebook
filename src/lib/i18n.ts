@@ -205,6 +205,22 @@ const dictionaries = {
       openApp: "🎡 Άνοιξε την εφαρμογή",
     },
 
+    fashion: {
+      title: "Fashion Studio 👗",
+      subtitle: "Ντύσε και σχεδίασε τον χαρακτήρα σου!",
+      tabFace: "Πρόσωπο",
+      tabHair: "Μαλλιά",
+      tabOutfit: "Φόρεμα",
+      tabShoes: "Παπούτσια",
+      tabAccessory: "Αξεσουάρ",
+      tabBackground: "Φόντο",
+      color: "Χρώμα",
+      surprise: "🎲 Έκπληξη!",
+      reset: "↺ Από την αρχή",
+      save: "⬇ Αποθήκευσε το look",
+      back: "← Πίσω",
+    },
+
     adminColoring: {
       title: "Διαχείριση Ζωγραφιών 🎨",
       newPack: "➕ Νέα ζωγραφιά",
@@ -416,6 +432,22 @@ const dictionaries = {
       register: "Sign up",
       installHint: "💡 Add it to your home screen like an app!",
       openApp: "🎡 Open the app",
+    },
+
+    fashion: {
+      title: "Fashion Studio 👗",
+      subtitle: "Dress up and design your character!",
+      tabFace: "Face",
+      tabHair: "Hair",
+      tabOutfit: "Outfit",
+      tabShoes: "Shoes",
+      tabAccessory: "Accessory",
+      tabBackground: "Background",
+      color: "Color",
+      surprise: "🎲 Surprise!",
+      reset: "↺ Start over",
+      save: "⬇ Save my look",
+      back: "← Back",
     },
 
     adminColoring: {

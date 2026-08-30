@@ -40,7 +40,7 @@ export default async function AppHubPage() {
       emoji: "👗",
       title: a.fashion,
       desc: a.fashionDesc,
-      soon: true,
+      href: "/app/fashion",
       className: "bg-brand-pink text-white",
     },
     {
