@@ -28,45 +28,61 @@ function blobProxyUrl(url: string) {
 
 // Prints via a hidden iframe instead of window.open, which pop-up blockers stop.
 // Printing is unlimited — only file downloads are counted.
-// The image is preloaded (and decoded) first so large sheets never print blank.
-function printImage(url: string) {
+// The full image bytes are fetched into memory (blob URL) first, so the sheet
+// is always fully present before the print dialog opens — no blank pages.
+async function printImage(url: string) {
   const proxied = blobProxyUrl(url);
-  const pre = new window.Image();
-  const openPrintFrame = () => {
-    const iframe = document.createElement("iframe");
-    iframe.style.position = "fixed";
-    iframe.style.right = "0";
-    iframe.style.bottom = "0";
-    iframe.style.width = "0";
-    iframe.style.height = "0";
-    iframe.style.border = "0";
-    iframe.srcdoc = `<!doctype html><html><head><style>@page{margin:1cm}html,body{margin:0}img{width:100%;height:auto}</style></head><body><img src="${proxied}" /></body></html>`;
-    iframe.onload = () => {
-      const win = iframe.contentWindow;
-      if (!win) return;
-      const img = iframe.contentDocument?.querySelector("img");
-      const doPrint = () => {
-        win.focus();
-        win.print();
-        setTimeout(() => iframe.remove(), 1000);
-      };
-      const ready = () =>
-        img?.decode ? img.decode().then(doPrint).catch(doPrint) : doPrint();
-      if (img && img.complete && img.naturalWidth > 0) {
-        ready();
-      } else if (img) {
-        img.addEventListener("load", ready, { once: true });
-        img.addEventListener("error", doPrint, { once: true });
-      } else {
-        doPrint();
-      }
-    };
-    document.body.appendChild(iframe);
+  let src = proxied;
+  let objectUrl: string | null = null;
+  try {
+    const res = await fetch(proxied);
+    if (res.ok) {
+      const blob = await res.blob();
+      objectUrl = URL.createObjectURL(blob);
+      src = objectUrl;
+    }
+  } catch {
+    /* fall back to the proxied URL */
+  }
+
+  const iframe = document.createElement("iframe");
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  iframe.srcdoc = `<!doctype html><html><head><style>@page{margin:1cm}html,body{margin:0}img{width:100%;height:auto;display:block}</style></head><body><img src="${src}" /></body></html>`;
+
+  const cleanup = () => {
+    iframe.remove();
+    if (objectUrl) URL.revokeObjectURL(objectUrl);
   };
-  // Warm the cache in the parent first, then open the print frame.
-  pre.onload = openPrintFrame;
-  pre.onerror = openPrintFrame;
-  pre.src = proxied;
+
+  iframe.onload = () => {
+    const win = iframe.contentWindow;
+    if (!win) return cleanup();
+    const img = iframe.contentDocument?.querySelector("img");
+    const doPrint = () => {
+      win.focus();
+      win.print();
+      setTimeout(cleanup, 1500);
+    };
+    const ready = () =>
+      img?.decode
+        ? img.decode().then(() => setTimeout(doPrint, 60)).catch(doPrint)
+        : doPrint();
+    if (img && img.complete && img.naturalWidth > 0) {
+      ready();
+    } else if (img) {
+      img.addEventListener("load", ready, { once: true });
+      img.addEventListener("error", doPrint, { once: true });
+    } else {
+      doPrint();
+    }
+  };
+
+  document.body.appendChild(iframe);
 }
 
 export default function ColoringViewer({
