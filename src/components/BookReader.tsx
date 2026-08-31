@@ -57,7 +57,7 @@ export default function BookReader({
     <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-10">
       <h1 className="text-center text-3xl font-bold text-brand-purple">{title}</h1>
 
-      <div className="w-full max-w-xl overflow-hidden rounded-3xl bg-white p-4 shadow-xl sm:p-6">
+      <div className="w-full max-w-md">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={page.id}
@@ -72,7 +72,7 @@ export default function BookReader({
             <img
               src={page.imageUrl}
               alt={`${title} - ${labels.page} ${page.order}`}
-              className="mx-auto block max-h-[65vh] w-auto max-w-full rounded-2xl bg-brand-purple/5"
+              className="block h-auto w-full rounded-2xl shadow-xl"
             />
             {page.text.trim() && (
               <p className="text-center text-xl font-medium leading-relaxed text-foreground sm:text-2xl">
