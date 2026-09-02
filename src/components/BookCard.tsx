@@ -28,12 +28,12 @@ export default function BookCard({
       href={`/books/${id}`}
       className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
     >
-      <div className="relative aspect-[9/7] w-full overflow-hidden bg-brand-purple/10">
+      <div className="relative aspect-[2/3] w-full overflow-hidden bg-brand-purple/10">
         <Image
           src={coverImage}
           alt={title}
           fill
-          className="object-cover transition group-hover:scale-105"
+          className="object-contain transition group-hover:scale-105"
           unoptimized
         />
       </div>
