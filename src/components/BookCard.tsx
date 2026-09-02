@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { formatPrice } from "@/lib/format";
 
@@ -28,13 +27,12 @@ export default function BookCard({
       href={`/books/${id}`}
       className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
     >
-      <div className="relative aspect-[2/3] w-full overflow-hidden bg-brand-purple/10">
-        <Image
+      <div className="w-full overflow-hidden bg-brand-purple/10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={coverImage}
           alt={title}
-          fill
-          className="object-contain transition group-hover:scale-105"
-          unoptimized
+          className="block h-auto w-full transition duration-300 group-hover:scale-105"
         />
       </div>
       <div className="flex flex-1 flex-col gap-1 p-4">
