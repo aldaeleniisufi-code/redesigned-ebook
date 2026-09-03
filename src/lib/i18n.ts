@@ -204,6 +204,7 @@ const dictionaries = {
       register: "Εγγραφή",
       installHint: "💡 Πρόσθεσέ το στην αρχική οθόνη σου σαν εφαρμογή!",
       openApp: "🎡 Άνοιξε την εφαρμογή",
+      shopDesc: "Προϊόντα & αφίσες",
     },
 
     fashion: {
@@ -508,6 +509,7 @@ const dictionaries = {
       register: "Sign up",
       installHint: "💡 Add it to your home screen like an app!",
       openApp: "🎡 Open the app",
+      shopDesc: "Products & posters",
     },
 
     fashion: {

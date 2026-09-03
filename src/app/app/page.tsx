@@ -11,6 +11,7 @@ type Tile = {
   desc: string;
   href?: string;
   soon?: boolean;
+  external?: boolean;
   className: string;
 };
 
@@ -70,6 +71,15 @@ export default async function AppHubPage() {
       desc: a.profileDesc,
       href: "/profile",
       className: "bg-brand-purple text-white",
+    },
+    {
+      key: "shop",
+      emoji: "🛍️",
+      title: d.nav.shop,
+      desc: a.shopDesc,
+      href: "https://kidleido.printify.me",
+      external: true,
+      className: "bg-brand-orange text-white",
     },
   ];
 
@@ -156,6 +166,20 @@ export default async function AppHubPage() {
               >
                 {inner}
               </div>
+            );
+          }
+
+          if (tile.external) {
+            return (
+              <a
+                key={tile.key}
+                href={tile.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${base} ${tile.className} hover:-translate-y-1 hover:shadow-xl`}
+              >
+                {inner}
+              </a>
             );
           }
 
