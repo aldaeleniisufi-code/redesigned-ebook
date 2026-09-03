@@ -77,8 +77,7 @@ export default async function AppHubPage() {
       emoji: "🛍️",
       title: d.nav.shop,
       desc: a.shopDesc,
-      href: "https://kidleido.printify.me",
-      external: true,
+      href: "/shop",
       className: "bg-brand-orange text-white",
     },
   ];

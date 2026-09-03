@@ -25,6 +25,13 @@ const dictionaries = {
       shop: "Κατάστημα",
     },
 
+    shop: {
+      title: "Κατάστημα Kidleido 🛍️",
+      soon: "Σύντομα κοντά σας!",
+      subtitle:
+        "Ετοιμάζουμε υπέροχα προϊόντα Kidleido — μπλουζάκια, αφίσες, κούπες και άλλα, με τους αγαπημένους σας ήρωες. Μείνετε συντονισμένοι! ✨",
+    },
+
     home: {
       welcome: "Καλώς ήρθατε στο Kidleido",
       tagline: "Μαγικοί Κόσμοι",
@@ -329,6 +336,13 @@ const dictionaries = {
       adminColoring: "Coloring",
       logout: "Log out",
       shop: "Shop",
+    },
+
+    shop: {
+      title: "Kidleido Shop 🛍️",
+      soon: "Coming soon!",
+      subtitle:
+        "We're preparing wonderful Kidleido products — t-shirts, posters, mugs and more, with your favorite heroes. Stay tuned! ✨",
     },
 
     home: {
