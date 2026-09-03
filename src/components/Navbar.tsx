@@ -17,6 +17,15 @@ export default async function Navbar() {
         </Link>
 
         <div className="flex items-center gap-3 text-sm sm:text-base">
+          <a
+            href="https://kidleido.printify.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-brand-yellow px-4 py-2 font-bold text-brand-purple shadow transition hover:brightness-105"
+          >
+            🛍️ {d.nav.shop}
+          </a>
+
           {!session && (
             <>
               <Link

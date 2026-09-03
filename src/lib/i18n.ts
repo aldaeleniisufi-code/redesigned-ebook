@@ -22,6 +22,7 @@ const dictionaries = {
       admin: "Διαχείριση",
       adminColoring: "Ζωγραφιές",
       logout: "Αποσύνδεση",
+      shop: "Κατάστημα",
     },
 
     home: {
@@ -326,6 +327,7 @@ const dictionaries = {
       admin: "Admin",
       adminColoring: "Coloring",
       logout: "Log out",
+      shop: "Shop",
     },
 
     home: {
