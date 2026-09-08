@@ -33,6 +33,11 @@ const dictionaries = {
       cta: "Επισκεφθείτε το κατάστημα",
     },
 
+    footer: {
+      follow: "Ακολούθησέ μας",
+      tagline: "Μαγικές ιστορίες & δημιουργία για παιδιά ✨",
+    },
+
     home: {
       welcome: "Καλώς ήρθατε στο Kidleido",
       tagline: "Μαγικοί Κόσμοι",
@@ -345,6 +350,11 @@ const dictionaries = {
       subtitle:
         "Discover wonderful Kidleido products — t-shirts, mugs, tote bags, posters, pillows & stickers with your favorite heroes (Prince Leo, Princess Amelia, Aria)! ✨",
       cta: "Visit the shop",
+    },
+
+    footer: {
+      follow: "Follow us",
+      tagline: "Magical stories & creativity for kids ✨",
     },
 
     home: {
