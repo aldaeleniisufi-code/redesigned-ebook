@@ -27,9 +27,10 @@ const dictionaries = {
 
     shop: {
       title: "Κατάστημα Kidleido 🛍️",
-      soon: "Σύντομα κοντά σας!",
+      soon: "Το κατάστημά μας είναι ανοιχτό! 🎉",
       subtitle:
-        "Ετοιμάζουμε υπέροχα προϊόντα Kidleido — μπλουζάκια, αφίσες, κούπες και άλλα, με τους αγαπημένους σας ήρωες. Μείνετε συντονισμένοι! ✨",
+        "Ανακαλύψτε υπέροχα προϊόντα Kidleido — μπλουζάκια, κούπες, τσάντες, αφίσες, μαξιλάρια & αυτοκόλλητα με τους αγαπημένους σας ήρωες (Πρίγκιπας Λέων, Πριγκίπισσα Αμέλια, Άρια)! ✨",
+      cta: "Επισκεφθείτε το κατάστημα",
     },
 
     home: {
@@ -340,9 +341,10 @@ const dictionaries = {
 
     shop: {
       title: "Kidleido Shop 🛍️",
-      soon: "Coming soon!",
+      soon: "Our shop is open! 🎉",
       subtitle:
-        "We're preparing wonderful Kidleido products — t-shirts, posters, mugs and more, with your favorite heroes. Stay tuned! ✨",
+        "Discover wonderful Kidleido products — t-shirts, mugs, tote bags, posters, pillows & stickers with your favorite heroes (Prince Leo, Princess Amelia, Aria)! ✨",
+      cta: "Visit the shop",
     },
 
     home: {
