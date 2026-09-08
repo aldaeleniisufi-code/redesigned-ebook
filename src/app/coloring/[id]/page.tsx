@@ -90,6 +90,7 @@ export default async function ColoringPackPage({
       downloadLimit={5}
       priceCents={pack.priceCents}
       buyAgainAction={createColoringCheckoutAction}
+      watermark={session.user.email ?? undefined}
       labels={{
         sheet: d.coloring.sheet,
         download: d.coloring.download,

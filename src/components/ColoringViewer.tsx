@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import ColoringCanvas from "@/components/ColoringCanvas";
 import { formatPrice } from "@/lib/format";
+import { watermarkDataUrl } from "@/components/ProtectedImage";
 
 type Sheet = { id: string; order: number; imageUrl: string };
 
@@ -95,6 +96,7 @@ export default function ColoringViewer({
   downloadLimit,
   priceCents,
   buyAgainAction,
+  watermark,
 }: {
   title: string;
   pages: Sheet[];
@@ -105,8 +107,10 @@ export default function ColoringViewer({
   downloadLimit: number;
   priceCents: number;
   buyAgainAction: (formData: FormData) => void | Promise<void>;
+  watermark?: string;
 }) {
   const [active, setActive] = useState<Sheet | null>(null);
+  const wmUrl = watermark ? watermarkDataUrl(watermark) : null;
   const [remaining, setRemaining] = useState(
     Math.max(0, downloadLimit - downloadsUsed)
   );
@@ -180,14 +184,29 @@ export default function ColoringViewer({
             key={sheet.id}
             className="flex flex-col gap-3 rounded-3xl bg-white p-4 shadow-md"
           >
-            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-brand-purple/10 bg-white">
+            <div
+              className="relative aspect-[3/4] w-full select-none overflow-hidden rounded-2xl border border-brand-purple/10 bg-white"
+              onContextMenu={(e) => e.preventDefault()}
+            >
               <Image
                 src={sheet.imageUrl}
                 alt={`${labels.sheet} ${sheet.order}`}
                 fill
-                className="object-contain"
+                draggable={false}
+                onDragStart={(e) => e.preventDefault()}
+                className="pointer-events-none select-none object-contain"
                 unoptimized
               />
+              {wmUrl && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    backgroundImage: `url("${wmUrl}")`,
+                    backgroundRepeat: "repeat",
+                  }}
+                />
+              )}
             </div>
             <div className="flex flex-wrap justify-center gap-2">
               <button

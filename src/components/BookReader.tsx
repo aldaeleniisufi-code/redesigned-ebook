@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { saveProgressAction } from "@/app/books/[id]/actions";
+import ProtectedImage from "@/components/ProtectedImage";
 
 type ReaderPage = {
   id: string;
@@ -27,12 +28,14 @@ export default function BookReader({
   pages,
   initialPage,
   labels,
+  watermark,
 }: {
   bookId: string;
   title: string;
   pages: ReaderPage[];
   initialPage: number;
   labels: ReaderLabels;
+  watermark?: string;
 }) {
   const [index, setIndex] = useState(
     Math.min(Math.max(initialPage, 0), pages.length - 1)
@@ -68,11 +71,12 @@ export default function BookReader({
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="flex flex-col items-center gap-4"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <ProtectedImage
               src={page.imageUrl}
               alt={`${title} - ${labels.page} ${page.order}`}
-              className="block h-auto w-full rounded-2xl shadow-xl"
+              watermark={watermark}
+              wrapperClassName="w-full"
+              imgClassName="block h-auto w-full rounded-2xl shadow-xl"
             />
             {page.text.trim() && (
               <p className="text-center text-xl font-medium leading-relaxed text-foreground sm:text-2xl">
