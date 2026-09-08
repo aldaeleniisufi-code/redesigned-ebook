@@ -1,8 +1,16 @@
 import type Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 import { getStripeClient } from "@/lib/stripe";
+import { sendEmail } from "@/lib/send-email";
+import {
+  subscriptionWelcomeEmailHtml,
+  subscriptionOwnerNotificationHtml,
+} from "@/lib/email-templates";
 
 const ACTIVE_STATUSES = ["active", "trialing"];
+
+// Where "new subscription" notifications go. Override with OWNER_EMAIL in Vercel.
+const OWNER_EMAIL = process.env.OWNER_EMAIL || "hello@kidleido.com";
 
 export async function hasActiveSubscription(userId: string): Promise<boolean> {
   const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -81,4 +89,42 @@ export async function activateSubscriptionFromCheckout(subscriptionId: string) {
   const stripe = getStripeClient();
   const sub = await stripe.subscriptions.retrieve(subscriptionId);
   await syncSubscription(sub);
+  await sendSubscriptionEmails(sub);
+}
+
+// Sends a welcome email to the new subscriber and a notification to the owner.
+// Errors are swallowed inside sendEmail, so this never breaks the webhook.
+async function sendSubscriptionEmails(sub: Stripe.Subscription) {
+  const customerId = typeof sub.customer === "string" ? sub.customer : sub.customer.id;
+  const userId = sub.metadata?.userId;
+  const user = userId
+    ? await prisma.user.findUnique({ where: { id: userId } })
+    : await prisma.user.findFirst({ where: { stripeCustomerId: customerId } });
+  if (!user?.email) return;
+
+  const item = sub.items.data[0];
+  const priceCents = item?.price?.unit_amount ?? 0;
+  const interval = item?.price?.recurring?.interval;
+  const planLabel = interval === "year" ? "Ετήσια συνδρομή" : "Μηνιαία συνδρομή";
+  const isTrial = sub.status === "trialing";
+  const trialEndsAt = sub.trial_end ? new Date(sub.trial_end * 1000) : null;
+  const name = user.name?.trim() || user.email;
+
+  await sendEmail({
+    to: user.email,
+    subject: "Καλωσόρισες στο Kidleido Premium! ✨",
+    html: subscriptionWelcomeEmailHtml({ name, planLabel, priceCents, trialEndsAt }),
+  });
+
+  await sendEmail({
+    to: OWNER_EMAIL,
+    subject: `Νέα συνδρομή: ${planLabel} 🎉`,
+    html: subscriptionOwnerNotificationHtml({
+      customerName: name,
+      customerEmail: user.email,
+      planLabel,
+      priceCents,
+      isTrial,
+    }),
+  });
 }

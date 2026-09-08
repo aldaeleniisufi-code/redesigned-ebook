@@ -40,6 +40,73 @@ export function confirmationEmailHtml({ name }: { name: string }): string {
   `);
 }
 
+export function subscriptionWelcomeEmailHtml({
+  name,
+  planLabel,
+  priceCents,
+  trialEndsAt,
+}: {
+  name: string;
+  planLabel: string;
+  priceCents: number;
+  trialEndsAt: Date | null;
+}): string {
+  const trialLine = trialEndsAt
+    ? `<p style="font-size:15px;line-height:1.6;margin:0 0 16px;">🎁 Η <strong>δωρεάν δοκιμή 14 ημερών</strong> ξεκίνησε! Δεν θα χρεωθείς μέχρι τις <strong>${trialEndsAt.toLocaleDateString(
+        "el-GR"
+      )}</strong>.</p>`
+    : "";
+  return emailShell(`
+    <h1 style="font-size:22px;margin:0 0 16px;">Καλωσόρισες στο Kidleido Premium, ${name}! ✨</h1>
+    <p style="font-size:15px;line-height:1.6;margin:0 0 16px;">
+      Η συνδρομή σου είναι ενεργή! Απόλαυσε <strong>απεριόριστη πρόσβαση</strong> σε όλα τα
+      βιβλία, τις ζωγραφιές και το παιδικό app του Kidleido.
+    </p>
+    ${trialLine}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fff7e8;border-radius:16px;">
+      <tr>
+        <td style="padding:16px 20px;font-size:15px;"><strong>${planLabel}</strong></td>
+        <td style="padding:16px 20px;font-size:15px;text-align:right;color:#e86a5a;font-weight:bold;">
+          ${formatPrice(priceCents)}
+        </td>
+      </tr>
+    </table>
+    <p style="font-size:15px;line-height:1.6;margin:20px 0 0;">Καλή διασκέδαση! 🦁📖</p>
+  `);
+}
+
+export function subscriptionOwnerNotificationHtml({
+  customerName,
+  customerEmail,
+  planLabel,
+  priceCents,
+  isTrial,
+}: {
+  customerName: string;
+  customerEmail: string;
+  planLabel: string;
+  priceCents: number;
+  isTrial: boolean;
+}): string {
+  return emailShell(`
+    <h1 style="font-size:22px;margin:0 0 16px;">Νέα συνδρομή! 🎉</h1>
+    <p style="font-size:15px;line-height:1.6;margin:0 0 24px;">
+      Κάποιος μόλις έγινε συνδρομητής στο Kidleido.
+    </p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fff7e8;border-radius:16px;">
+      <tr><td style="padding:14px 20px;font-size:15px;">👤 Πελάτης</td><td style="padding:14px 20px;font-size:15px;text-align:right;"><strong>${customerName}</strong></td></tr>
+      <tr><td style="padding:14px 20px;font-size:15px;">✉️ Email</td><td style="padding:14px 20px;font-size:15px;text-align:right;">${customerEmail}</td></tr>
+      <tr><td style="padding:14px 20px;font-size:15px;">📦 Πλάνο</td><td style="padding:14px 20px;font-size:15px;text-align:right;"><strong>${planLabel}</strong></td></tr>
+      <tr><td style="padding:14px 20px;font-size:15px;">💶 Ποσό</td><td style="padding:14px 20px;font-size:15px;text-align:right;color:#e86a5a;font-weight:bold;">${formatPrice(
+        priceCents
+      )}</td></tr>
+      <tr><td style="padding:14px 20px;font-size:15px;">🔖 Κατάσταση</td><td style="padding:14px 20px;font-size:15px;text-align:right;">${
+        isTrial ? "Δωρεάν δοκιμή 14 ημερών" : "Ενεργή / Πληρωμένη"
+      }</td></tr>
+    </table>
+  `);
+}
+
 export function receiptEmailHtml({
   name,
   bookTitle,
