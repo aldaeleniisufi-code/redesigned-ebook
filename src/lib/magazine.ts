@@ -179,6 +179,84 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
       },
     ],
   },
+  {
+    id: "issue-3",
+    number: 3,
+    season: { el: "Τεύχος 3", en: "Issue 3" },
+    title: {
+      el: "Η Άρια, η φύση και ο μαγικός σπόρος!",
+      en: "Aria, nature and the magic seed!",
+    },
+    articles: [
+      {
+        id: "story",
+        emoji: "🌱",
+        kicker: { el: "Η ιστορία του μήνα", en: "Story of the month" },
+        title: {
+          el: "Η Άρια και ο Χρυσός Σπόρος",
+          en: "Aria and the Golden Seed",
+        },
+        body: {
+          el: "Η Άρια βρίσκει έναν μικρό χρυσό σπόρο. Με υπομονή, αγάπη και καλοσύνη, τον φροντίζει κάθε μέρα — μέχρι που συμβαίνει κάτι μαγικό! Μια ιστορία για την ελπίδα.",
+          en: "Aria finds a tiny golden seed. With patience, love and kindness she cares for it every day — until something magical happens! A story about hope.",
+        },
+        href: "/library",
+        cta: { el: "Διάβασέ το", en: "Read it" },
+        className: "bg-brand-yellow text-brand-purple",
+      },
+      {
+        id: "coloring",
+        emoji: "🎨",
+        kicker: { el: "Ζωγραφική", en: "Coloring" },
+        title: {
+          el: "Χρωμάτισε την Άρια!",
+          en: "Color Aria!",
+        },
+        body: {
+          el: "Δώσε χρώμα στην Άρια, στον αετό της και στον μαγικό κήπο — online ή τυπωμένο. Διάλεξε τα δικά σου χρώματα!",
+          en: "Bring Aria, her eagle and the magic garden to life — online or printed. Pick your own colors!",
+        },
+        href: "/coloring",
+        cta: { el: "Χρωμάτισε", en: "Color now" },
+        className: "bg-brand-pink text-white",
+      },
+      {
+        id: "craft",
+        emoji: "🌻",
+        kicker: { el: "Κατασκευή", en: "Craft" },
+        title: { el: "Φύτεψε τον δικό σου σπόρο", en: "Plant your own seed" },
+        body: {
+          el: "1) Βάλε χώμα σε ένα ποτηράκι. 2) Φύτεψε έναν σπόρο (π.χ. φασόλι). 3) Πότισέ τον λίγο κάθε μέρα και βάλ' τον στον ήλιο. 4) Δες τον να μεγαλώνει! 🌿",
+          en: "1) Fill a cup with soil. 2) Plant a seed (like a bean). 3) Water it a little each day and keep it in the sun. 4) Watch it grow! 🌿",
+        },
+        className: "bg-brand-teal text-brand-purple",
+      },
+      {
+        id: "fact",
+        emoji: "💡",
+        kicker: { el: "Ξέρεις ότι…;", en: "Did you know?" },
+        title: { el: "Τι χρειάζεται ένας σπόρος;", en: "What does a seed need?" },
+        body: {
+          el: "Ένας σπόρος θέλει τρία πράγματα για να μεγαλώσει: χώμα, νερό και ήλιο. Με λίγη υπομονή, γίνεται ένα ολόκληρο φυτό — σαν μαγεία της φύσης!",
+          en: "A seed needs three things to grow: soil, water and sunlight. With a little patience it becomes a whole plant — like nature's magic!",
+        },
+        className: "bg-brand-blue text-white",
+      },
+      {
+        id: "activity",
+        emoji: "🖍️",
+        kicker: { el: "Δραστηριότητα", en: "Activity" },
+        title: { el: "Ζωγράφισε τον δικό σου κήπο", en: "Draw your own garden" },
+        body: {
+          el: "Άνοιξε τη Δημιουργική γωνιά και ζωγράφισε έναν κήπο γεμάτο λουλούδια, δέντρα και πεταλούδες — τον πιο όμορφο κήπο του κόσμου!",
+          en: "Open the Creative corner and draw a garden full of flowers, trees and butterflies — the most beautiful garden in the world!",
+        },
+        href: "/app/draw",
+        cta: { el: "Ζωγράφισε", en: "Draw" },
+        className: "bg-white text-brand-purple ring-2 ring-brand-yellow",
+      },
+    ],
+  },
 ];
 
 export function getCurrentIssue(): MagazineIssue {

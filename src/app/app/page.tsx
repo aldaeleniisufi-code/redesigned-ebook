@@ -2,7 +2,6 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { getDict } from "@/lib/i18n";
 import { hasActiveSubscription } from "@/lib/subscription";
-import AgeLevelToggle from "@/components/AgeLevelToggle";
 
 type Tile = {
   key: string;
@@ -90,11 +89,6 @@ export default async function AppHubPage() {
           {a.hubTitle}
         </h1>
         <p className="text-lg text-foreground/70">{a.hubSubtitle}</p>
-        <AgeLevelToggle
-          levelLabel={a.level}
-          smallLabel={a.levelSmall}
-          bigLabel={a.levelBig}
-        />
       </div>
 
       {/* login prompt for guests */}
