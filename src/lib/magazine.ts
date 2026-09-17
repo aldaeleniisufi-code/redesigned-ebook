@@ -257,6 +257,84 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
       },
     ],
   },
+  {
+    id: "issue-4",
+    number: 4,
+    season: { el: "Τεύχος 4 · Φθινόπωρο", en: "Issue 4 · Autumn" },
+    title: {
+      el: "Παραμύθια πριν τον ύπνο & φθινοπωρινή μαγεία!",
+      en: "Bedtime tales & autumn magic!",
+    },
+    articles: [
+      {
+        id: "story",
+        emoji: "🌙",
+        kicker: { el: "Η ιστορία του μήνα", en: "Story of the month" },
+        title: {
+          el: "Παραμύθια για γλυκά όνειρα",
+          en: "Tales for sweet dreams",
+        },
+        body: {
+          el: "Ήρθε το φθινόπωρο και τα βράδια είναι πιο μεγάλα — ιδανικά για ένα ζεστό παραμύθι πριν τον ύπνο! Χώσου στην κουβέρτα, άναψε ένα φως και ταξίδεψε με τους ήρωές μας σε μαγικούς κόσμους. 💫",
+          en: "Autumn is here and the evenings are longer — perfect for a cozy bedtime story! Snuggle under a blanket, turn on a soft light and travel with our heroes to magical worlds. 💫",
+        },
+        href: "/library",
+        cta: { el: "Διάβασέ το", en: "Read it" },
+        className: "bg-brand-yellow text-brand-purple",
+      },
+      {
+        id: "coloring",
+        emoji: "🎨",
+        kicker: { el: "Ζωγραφική", en: "Coloring" },
+        title: {
+          el: "Χρωμάτισε ένα μαγικό βράδυ",
+          en: "Color a magical night",
+        },
+        body: {
+          el: "Δώσε χρώμα σε φεγγάρια, αστέρια και ονειρεμένα τοπία της νύχτας — online ή τυπωμένο. Διάλεξε απαλά χρώματα για γλυκά όνειρα!",
+          en: "Bring moons, stars and dreamy night scenes to life — online or printed. Pick soft colors for sweet dreams!",
+        },
+        href: "/coloring",
+        cta: { el: "Χρωμάτισε", en: "Color now" },
+        className: "bg-brand-pink text-white",
+      },
+      {
+        id: "craft",
+        emoji: "🏮",
+        kicker: { el: "Κατασκευή", en: "Craft" },
+        title: { el: "Φτιάξε ένα φαναράκι ονείρων", en: "Make a dream lantern" },
+        body: {
+          el: "1) Πάρε ένα άδειο βαζάκι. 2) Κόλλησε γύρω-γύρω χαρτόνι με τρυπούλες σε σχήμα αστεριού. 3) Βάλε μέσα ένα φωτάκι LED. 4) Σβήσε τα φώτα και δες τα αστέρια να λάμπουν! ✨",
+          en: "1) Take an empty jar. 2) Wrap it with paper punched with little star holes. 3) Put an LED light inside. 4) Turn off the lights and watch the stars glow! ✨",
+        },
+        className: "bg-brand-teal text-brand-purple",
+      },
+      {
+        id: "fact",
+        emoji: "💡",
+        kicker: { el: "Ξέρεις ότι…;", en: "Did you know?" },
+        title: { el: "Γιατί βλέπουμε όνειρα;", en: "Why do we dream?" },
+        body: {
+          el: "Όταν κοιμόμαστε, το μυαλό μας «ταξιδεύει» και ταξινομεί όσα έμαθε μέσα στη μέρα — και μερικές φορές φτιάχνει όνειρα! Γι' αυτό ο ύπνος μάς κάνει πιο έξυπνους και χαρούμενους. 🌛",
+          en: "When we sleep, our brain 'travels' and sorts everything we learned during the day — and sometimes it makes dreams! That's why sleep makes us smarter and happier. 🌛",
+        },
+        className: "bg-brand-blue text-white",
+      },
+      {
+        id: "activity",
+        emoji: "🖍️",
+        kicker: { el: "Δραστηριότητα", en: "Activity" },
+        title: { el: "Ζωγράφισε τον νυχτερινό ουρανό", en: "Draw the night sky" },
+        body: {
+          el: "Άνοιξε τη Δημιουργική γωνιά και ζωγράφισε έναν μαγικό νυχτερινό ουρανό — με φεγγάρι, αστέρια, σύννεφα και ό,τι ονειρεύεσαι!",
+          en: "Open the Creative corner and draw a magical night sky — with a moon, stars, clouds and anything you dream of!",
+        },
+        href: "/app/draw",
+        cta: { el: "Ζωγράφισε", en: "Draw" },
+        className: "bg-white text-brand-purple ring-2 ring-brand-yellow",
+      },
+    ],
+  },
 ];
 
 export function getCurrentIssue(): MagazineIssue {
