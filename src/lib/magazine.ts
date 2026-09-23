@@ -335,6 +335,84 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
       },
     ],
   },
+  {
+    id: "issue-5",
+    number: 5,
+    season: { el: "Τεύχος 5", en: "Issue 5" },
+    title: {
+      el: "Καλοσύνη & Φιλία — η πιο μεγάλη μαγεία!",
+      en: "Kindness & Friendship — the greatest magic!",
+    },
+    articles: [
+      {
+        id: "story",
+        emoji: "💛",
+        kicker: { el: "Η ιστορία του μήνα", en: "Story of the month" },
+        title: {
+          el: "Η δύναμη της καλοσύνης",
+          en: "The power of kindness",
+        },
+        body: {
+          el: "Ο Πρίγκιπας, η Πριγκίπισσα και η Άρια μαθαίνουν ότι η πιο μεγάλη μαγεία δεν είναι τα ξόρκια… αλλά μια καλή πράξη! Όταν βοηθάμε έναν φίλο, όλος ο κόσμος γίνεται πιο όμορφος. 🤝",
+          en: "The Prince, the Princess and Aria discover that the greatest magic isn't spells… it's a kind act! When we help a friend, the whole world becomes more beautiful. 🤝",
+        },
+        href: "/library",
+        cta: { el: "Διάβασέ το", en: "Read it" },
+        className: "bg-brand-yellow text-brand-purple",
+      },
+      {
+        id: "coloring",
+        emoji: "🎨",
+        kicker: { el: "Ζωγραφική", en: "Coloring" },
+        title: {
+          el: "Χρωμάτισε τους φίλους",
+          en: "Color the friends",
+        },
+        body: {
+          el: "Δώσε χρώμα στους ήρωες και τους φίλους τους, καθώς παίζουν και βοηθούν ο ένας τον άλλον — online ή τυπωμένο!",
+          en: "Bring the heroes and their friends to life as they play and help each other — online or printed!",
+        },
+        href: "/coloring",
+        cta: { el: "Χρωμάτισε", en: "Color now" },
+        className: "bg-brand-pink text-white",
+      },
+      {
+        id: "craft",
+        emoji: "💌",
+        kicker: { el: "Κατασκευή", en: "Craft" },
+        title: { el: "Φτιάξε μια κάρτα φιλίας", en: "Make a friendship card" },
+        body: {
+          el: "1) Δίπλωσε ένα χαρτί στη μέση. 2) Ζωγράφισε μια καρδιά ή τον φίλο σου. 3) Γράψε κάτι γλυκό μέσα. 4) Δώσ' την σε κάποιον που αγαπάς — και δες το χαμόγελό του! 💕",
+          en: "1) Fold a paper in half. 2) Draw a heart or your friend. 3) Write something sweet inside. 4) Give it to someone you love — and watch them smile! 💕",
+        },
+        className: "bg-brand-teal text-brand-purple",
+      },
+      {
+        id: "fact",
+        emoji: "💡",
+        kicker: { el: "Ξέρεις ότι…;", en: "Did you know?" },
+        title: { el: "Η καλοσύνη… κολλάει!", en: "Kindness is contagious!" },
+        body: {
+          el: "Όταν κάνεις κάτι καλό, αυτός που το δέχεται νιώθει τόσο ωραία που θέλει κι εκείνος να κάνει κάτι καλό σε άλλον! Έτσι μια μικρή καλοσύνη ταξιδεύει σε όλο τον κόσμο. 🌍",
+          en: "When you do something kind, the person who receives it feels so good that they want to be kind to someone else too! That's how one small kindness travels around the whole world. 🌍",
+        },
+        className: "bg-brand-blue text-white",
+      },
+      {
+        id: "activity",
+        emoji: "🖍️",
+        kicker: { el: "Δραστηριότητα", en: "Activity" },
+        title: { el: "Ζωγράφισε εσένα & τον καλύτερό σου φίλο", en: "Draw you & your best friend" },
+        body: {
+          el: "Άνοιξε τη Δημιουργική γωνιά και ζωγράφισε εσένα μαζί με τον καλύτερό σου φίλο — να κάνετε παρέα, να παίζετε και να γελάτε!",
+          en: "Open the Creative corner and draw you together with your best friend — hanging out, playing and laughing!",
+        },
+        href: "/app/draw",
+        cta: { el: "Ζωγράφισε", en: "Draw" },
+        className: "bg-white text-brand-purple ring-2 ring-brand-yellow",
+      },
+    ],
+  },
 ];
 
 export function getCurrentIssue(): MagazineIssue {
