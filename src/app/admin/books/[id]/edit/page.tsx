@@ -11,6 +11,7 @@ import {
 } from "../../../actions";
 import { getDict } from "@/lib/i18n";
 import ImageInput from "@/components/ImageInput";
+import BulkPageUpload from "@/components/BulkPageUpload";
 
 export default async function EditBookPage({
   params,
@@ -213,6 +214,13 @@ export default async function EditBookPage({
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="rounded-3xl bg-brand-teal/10 p-6 shadow-md ring-2 ring-brand-teal/40">
+        <h2 className="mb-4 text-lg font-bold text-foreground">
+          📚 Μαζικό ανέβασμα σελίδων
+        </h2>
+        <BulkPageUpload bookId={book.id} />
       </section>
 
       <section className="rounded-3xl bg-white p-6 shadow-md">
