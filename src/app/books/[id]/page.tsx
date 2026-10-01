@@ -77,12 +77,20 @@ export default async function BookPage({
     where: { childProfileId_bookId: { childProfileId: profileId, bookId: book.id } },
   });
 
+  // Show the page set for the current language. If this book has no pages for
+  // the current language, fall back to the Greek set (covers older books whose
+  // pages are all default "el"), then to whatever pages exist.
+  const forLocale = book.pages.filter((p) => p.locale === locale);
+  const forEl = book.pages.filter((p) => p.locale === "el");
+  const shownPages =
+    forLocale.length > 0 ? forLocale : forEl.length > 0 ? forEl : book.pages;
+
   return (
     <BookReader
       bookId={book.id}
       title={displayTitle}
       watermark={session.user.email ?? undefined}
-      pages={book.pages.map((p) => ({
+      pages={shownPages.map((p) => ({
         id: p.id,
         order: p.order,
         imageUrl: p.imageUrl,

@@ -38,6 +38,7 @@ export default function BulkPageUpload({ bookId }: { bookId: string }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
+  const [locale, setLocale] = useState<"el" | "en">("el");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(0);
   const [failed, setFailed] = useState<number[]>([]);
@@ -72,6 +73,7 @@ export default function BulkPageUpload({ bookId }: { bookId: string }) {
         const compressed = await compressImage(files[i]);
         const fd = new FormData();
         fd.append("image", compressed);
+        fd.append("locale", locale);
         const res = await fetch(`/api/admin/books/${bookId}/pages`, {
           method: "POST",
           body: fd,
@@ -95,9 +97,37 @@ export default function BulkPageUpload({ bookId }: { bookId: string }) {
     <div className="flex flex-col gap-4">
       <p className="text-sm text-foreground/70">
         Διάλεξε <strong>όλες τις εικόνες μαζί</strong>. Μπαίνουν αυτόματα με τη
-        σειρά του ονόματος αρχείου (π.χ. page-001, page-002…), στο τέλος του
-        βιβλίου. Ιδανικό για βιβλία με πολλές σελίδες.
+        σειρά του ονόματος αρχείου (π.χ. page-001, page-002…). Ιδανικό για
+        βιβλία με πολλές σελίδες.
       </p>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-sm font-semibold text-foreground/80">
+          Γλώσσα σελίδων:
+        </span>
+        <div className="flex gap-3">
+          {(["el", "en"] as const).map((lng) => (
+            <button
+              key={lng}
+              type="button"
+              onClick={() => setLocale(lng)}
+              disabled={busy}
+              className={`rounded-full px-5 py-2 text-sm font-bold shadow-sm transition ${
+                locale === lng
+                  ? "bg-brand-purple text-white"
+                  : "bg-white text-brand-purple ring-1 ring-brand-purple/20"
+              }`}
+            >
+              {lng === "el" ? "🇬🇷 Ελληνικά" : "🇬🇧 Αγγλικά"}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-foreground/50">
+          Ανέβασε το ελληνικό σετ ως «Ελληνικά» και το αγγλικό ως «Αγγλικά» —
+          στο <strong>ίδιο</strong> βιβλίο. Ο αναγνώστης δείχνει το σωστό σετ
+          ανάλογα με τη γλώσσα του site.
+        </p>
+      </div>
 
       <input
         ref={inputRef}

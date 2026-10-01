@@ -73,6 +73,10 @@ model Page {
   imageUrl String
   text     String
   textEn   String?
+  // Language edition this page belongs to ("el" or "en"). Lets one book hold
+  // both a Greek and an English page set (which may differ in page count); the
+  // reader shows the pages matching the current site language.
+  locale   String  @default("el")
 }
 
 model ReadingProgress {

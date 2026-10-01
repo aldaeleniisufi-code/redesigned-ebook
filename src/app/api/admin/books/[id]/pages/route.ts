@@ -29,6 +29,10 @@ export async function POST(
     return new Response("Missing image", { status: 400 });
   }
 
+  const locale = form.get("locale") === "en" ? "en" : "el";
+
+  // order is global per book (el set then en set); the reader filters by
+  // locale and sorts, so each language still shows in the right sequence.
   const last = await prisma.page.findFirst({
     where: { bookId },
     orderBy: { order: "desc" },
@@ -36,7 +40,7 @@ export async function POST(
   const order = (last?.order ?? 0) + 1;
 
   const imageUrl = await saveUploadedFile(image);
-  await prisma.page.create({ data: { bookId, order, text: "", imageUrl } });
+  await prisma.page.create({ data: { bookId, order, text: "", imageUrl, locale } });
 
-  return Response.json({ ok: true, order });
+  return Response.json({ ok: true, order, locale });
 }
