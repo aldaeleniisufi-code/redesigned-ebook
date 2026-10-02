@@ -220,7 +220,7 @@ export default async function EditBookPage({
         <h2 className="mb-4 text-lg font-bold text-foreground">
           📚 Μαζικό ανέβασμα σελίδων
         </h2>
-        <BulkPageUpload bookId={book.id} />
+        <BulkPageUpload endpoint={`/api/admin/books/${book.id}/pages`} />
       </section>
 
       <section className="rounded-3xl bg-white p-6 shadow-md">

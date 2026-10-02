@@ -34,7 +34,13 @@ async function compressImage(
   }
 }
 
-export default function BulkPageUpload({ bookId }: { bookId: string }) {
+export default function BulkPageUpload({
+  endpoint,
+  showLanguage = true,
+}: {
+  endpoint: string;
+  showLanguage?: boolean;
+}) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
@@ -73,8 +79,8 @@ export default function BulkPageUpload({ bookId }: { bookId: string }) {
         const compressed = await compressImage(files[i]);
         const fd = new FormData();
         fd.append("image", compressed);
-        fd.append("locale", locale);
-        const res = await fetch(`/api/admin/books/${bookId}/pages`, {
+        if (showLanguage) fd.append("locale", locale);
+        const res = await fetch(endpoint, {
           method: "POST",
           body: fd,
         });
@@ -101,6 +107,7 @@ export default function BulkPageUpload({ bookId }: { bookId: string }) {
         βιβλία με πολλές σελίδες.
       </p>
 
+      {showLanguage && (
       <div className="flex flex-col gap-2">
         <span className="text-sm font-semibold text-foreground/80">
           Γλώσσα σελίδων:
@@ -128,6 +135,7 @@ export default function BulkPageUpload({ bookId }: { bookId: string }) {
           ανάλογα με τη γλώσσα του site.
         </p>
       </div>
+      )}
 
       <input
         ref={inputRef}

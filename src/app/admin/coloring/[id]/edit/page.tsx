@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { updatePackAction, togglePackPublishAction } from "../../actions";
 import { getDict } from "@/lib/i18n";
 import ImageInput from "@/components/ImageInput";
+import BulkPageUpload from "@/components/BulkPageUpload";
 
 export default async function EditPackPage({
   params,
@@ -100,6 +101,16 @@ export default async function EditPackPage({
             {d.admin.save}
           </button>
         </form>
+      </section>
+
+      <section className="mt-8 rounded-3xl bg-brand-teal/10 p-6 shadow-md ring-2 ring-brand-teal/40">
+        <h2 className="mb-4 text-lg font-bold text-foreground">
+          🎨 Μαζικό ανέβασμα σελίδων
+        </h2>
+        <BulkPageUpload
+          endpoint={`/api/admin/coloring/${pack.id}/pages`}
+          showLanguage={false}
+        />
       </section>
     </div>
   );
