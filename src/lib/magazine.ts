@@ -413,6 +413,84 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
       },
     ],
   },
+  {
+    id: "issue-6",
+    number: 6,
+    season: { el: "Τεύχος 6", en: "Issue 6" },
+    title: {
+      el: "Σεβασμός — η ομορφιά του να νοιάζεσαι!",
+      en: "Respect — the beauty of caring!",
+    },
+    articles: [
+      {
+        id: "story",
+        emoji: "🙏",
+        kicker: { el: "Η ιστορία του μήνα", en: "Story of the month" },
+        title: {
+          el: "Ο σεβασμός κάνει θαύματα",
+          en: "Respect works wonders",
+        },
+        body: {
+          el: "Οι ήρωές μας μαθαίνουν ότι ο σεβασμός σημαίνει να ακούμε τους άλλους, να λέμε «σ' ευχαριστώ» και «παρακαλώ», και να φροντίζουμε τους μεγάλους, τους φίλους και τη φύση. Έτσι όλοι νιώθουν πολύτιμοι! 💖",
+          en: "Our heroes learn that respect means listening to others, saying \"thank you\" and \"please\", and caring for elders, friends and nature. That way everyone feels valued! 💖",
+        },
+        href: "/library",
+        cta: { el: "Διάβασέ το", en: "Read it" },
+        className: "bg-brand-yellow text-brand-purple",
+      },
+      {
+        id: "coloring",
+        emoji: "🎨",
+        kicker: { el: "Ζωγραφική", en: "Coloring" },
+        title: {
+          el: "Χρωμάτισε μια πράξη σεβασμού",
+          en: "Color an act of respect",
+        },
+        body: {
+          el: "Δώσε χρώμα σε σκηνές όπου οι ήρωες βοηθούν, μοιράζονται και φροντίζουν ο ένας τον άλλον — online ή τυπωμένο!",
+          en: "Bring to life scenes where the heroes help, share and care for one another — online or printed!",
+        },
+        href: "/coloring",
+        cta: { el: "Χρωμάτισε", en: "Color now" },
+        className: "bg-brand-pink text-white",
+      },
+      {
+        id: "craft",
+        emoji: "🫙",
+        kicker: { el: "Κατασκευή", en: "Craft" },
+        title: { el: "Το βαζάκι με τις ευγενικές λέξεις", en: "The kind-words jar" },
+        body: {
+          el: "1) Βρες ένα βαζάκι. 2) Κόψε χαρτάκια. 3) Σε κάθε χαρτάκι γράψε μια ευγενική λέξη ή φράση («σ' ευχαριστώ», «μπράβο!», «σ' αγαπώ»). 4) Κάθε μέρα τράβα ένα και πες το σε κάποιον! 💌",
+          en: "1) Find a jar. 2) Cut little papers. 3) On each, write a kind word or phrase (\"thank you\", \"well done!\", \"I love you\"). 4) Each day pull one and say it to someone! 💌",
+        },
+        className: "bg-brand-teal text-brand-purple",
+      },
+      {
+        id: "fact",
+        emoji: "💡",
+        kicker: { el: "Ξέρεις ότι…;", en: "Did you know?" },
+        title: { el: "Οι «μαγικές λέξεις»", en: "The \"magic words\"" },
+        body: {
+          el: "Το «παρακαλώ», το «σ' ευχαριστώ» και το «συγγνώμη» λέγονται «μαγικές λέξεις» — γιατί κάνουν τους άλλους να χαμογελούν και δείχνουν σεβασμό. Δοκίμασέ τες σήμερα! ✨",
+          en: "\"Please\", \"thank you\" and \"sorry\" are called the \"magic words\" — because they make others smile and show respect. Try them today! ✨",
+        },
+        className: "bg-brand-blue text-white",
+      },
+      {
+        id: "activity",
+        emoji: "🖍️",
+        kicker: { el: "Δραστηριότητα", en: "Activity" },
+        title: { el: "Ζωγράφισε κάποιον που σέβεσαι", en: "Draw someone you respect" },
+        body: {
+          el: "Άνοιξε τη Δημιουργική γωνιά και ζωγράφισε κάποιον που σέβεσαι και αγαπάς — τη γιαγιά, τον δάσκαλο, έναν φίλο — και πες του γιατί είναι σημαντικός για σένα!",
+          en: "Open the Creative corner and draw someone you respect and love — a grandparent, a teacher, a friend — and tell them why they matter to you!",
+        },
+        href: "/app/draw",
+        cta: { el: "Ζωγράφισε", en: "Draw" },
+        className: "bg-white text-brand-purple ring-2 ring-brand-yellow",
+      },
+    ],
+  },
 ];
 
 export function getCurrentIssue(): MagazineIssue {
