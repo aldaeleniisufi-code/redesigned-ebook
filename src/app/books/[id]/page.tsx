@@ -89,6 +89,7 @@ export default async function BookPage({
     <BookReader
       bookId={book.id}
       title={displayTitle}
+      watermark="kidleido"
       pages={shownPages.map((p) => ({
         id: p.id,
         order: p.order,

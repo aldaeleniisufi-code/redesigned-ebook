@@ -20,7 +20,7 @@ export function watermarkDataUrl(wm: string): string | null {
   const t = wm.trim();
   if (!t) return null;
   return `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170'><text x='12' y='95' transform='rotate(-28 150 85)' fill='rgba(23,63,115,0.13)' font-size='15' font-weight='bold' font-family='Arial, sans-serif'>${xmlEscape(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='460' height='320'><text x='18' y='175' transform='rotate(-28 230 160)' fill='rgba(23,63,115,0.07)' font-size='16' font-weight='bold' font-family='Arial, sans-serif'>${xmlEscape(
       t
     )}</text></svg>`
   )}`;
