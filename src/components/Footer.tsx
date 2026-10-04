@@ -16,6 +16,12 @@ function SocialIcon({ name }: { name: string }) {
           <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z" />
         </svg>
       );
+    case "TikTok":
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-1.84-2.48V9.74a5.67 5.67 0 1 0 4.93 5.62V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.28 4.28 0 0 1-3.24-1.48Z" />
+        </svg>
+      );
     case "YouTube":
       return (
         <svg {...common} aria-hidden="true">
