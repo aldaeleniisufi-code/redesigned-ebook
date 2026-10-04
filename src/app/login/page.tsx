@@ -1,20 +1,31 @@
 import Link from "next/link";
 import { loginAction } from "./actions";
-import { getDict } from "@/lib/i18n";
+import { getDict, getLocale } from "@/lib/i18n";
 
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; reset?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, reset } = await searchParams;
   const d = await getDict();
+  const en = (await getLocale()) === "en";
+  const forgotLabel = en ? "Forgot your password?" : "Ξέχασες τον κωδικό σου;";
+  const resetDone = en
+    ? "✅ Your password has been changed. Please log in."
+    : "✅ Ο κωδικός σου άλλαξε. Συνδέσου τώρα.";
 
   return (
     <div className="mx-auto flex max-w-md flex-col gap-6 px-4 py-16">
       <h1 className="text-center text-3xl font-bold text-brand-purple">
         {d.login.title}
       </h1>
+
+      {reset && (
+        <p className="rounded-xl bg-brand-teal/20 px-4 py-3 text-center text-sm font-semibold text-brand-purple">
+          {resetDone}
+        </p>
+      )}
 
       {error && (
         <p className="rounded-xl bg-red-100 px-4 py-3 text-center text-sm font-semibold text-red-700">
@@ -47,6 +58,12 @@ export default async function LoginPage({
         >
           {d.login.submit}
         </button>
+        <Link
+          href="/forgot-password"
+          className="text-center text-sm font-semibold text-brand-purple underline"
+        >
+          {forgotLabel}
+        </Link>
       </form>
 
       <p className="text-center text-sm text-foreground/70">

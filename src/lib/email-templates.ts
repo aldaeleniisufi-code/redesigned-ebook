@@ -107,6 +107,33 @@ export function subscriptionOwnerNotificationHtml({
   `);
 }
 
+export function passwordResetEmailHtml({
+  name,
+  resetUrl,
+}: {
+  name: string;
+  resetUrl: string;
+}): string {
+  return emailShell(`
+    <h1 style="font-size:22px;margin:0 0 16px;">Επαναφορά κωδικού 🔑</h1>
+    <p style="font-size:15px;line-height:1.6;margin:0 0 20px;">
+      Γεια σου ${name}, ζήτησες να αλλάξεις τον κωδικό σου στο <strong>Kidleido</strong>.
+      Πάτα το κουμπί για να ορίσεις νέο κωδικό:
+    </p>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;">
+      <tr><td style="border-radius:999px;background:#e86a5a;">
+        <a href="${resetUrl}" style="display:inline-block;padding:14px 28px;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:999px;">
+          Όρισε νέο κωδικό
+        </a>
+      </td></tr>
+    </table>
+    <p style="font-size:13px;line-height:1.6;margin:0;color:#173f73;opacity:0.7;">
+      Ο σύνδεσμος λήγει σε 1 ώρα. Αν δεν το ζήτησες εσύ, αγνόησε αυτό το email —
+      ο κωδικός σου παραμένει ίδιος.
+    </p>
+  `);
+}
+
 export function receiptEmailHtml({
   name,
   bookTitle,
