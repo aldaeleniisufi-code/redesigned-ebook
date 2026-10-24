@@ -491,6 +491,84 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
       },
     ],
   },
+  {
+    id: "issue-7",
+    number: 7,
+    season: { el: "Τεύχος 7", en: "Issue 7" },
+    title: {
+      el: "Καθαριότητα — μισή αρχοντιά!",
+      en: "Cleanliness — happy & healthy!",
+    },
+    articles: [
+      {
+        id: "story",
+        emoji: "🧼",
+        kicker: { el: "Η ιστορία του μήνα", en: "Story of the month" },
+        title: {
+          el: "Η μαγική δύναμη του σαπουνιού",
+          en: "The magic power of soap",
+        },
+        body: {
+          el: "Οι ήρωές μας ανακαλύπτουν ότι, πλένοντας τα χεράκια τους, διώχνουν τα μικρόβια και μένουν υγιείς και χαρούμενοι. Η καθαριότητα κάνει το σώμα, το σπίτι και τη φύση να λάμπουν! 💧",
+          en: "Our heroes discover that washing their hands chases away germs and keeps them healthy and happy. Cleanliness makes your body, your home and nature sparkle! 💧",
+        },
+        href: "/library",
+        cta: { el: "Διάβασέ το", en: "Read it" },
+        className: "bg-brand-yellow text-brand-purple",
+      },
+      {
+        id: "coloring",
+        emoji: "🎨",
+        kicker: { el: "Ζωγραφική", en: "Coloring" },
+        title: {
+          el: "Χρωμάτισε μια καθαρή, λαμπερή μέρα",
+          en: "Color a clean, bright day",
+        },
+        body: {
+          el: "Δώσε χρώμα σε σκηνές όπου οι ήρωες πλένουν χέρια, τακτοποιούν τα παιχνίδια και φροντίζουν τον χώρο τους — online ή τυπωμένο!",
+          en: "Bring to life scenes where the heroes wash up, tidy their toys and care for their space — online or printed!",
+        },
+        href: "/coloring",
+        cta: { el: "Χρωμάτισε", en: "Color now" },
+        className: "bg-brand-pink text-white",
+      },
+      {
+        id: "craft",
+        emoji: "🧽",
+        kicker: { el: "Κατασκευή", en: "Craft" },
+        title: { el: "Ο πίνακας των καθαρών συνηθειών", en: "The clean-habits chart" },
+        body: {
+          el: "1) Πάρε ένα χαρτόνι. 2) Ζωγράφισε κουτάκια για κάθε μέρα. 3) Βάλε συνήθειες: «πλένω χέρια», «βουρτσίζω δόντια», «τακτοποιώ παιχνίδια». 4) Κάθε φορά που το κάνεις, κόλλα ένα αστεράκι! ⭐",
+          en: "1) Take some cardboard. 2) Draw boxes for each day. 3) Add habits: \"wash hands\", \"brush teeth\", \"tidy toys\". 4) Each time you do one, stick on a star! ⭐",
+        },
+        className: "bg-brand-teal text-brand-purple",
+      },
+      {
+        id: "fact",
+        emoji: "💡",
+        kicker: { el: "Ξέρεις ότι…;", en: "Did you know?" },
+        title: { el: "20 δευτερόλεπτα μαγείας", en: "20 seconds of magic" },
+        body: {
+          el: "Για να φύγουν τα μικρόβια, πλένουμε τα χέρια μας για 20 δευτερόλεπτα — όσο να τραγουδήσεις δύο φορές το «Χρόνια Πολλά»! Δοκίμασέ το σήμερα! 🎵",
+          en: "To wash the germs away, we scrub our hands for 20 seconds — about as long as singing \"Happy Birthday\" twice! Try it today! 🎵",
+        },
+        className: "bg-brand-blue text-white",
+      },
+      {
+        id: "activity",
+        emoji: "🖍️",
+        kicker: { el: "Δραστηριότητα", en: "Activity" },
+        title: { el: "Ζωγράφισε τη σούπερ-ρουτίνα σου", en: "Draw your super routine" },
+        body: {
+          el: "Άνοιξε τη Δημιουργική γωνιά και ζωγράφισε τη δική σου καθημερινή ρουτίνα καθαριότητας — από το πρωινό πλύσιμο μέχρι το βραδινό βούρτσισμα των δοντιών!",
+          en: "Open the Creative corner and draw your own daily clean-up routine — from your morning wash to brushing your teeth at night!",
+        },
+        href: "/app/draw",
+        cta: { el: "Ζωγράφισε", en: "Draw" },
+        className: "bg-white text-brand-purple ring-2 ring-brand-yellow",
+      },
+    ],
+  },
 ];
 
 export function getCurrentIssue(): MagazineIssue {
