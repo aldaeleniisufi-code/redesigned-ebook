@@ -2,6 +2,7 @@
 // (bilingual); add new issues to the array to publish them in the app.
 
 export type LocalizedText = { el: string; en: string };
+export type LocalizedParagraphs = { el: string[]; en: string[] };
 
 export type MagazineArticle = {
   id: string;
@@ -12,6 +13,8 @@ export type MagazineArticle = {
   href?: string;
   cta?: LocalizedText;
   className: string;
+  // Optional full story text, shown on /app/magazine/story/[issueId].
+  fullStory?: LocalizedParagraphs;
 };
 
 export type MagazineIssue = {
@@ -512,9 +515,33 @@ export const MAGAZINE_ISSUES: MagazineIssue[] = [
           el: "Οι ήρωές μας ανακαλύπτουν ότι, πλένοντας τα χεράκια τους, διώχνουν τα μικρόβια και μένουν υγιείς και χαρούμενοι. Η καθαριότητα κάνει το σώμα, το σπίτι και τη φύση να λάμπουν! 💧",
           en: "Our heroes discover that washing their hands chases away germs and keeps them healthy and happy. Cleanliness makes your body, your home and nature sparkle! 💧",
         },
-        href: "/library",
+        href: "/app/magazine/story/issue-7",
         cta: { el: "Διάβασέ το", en: "Read it" },
         className: "bg-brand-yellow text-brand-purple",
+        fullStory: {
+          el: [
+            "Ήταν ένα ηλιόλουστο πρωινό όταν ο μικρός Λέων γύρισε από το πάρκο με τα χέρια του γεμάτα χώμα και τα μάγουλά του κατακόκκινα από το παιχνίδι.",
+            "«Ελάτε όλοι για φαγητό!» φώναξε η γιαγιά. Ο Λέων έτρεξε στο τραπέζι, μα η γιαγιά χαμογέλασε και είπε: «Πρώτα τα χεράκια μας, μικρέ μου ιππότη.»",
+            "Ο Λέων γκρίνιαξε λιγάκι. «Μα δεν φαίνονται βρόμικα!» Η γιαγιά πήρε ένα σαπουνάκι που έλαμπε σαν μικρό αστέρι και του ψιθύρισε: «Αυτό εδώ έχει μαγική δύναμη. Δες…»",
+            "Μόλις το σαπούνι άγγιξε το νερό, γέμισε φυσαλίδες που σπιθοβολούσαν! Μέσα σε κάθε φυσαλίδα, ο Λέων νόμιζε πως έβλεπε χιλιάδες μικροσκοπικά μικρόβια να τρέχουν να κρυφτούν.",
+            "«Τα μικρόβια είναι τόσο μικρά που δεν τα βλέπουμε», εξήγησε η γιαγιά, «μα δεν τους αρέσει καθόλου το σαπούνι! Όταν τρίβεις τα χεράκια σου για είκοσι δευτερόλεπτα, φεύγουν όλα μακριά.»",
+            "Ο Λέων έτριψε και ξανάτριψε, τραγουδώντας δύο φορές τα «Χρόνια Πολλά», όπως του είπε η γιαγιά. Οι φυσαλίδες χόρευαν στα δάχτυλά του σαν μικρά αστέρια.",
+            "Όταν ξέπλυνε τα χέρια του, ήταν καθαρά, μυρωδάτα και λαμπερά. «Νιώθω σαν αληθινός ιππότης!» γέλασε.",
+            "Από εκείνη τη μέρα, ο Λέων ήξερε το μυστικό: η καθαριότητα δεν είναι αγγαρεία — είναι μια μικρή μαγική συνήθεια που μας κρατά υγιείς και χαρούμενους. ✨",
+            "Κι εσύ; Θυμάσαι να πλένεις τα χεράκια σου πριν το φαγητό; 💧",
+          ],
+          en: [
+            "It was a sunny morning when little Leo came back from the park, his hands covered in dirt and his cheeks rosy from playing.",
+            "“Come to the table, everyone!” called Grandma. Leo ran over, but Grandma smiled and said, “Hands first, my little knight.”",
+            "Leo grumbled a little. “But they don't even look dirty!” Grandma picked up a bar of soap that shimmered like a tiny star and whispered, “This one has a magic power. Watch…”",
+            "The moment the soap touched the water, it burst into sparkling bubbles! Inside each bubble, Leo thought he could see thousands of tiny germs running away to hide.",
+            "“Germs are so small we can't see them,” Grandma explained, “but they do not like soap one bit! When you rub your hands for twenty seconds, they all wash away.”",
+            "Leo scrubbed and scrubbed, singing “Happy Birthday” twice, just as Grandma said. The bubbles danced on his fingers like little stars.",
+            "When he rinsed his hands, they were clean, sweet-smelling and bright. “I feel like a real knight!” he laughed.",
+            "From that day on, Leo knew the secret: cleanliness isn't a chore — it's a little magic habit that keeps us healthy and happy. ✨",
+            "And you? Do you remember to wash your hands before you eat? 💧",
+          ],
+        },
       },
       {
         id: "coloring",
